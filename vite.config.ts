@@ -16,12 +16,13 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [
-      react(), 
+      react(),
       // visualizer() as PluginOption
     ],
     server: {
       port: parseInt(env.PORT)
     },
+    base: env.VITE_BASE_URL,
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src/"),
