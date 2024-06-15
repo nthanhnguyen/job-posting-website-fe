@@ -1,7 +1,7 @@
 {
   "name": "fe-vite-nestjs",
   "author": "Nguyen",
-  "description": "Frontend for series Nest.JS Youtube Hỏi Dân IT",
+  "description": "Frontend for job posting website",
   "private": true,
   "version": "1.0.0",
   "type": "module",
