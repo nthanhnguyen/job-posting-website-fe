@@ -1,0 +1,21 @@
+.bg-container {
+    height: 770px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.container .blog-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.container .blog-items .blog-bottom {
+    bottom: 65px;
+    position: relative;
+}
