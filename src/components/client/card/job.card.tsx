@@ -5,11 +5,11 @@ import { EnvironmentOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Card, Col, Empty, Pagination, Row, Spin } from 'antd';
 import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import styles from 'styles/client.module.scss';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime)
+dayjs.extend(relativeTime);
 
 interface IProps {
     showPagination?: boolean;
@@ -17,10 +17,13 @@ interface IProps {
 
 const JobCard = (props: IProps) => {
     const { showPagination = false } = props;
+    
+    const [skills, setSkills] = useState<string[]>([]);
+    const [location, setLocation] = useState<string[]>([]);
+    const [searchParams] = useSearchParams();
 
     const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
     const [current, setCurrent] = useState(1);
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
@@ -29,11 +32,24 @@ const JobCard = (props: IProps) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchJob();
-    }, [current, pageSize, filter, sortQuery]);
+        // Get value fezz
+        // Lấy giá trị từ query params và cập nhật ngay vào state
+        const skillsParam = searchParams.get('skills');
+        const locationParam = searchParams.get('location');
 
-    const fetchJob = async () => {
-        setIsLoading(true)
+        // Use temp variables to save updated value
+        const updatedSkills = skillsParam ? skillsParam.split(',') : [];
+        const updatedLocation = locationParam ? locationParam.split(',') : [];
+
+        setSkills(updatedSkills);
+        setLocation(updatedLocation);
+
+        // Call fetchJob after updated state
+        fetchJob(updatedSkills, updatedLocation);
+    }, [searchParams, current, pageSize, filter, sortQuery]);
+
+    const fetchJob = async (updatedSkills: string[], updatedLocation: string[]) => {
+        setIsLoading(true);
         let query = `current=${current}&pageSize=${pageSize}`;
         if (filter) {
             query += `&${filter}`;
@@ -42,30 +58,40 @@ const JobCard = (props: IProps) => {
             query += `&${sortQuery}`;
         }
 
+        // Add skills and location to query if exist
+        if (updatedSkills.length > 0) {
+            query += `&skills=${encodeURIComponent(updatedSkills.join(','))}`;
+        }
+        if (updatedLocation.length > 0) {
+            query += `&location=${encodeURIComponent(updatedLocation.join(','))}`;
+        }
+
         const res = await callFetchJob(query);
         if (res && res.data) {
             setDisplayJob(res.data.result);
-            setTotal(res.data.meta.total)
+            setTotal(res.data.meta.total);
         }
-        setIsLoading(false)
-    }
-
-
+        setIsLoading(false);
+    };
 
     const handleOnchangePage = (pagination: { current: number, pageSize: number }) => {
+        const query = new URLSearchParams();
+
         if (pagination && pagination.current !== current) {
-            setCurrent(pagination.current)
+            setCurrent(pagination.current);
+            // query.set('page', pagination.current.toString());  // Cập nhật tham số 'page'
         }
         if (pagination && pagination.pageSize !== pageSize) {
-            setPageSize(pagination.pageSize)
+            setPageSize(pagination.pageSize);
             setCurrent(1);
         }
-    }
+        // navigate(`?${query.toString()}`);
+    };
 
     const handleViewDetailJob = (item: IJob) => {
         const slug = convertSlug(item.name);
-        navigate(`/job/${slug}?id=${item._id}`)
-    }
+        navigate(`/job/${slug}?id=${item._id}`);
+    };
 
     return (
         <div className={`${styles["card-job-section"]}`}>
@@ -81,56 +107,48 @@ const JobCard = (props: IProps) => {
                             </div>
                         </Col>
 
-                        {displayJob?.map(item => {
-                            return (
-                                <Col span={24} md={12} key={item._id}>
-                                    <Card size="small" title={null} hoverable
-                                        onClick={() => handleViewDetailJob(item)}
-                                    >
-                                        <div className={styles["card-job-content"]}>
-                                            <div className={styles["card-job-left"]}>
-                                                <img
-                                                    alt="example"
-                                                    src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`}
-                                                />
-                                            </div>
-                                            <div className={styles["card-job-right"]}>
-                                                <div className={styles["job-title"]}>{item.name}</div>
-                                                <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
-                                                <div><ThunderboltOutlined style={{ color: 'orange' }} />&nbsp;{(item.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
-                                                <div className={styles["job-updatedAt"]}>{dayjs(item.updatedAt).fromNow()}</div>
-                                            </div>
+                        {displayJob?.map(item => (
+                            <Col span={24} md={12} key={item._id}>
+                                <Card size="small" title={null} hoverable onClick={() => handleViewDetailJob(item)}>
+                                    <div className={styles["card-job-content"]}>
+                                        <div className={styles["card-job-left"]}>
+                                            <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
                                         </div>
+                                        <div className={styles["card-job-right"]}>
+                                            <div className={styles["job-title"]}>{item.name}</div>
+                                            <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                            <div><ThunderboltOutlined style={{ color: 'orange' }} />&nbsp;{(item.salary + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
+                                            <div className={styles["job-updatedAt"]}>{dayjs(item.updatedAt).fromNow()}</div>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </Col>
+                        ))}
 
-                                    </Card>
-                                </Col>
-                            )
-                        })}
-
-
-                        {(!displayJob || displayJob && displayJob.length === 0)
-                            && !isLoading &&
+                        {(!displayJob || displayJob.length === 0) && !isLoading && (
                             <div className={styles["empty"]}>
                                 <Empty description="Không có dữ liệu" />
                             </div>
-                        }
+                        )}
                     </Row>
-                    {showPagination && <>
-                        <div style={{ marginTop: 30 }}></div>
-                        <Row style={{ display: "flex", justifyContent: "center" }}>
-                            <Pagination
-                                current={current}
-                                total={total}
-                                pageSize={pageSize}
-                                responsive
-                                onChange={(p: number, s: number) => handleOnchangePage({ current: p, pageSize: s })}
-                            />
-                        </Row>
-                    </>}
+                    {showPagination && (
+                        <>
+                            <div style={{ marginTop: 30 }}></div>
+                            <Row style={{ display: "flex", justifyContent: "center" }}>
+                                <Pagination
+                                    current={current}
+                                    total={total}
+                                    pageSize={pageSize}
+                                    responsive
+                                    onChange={(p: number, s: number) => handleOnchangePage({ current: p, pageSize: s })}
+                                />
+                            </Row>
+                        </>
+                    )}
                 </Spin>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default JobCard;
