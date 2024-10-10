@@ -128,6 +128,40 @@ export interface IResume {
     updatedAt?: string;
 }
 
+export interface IUserResume {
+    _id?: string;
+    userId: string;
+    title: string;
+    userEmail: string;
+    experience?: {
+        title: string;
+        companyName: string;
+        city: string;
+        state: string;
+        startDate: Date;
+        endDate: Date;
+        currentlyWorking: boolean;
+        workSummary: string;
+    }[];
+    education?: {
+        universityName: string;
+        startDate: Date;
+        endDate: Date;
+        degree: string;
+        major: string;
+        description: string;
+    }[];
+    skills?: {
+        name: string;
+        rating: number
+    }[];
+    createdBy?: string;
+    isDeleted?: boolean;
+    deletedAt?: boolean | null;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
 export interface IPermission {
     _id?: string;
     name?: string;
