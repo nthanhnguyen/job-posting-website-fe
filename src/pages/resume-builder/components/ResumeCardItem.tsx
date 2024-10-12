@@ -35,7 +35,7 @@ function ResumeCardItem(props: IProps) {
   // const onMenuClick=(url)=>{
   //   navigation(url)
   // }
-  console.log(resume);
+  // console.log(resume);
 
   const onDelete = () => {
     // setLoading(true);

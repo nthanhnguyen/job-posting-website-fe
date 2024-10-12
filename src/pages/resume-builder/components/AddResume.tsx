@@ -13,12 +13,13 @@ import Input from "antd/lib/input";
 import { callCreateUserResume } from "@/config/api";
 import { notification } from "antd";
 import { Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AddResume = () => {
   const [openDialog, setOpenDialog] = useState(false)
   const [resumeTitle, setResumeTitle] = useState<string>("");
   const [loading, setLoading] = useState(false);
-
+  const navigation = useNavigate();
 
   const onCreate = async () => {
     setLoading(true);
@@ -26,6 +27,7 @@ const AddResume = () => {
     const res = await callCreateUserResume(resumeTitle);
     if (res.data) {
       setLoading(false);
+      navigation('/resume-builder/resume/' + res.data._id + "/edit");
     } else {
       notification.error({
         message: 'Có lỗi xảy ra',
