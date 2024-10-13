@@ -131,8 +131,12 @@ export interface IResume {
 export interface IUserResume {
     _id?: string;
     userId: string;
-    title: string;
-    userEmail: string;
+    jobTitle: string;
+    email?: string;
+    lastName?: string;
+    firstName?: string;
+    address?: string;
+    phone?: string;
     experience?: {
         title: string;
         companyName: string;
@@ -202,3 +206,39 @@ export interface ISubscribers {
     createdAt?: string;
     updatedAt?: string;
 }
+
+export interface IResumeInfo {
+    firstName: string;
+    lastName: string;
+    jobTitle: string;
+    address: string;
+    phone: string;
+    email: string;
+    themeColor: string;
+    summary: string;
+    experience: {
+      id: number;
+      title: string;
+      companyName: string;
+      city: string;
+      state: string;
+      startDate: string;
+      endDate: string;
+      currentlyWorking: boolean;
+      workSummary: string;
+    }[];
+    education: {
+      id: number;
+      universityName: string;
+      startDate: string;
+      endDate: string;
+      degree: string;
+      major: string;
+      description: string;
+    }[];
+    skills: {
+      id: number;
+      name: string;
+      rating: number;
+    }[];
+  }

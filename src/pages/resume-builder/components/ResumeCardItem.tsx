@@ -69,7 +69,7 @@ function ResumeCardItem(props: IProps) {
           </div>
         </div>
       </Link>
-      <h2 className='text-sm'>{resume.title}</h2>
+      <h2 className='text-sm'>{resume.jobTitle}</h2>
       {/* <div className='border p-3 flex justify-between  text-white rounded-b-lg shadow-lg'
         style={{
           background: resume?.themeColor

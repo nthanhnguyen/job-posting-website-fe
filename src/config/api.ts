@@ -1,4 +1,4 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
@@ -222,9 +222,12 @@ export const callFetchSubscriberById = (id: string) => {
  * 
 Module User Resumes
  */
-export const callCreateUserResume = (title: string) => {
-    return axios.post<IBackendRes<IResume>>('/api/v1/user-resumes', { title })
+export const callCreateUserResume = (jobTitle: string) => {
+    return axios.post<IBackendRes<IUserResume>>('/api/v1/user-resumes', { jobTitle })
 }
-export const callFetchUserResumesByUserEmail = (userEmail: string) => {
-    return axios.get<IBackendRes<IModelPaginate<IUserResume>>>(`/api/v1/user-resumes?userEmail=${userEmail}`)
+export const callFetchUserResumes = () => {
+    return axios.get<IBackendRes<IModelPaginate<IUserResume>>>(`/api/v1/user-resumes`)
+}
+export const callUpdateUserResumes = (resumeInfo: any, id: string) => {
+    return axios.patch<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`, { ...resumeInfo.data })
 }

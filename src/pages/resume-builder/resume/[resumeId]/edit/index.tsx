@@ -4,47 +4,12 @@ import FormSection from '../../components/FormSection';
 import ResumePreview from '../../components/ResumePreview';
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext';
 import dummy from '@/pages/resume-builder/data/dummy';
-
-export interface IResumeInfo {
-  firstName: string;
-  lastName: string;
-  jobTitle: string;
-  address: string;
-  phone: string;
-  email: string;
-  themeColor: string;
-  summery: string;
-  experience: {
-    id: number;
-    title: string;
-    companyName: string;
-    city: string;
-    state: string;
-    startDate: string;
-    endDate: string;
-    currentlyWorking: boolean;
-    workSummery: string;
-  }[];
-  education: {
-    id: number;
-    universityName: string;
-    startDate: string;
-    endDate: string;
-    degree: string;
-    major: string;
-    description: string;
-  }[];
-  skills: {
-    id: number;
-    name: string;
-    rating: number;
-  }[];
-}
-
+import { IResumeInfo } from '@/types/backend';
 
 function EditResume() {
   const { resumeId } = useParams();
-  const [resumeInfo, setResumeInfo] = useState<IResumeInfo | undefined>(undefined); useEffect(() => {
+  const [resumeInfo, setResumeInfo] = useState<IResumeInfo | undefined>(undefined);
+  useEffect(() => {
     setResumeInfo(dummy);
     // console.log(resumeInfo);
   }, [])

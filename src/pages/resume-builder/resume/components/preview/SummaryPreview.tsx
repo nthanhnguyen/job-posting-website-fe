@@ -1,18 +1,18 @@
+import { IResumeInfo } from '@/types/backend';
 import React from 'react'
-import { IResumeInfo } from '../../[resumeId]/edit';
 
 interface IProps {
   resumeInfo?: IResumeInfo;
 }
 
-function SummeryPreview(props: IProps) {
+function SummaryPreview(props: IProps) {
   const { resumeInfo } = props
 
   return (
     <p className='text-xs'>
-      {resumeInfo?.summery}
+      {resumeInfo?.summary}
     </p>
   )
 }
 
-export default SummeryPreview
+export default SummaryPreview

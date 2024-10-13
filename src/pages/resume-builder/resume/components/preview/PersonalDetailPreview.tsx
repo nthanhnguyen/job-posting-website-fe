@@ -1,5 +1,5 @@
+import { IResumeInfo } from '@/types/backend';
 import React, { useContext, useEffect, useState } from 'react'
-import { IResumeInfo } from '../../[resumeId]/edit';
 
 interface IProps {
   resumeInfo?: IResumeInfo;
@@ -7,7 +7,7 @@ interface IProps {
 
 function PersonalDetailPreview(props: IProps) {
   const { resumeInfo } = props
-  console.log("Here 1: ", resumeInfo);
+  // console.log("Here 1: ", resumeInfo);
   return (
     <div>
       <h2 className='font-bold text-xl text-center'

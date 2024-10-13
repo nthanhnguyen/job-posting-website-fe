@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AddResume from "./components/AddResume";
 import { useAppSelector } from "@/redux/hooks";
 import ResumeCardItem from "./components/ResumeCardItem";
-import { callFetchUserResumesByUserEmail } from "@/config/api";
+import { callFetchUserResumes } from "@/config/api";
 import { IUserResume } from "@/types/backend";
 import { Spin } from "antd";
 
@@ -22,8 +22,9 @@ const ResumeBuilderPage = () => {
   const GetResumesList = async () => {
     setIsLoading(true);
     if (user) {
-      const res = await callFetchUserResumesByUserEmail(user.email);
+      const res = await callFetchUserResumes();
       const list = res.data?.result || [];  // Ensure list is not undefined
+
       setResumeList(list);  // Assign the fetched list to state
       setIsLoading(false);
     }

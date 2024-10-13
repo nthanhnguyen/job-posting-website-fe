@@ -1,5 +1,5 @@
+import { IResumeInfo } from '@/types/backend';
 import React from 'react'
-import { IResumeInfo } from '../../[resumeId]/edit';
 
 interface IProps {
     resumeInfo: IResumeInfo;
