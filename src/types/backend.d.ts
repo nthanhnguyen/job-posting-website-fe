@@ -142,15 +142,15 @@ export interface IUserResume {
         companyName: string;
         city: string;
         state: string;
-        startDate: Date;
-        endDate: Date;
+        startDate: string;
+        endDate: string;
         currentlyWorking: boolean;
         workSummary: string;
     }[];
     education?: {
         universityName: string;
-        startDate: Date;
-        endDate: Date;
+        startDate: string;
+        endDate: string;
         degree: string;
         major: string;
         description: string;
@@ -217,7 +217,6 @@ export interface IResumeInfo {
     themeColor: string;
     summary: string;
     experience: {
-      id: number;
       title: string;
       companyName: string;
       city: string;
@@ -228,7 +227,6 @@ export interface IResumeInfo {
       workSummary: string;
     }[];
     education: {
-      id: number;
       universityName: string;
       startDate: string;
       endDate: string;

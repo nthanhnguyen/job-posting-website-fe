@@ -48,7 +48,8 @@
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-no-scrollbar": "^1.0.1",
-    "uuid": "9.0.0"
+    "uuid": "9.0.0",
+    "react-simple-wysiwyg": "^3.0.2"
   },
   "devDependencies": {
     "@types/lodash": "4.14.195",
