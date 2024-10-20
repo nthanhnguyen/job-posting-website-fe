@@ -72,7 +72,7 @@ function Summary(props: IProps) {
         toast('Details updated');
       }
     } catch (error) {
-      console.error('Error saving resume:', error);
+      console.error('Error saving Summary:', error);
       toast.error('Failed to update details.');
     } finally {
       setLoading(false);

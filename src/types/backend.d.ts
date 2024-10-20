@@ -235,7 +235,6 @@ export interface IResumeInfo {
       description: string;
     }[];
     skills: {
-      id: number;
       name: string;
       rating: number;
     }[];

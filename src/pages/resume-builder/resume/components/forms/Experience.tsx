@@ -85,16 +85,12 @@ function Experience() {
 
   const onSave = async () => {
     setLoading(true)
-    // const data = {
-    //   data: {
-    //     experience: experienceList.map(({ _id, ...rest }) => rest)
-    //   }
-    // }
 
-    // console.log(experienceList);
     console.log(experienceList);
+    const data = { data: { experience: experienceList } };
+
     try {
-      const res = await callUpdateUserResumes(experienceList, String(params.resumeId));
+      const res = await callUpdateUserResumes(data, String(params.resumeId));
       if (res) {
         console.log(res);
         toast('Details updated');
