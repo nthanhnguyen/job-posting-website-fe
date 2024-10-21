@@ -32,6 +32,7 @@ import ClientCompanyPage from './pages/company';
 import ClientCompanyDetailPage from './pages/company/detail';
 import ResumeBuilderPage from './pages/resume-builder';
 import EditResume from './pages/resume-builder/resume/[resumeId]/edit';
+import { Toaster } from './components/ui/sonner';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");

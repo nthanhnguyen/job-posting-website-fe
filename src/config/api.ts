@@ -228,6 +228,9 @@ export const callCreateUserResume = (jobTitle: string) => {
 export const callFetchUserResumes = () => {
     return axios.get<IBackendRes<IModelPaginate<IUserResume>>>(`/api/v1/user-resumes`)
 }
+export const callFetchUserResumesById = (id: string) => {
+  return axios.get<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`)
+}
 export const callUpdateUserResumes = (resumeInfo: any, id: string) => {
     return axios.patch<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`, { ...resumeInfo.data })
 }

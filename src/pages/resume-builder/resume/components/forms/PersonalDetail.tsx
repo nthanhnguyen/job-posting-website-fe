@@ -3,10 +3,10 @@ import { Input } from '@/components/ui/input';
 import { LoaderCircle } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'sonner';
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext';
 import { IResumeInfo } from '@/types/backend';
 import { callUpdateUserResumes } from '@/config/api';
+import { toast } from 'sonner';
 
 interface IProps {
     enabledNext: (v: any) => void;
@@ -18,18 +18,25 @@ function PersonalDetail(props: IProps) {
     const { enabledNext } = props;
     // Initialize formData as an empty object
     const [formData, setFormData] = useState({
-        firstName: resumeInfo?.firstName || '',
-        lastName: resumeInfo?.lastName || '',
-        jobTitle: resumeInfo?.jobTitle || '',
-        address: resumeInfo?.address || '',
-        phone: resumeInfo?.phone || '',
-        email: resumeInfo?.email || '',
+        firstName: resumeInfo?.firstName ?? '',
+        lastName: resumeInfo?.lastName ?? '',
+        jobTitle: resumeInfo?.jobTitle ?? '',
+        address: resumeInfo?.address ?? '',
+        phone: resumeInfo?.phone ?? '',
+        email: resumeInfo?.email ?? '',
     });
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        // console.log("---", resumeInfo);
+        setFormData({
+            firstName: resumeInfo?.firstName ?? '',
+            lastName: resumeInfo?.lastName ?? '',
+            jobTitle: resumeInfo?.jobTitle ?? '',
+            address: resumeInfo?.address ?? '',
+            phone: resumeInfo?.phone ?? '',
+            email: resumeInfo?.email ?? '',
+        })
     }, [resumeInfo]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,10 +65,9 @@ function PersonalDetail(props: IProps) {
 
         const res = await callUpdateUserResumes(data, String(params?.resumeId));
         if (res) {
-            console.log(res);
             enabledNext(true);
             setLoading(false);
-            toast("Details updated");
+            toast("Personal Detail updated");
         } else {
             setLoading(false);
         }
