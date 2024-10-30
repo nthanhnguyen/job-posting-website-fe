@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setUserLoginInfo } from '@/redux/slice/accountSlide';
 import styles from 'styles/auth.module.scss';
 import { useAppSelector } from '@/redux/hooks';
+import { url } from 'inspector';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -47,12 +48,23 @@ const LoginPage = () => {
 
 
     return (
-        <div className={styles["login-page"]}>
+        <div className={styles["login-page"]}
+            style={{
+                backgroundImage: `url(${"/src/img/bg.jpg"})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            }}
+        >
             <main className={styles.main}>
                 <div className={styles.container}>
                     <section className={styles.wrapper}>
                         <div className={styles.heading}>
-                            <h2 className={`${styles.text} ${styles["text-large"]}`}>Đăng Nhập</h2>
+                            <h2 className={`${styles.text} ${styles[""]}`}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    height: '180px'
+                                }}><img src='src/img/logo.png'></img></h2>
                             <Divider />
 
                         </div>
@@ -63,6 +75,7 @@ const LoginPage = () => {
                             autoComplete="off"
                         >
                             <Form.Item
+                                style={{ marginBottom: "5px" }}
                                 labelCol={{ span: 24 }} //whole column
                                 label="Email"
                                 name="username"
@@ -83,7 +96,15 @@ const LoginPage = () => {
                             <Form.Item
                             // wrapperCol={{ offset: 6, span: 16 }}
                             >
-                                <Button type="primary" htmlType="submit" loading={isSubmit}>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    loading={isSubmit}
+                                    style={{
+                                        width: '100%',
+                                        fontWeight: '500',
+                                    }}
+                                >
                                     Đăng nhập
                                 </Button>
                             </Form.Item>
