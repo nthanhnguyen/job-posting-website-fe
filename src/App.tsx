@@ -33,6 +33,8 @@ import ClientCompanyDetailPage from './pages/company/detail';
 import ResumeBuilderPage from './pages/resume-builder';
 import EditResume from './pages/resume-builder/resume/[resumeId]/edit';
 import { Toaster } from './components/ui/sonner';
+import ViewResume from './pages/my-resume/[resumeId]/view';
+import LoginIsRequired from './components/share/login-required';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,7 +50,9 @@ const LayoutClient = () => {
 
   return (
     <div className='layout-app' ref={rootRef}>
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <div id="no-print">
+        <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </div>
       <div className={styles['content-app']}>
         <Outlet context={[searchTerm, setSearchTerm]} />
       </div>
@@ -82,8 +86,9 @@ export default function App() {
         { path: "job/:id", element: <ClientJobDetailPage /> },
         { path: "company", element: <ClientCompanyPage /> },
         { path: "company/:id", element: <ClientCompanyDetailPage /> },
-        { path: "/resume-builder", element: <ResumeBuilderPage /> },
-        { path: "/resume-builder/resume/:resumeId/edit", element: <EditResume /> },
+        { path: "resume-builder", element: <LoginIsRequired> <ResumeBuilderPage /> </LoginIsRequired> },
+        { path: "/resume-builder/resume/:resumeId/edit", element: <LoginIsRequired> <EditResume /> </LoginIsRequired> },
+        { path: "/my-resume/:resumeId/view", element: <LoginIsRequired> <ViewResume /> </LoginIsRequired> },
 
       ],
     },

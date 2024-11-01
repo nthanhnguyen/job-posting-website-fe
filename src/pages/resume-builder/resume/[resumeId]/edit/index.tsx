@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import FormSection from '../../components/FormSection';
 import ResumePreview from '../../components/ResumePreview';
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext';
-import dummy from '@/pages/resume-builder/data/dummy';
 import { IResumeInfo } from '@/types/backend';
 import { callFetchUserResumesById } from '@/config/api';
 import { useAppSelector } from '@/redux/hooks';

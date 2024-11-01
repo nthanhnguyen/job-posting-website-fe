@@ -7,12 +7,13 @@ import Summary from './forms/Summary';
 import Experience from './forms/Experience';
 import Education from './forms/Education';
 import Skills from './forms/Skills';
-// import ThemeColor from './ThemeColor';
+import ThemeColor from './ThemeColor';
+
 
 function FormSection() {
   const [activeFormIndex, setActiveFormIndex] = useState(1);
   const [enableNext, setEnableNext] = useState(true);
-  const { resumeId } = useParams();
+  const { resumeId } = useParams<{ resumeId: string }>();
   return (
     <div>
       <div className='flex justify-between items-center'>
@@ -20,7 +21,7 @@ function FormSection() {
           <Link to={"/resume-builder"}>
             <Button><Home /></Button>
           </Link>
-          {/* <ThemeColor /> */}
+          <ThemeColor />
 
         </div>
         <div className='flex gap-2'>
@@ -47,10 +48,10 @@ function FormSection() {
               <Education />
               : activeFormIndex == 5 ?
                 <Skills />
-                // : activeFormIndex == 6 ?
-                //   <Navigate to={'/my-resume/' + resumeId + "/view"} />
+                : activeFormIndex == 6 ?
+                  <Navigate to={'/my-resume/' + resumeId + "/view"} />
 
-                : null
+                  : null
       }
 
 
