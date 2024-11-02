@@ -31,13 +31,22 @@ const RegisterPage = () => {
 
 
     return (
-        <div className={styles["register-page"]} >
+        <div className={styles["register-page"]}
+            style={{
+                backgroundImage: `url(${"/src/img/bg.jpg"})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            }}
+        >
 
             <main className={styles.main} >
                 <div className={styles.container} >
                     <section className={styles.wrapper} >
                         <div className={styles.heading} >
-                            <h2 className={`${styles.text} ${styles["text-large"]}`}> Đăng Ký Tài Khoản </h2>
+                            <h2 className={`${styles.text} ${styles[""]}`}
+                                style={{
+                                    textAlign: 'center'
+                                }}> Đăng Ký Tài Khoản </h2>
                             < Divider />
                         </div>
                         < Form<IUser>
@@ -47,6 +56,7 @@ const RegisterPage = () => {
                             autoComplete="off"
                         >
                             <Form.Item
+                                style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }} //whole column
                                 label="Họ tên"
                                 name="name"
@@ -57,6 +67,7 @@ const RegisterPage = () => {
 
 
                             <Form.Item
+                                style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }
                                 } //whole column
                                 label="Email"
@@ -67,6 +78,7 @@ const RegisterPage = () => {
                             </Form.Item>
 
                             <Form.Item
+                                style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }} //whole column
                                 label="Mật khẩu"
                                 name="password"
@@ -75,6 +87,7 @@ const RegisterPage = () => {
                                 <Input.Password />
                             </Form.Item>
                             <Form.Item
+                                style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }} //whole column
                                 label="Tuổi"
                                 name="age"
@@ -85,6 +98,7 @@ const RegisterPage = () => {
 
 
                             <Form.Item
+                                style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }} //whole column
                                 name="gender"
                                 label="Giới tính"
@@ -114,7 +128,12 @@ const RegisterPage = () => {
                             < Form.Item
                             // wrapperCol={{ offset: 6, span: 16 }}
                             >
-                                <Button type="primary" htmlType="submit" loading={isSubmit} >
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    loading={isSubmit}
+                                    style={{ width: '100%' }}
+                                >
                                     Đăng ký
                                 </Button>
                             </Form.Item>

@@ -41,7 +41,7 @@ const SearchClient = (props: IProps) => {
             }
         >
             <Row gutter={[20, 20]}>
-                <Col span={24}><h2>Việc Làm IT Cho Developer "Chất"</h2></Col>
+
                 <Col span={24} md={16}>
                     <ProForm.Item
                         name="skills"
@@ -50,7 +50,8 @@ const SearchClient = (props: IProps) => {
                             mode="multiple"
                             allowClear
                             showArrow={false}
-                            style={{ width: '100%' }}
+                            //style={{ width: '100%' }}
+                            size='large'
                             placeholder={
                                 <>
                                     <MonitorOutlined /> Tìm theo kỹ năng...
@@ -66,6 +67,7 @@ const SearchClient = (props: IProps) => {
                         <Select
                             mode="multiple"
                             allowClear
+                            size='large'
                             showArrow={false}
                             style={{ width: '100%' }}
                             placeholder={
@@ -79,7 +81,19 @@ const SearchClient = (props: IProps) => {
                     </ProForm.Item>
                 </Col>
                 <Col span={12} md={4}>
-                    <Button type='primary' onClick={() => form.submit()}>Search</Button>
+                    <button
+                        onClick={() => form.submit()}
+                        style={{
+                            padding: '9px',
+                            width: '160px',
+                            borderRadius: '0 18px 18px 0',
+                            border: 'none',
+                            backgroundColor: '#9DD1FC',
+                            fontSize: '17px',
+                            cursor: 'pointer',
+
+                        }}
+                    >Search</button>
                 </Col>
             </Row>
         </ProForm>

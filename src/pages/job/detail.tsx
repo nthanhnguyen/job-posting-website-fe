@@ -4,12 +4,16 @@ import { IJob } from "@/types/backend";
 import { callFetchJobById } from "@/config/api";
 import styles from 'styles/client.module.scss';
 import parse from 'html-react-parser';
-import { Col, Divider, Row, Skeleton, Tag } from "antd";
+import { Col, Divider, Row, Skeleton, Tag, Select, Input, Button } from "antd";
 import { DollarOutlined, EnvironmentOutlined, HistoryOutlined } from "@ant-design/icons";
 import { getLocationName } from "@/config/utils";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ApplyModal from "@/components/client/modal/apply.modal";
+import { FilterOutlined, HeartOutlined, RightCircleOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
+import { Container } from "@mui/material";
+import SearchClient from "@/components/client/search.client";
+
 dayjs.extend(relativeTime)
 
 
@@ -37,7 +41,13 @@ const ClientJobDetailPage = (props: any) => {
         init();
     }, [id]);
 
+    const handleChange = () => {
+        return
+    }
+
     return (
+
+
         <div className={`${styles["container"]} ${styles["detail-job-section"]}`}>
             {isLoading ?
                 <Skeleton />
@@ -45,51 +55,295 @@ const ClientJobDetailPage = (props: any) => {
                 <Row gutter={[20, 20]}>
                     {jobDetail && jobDetail._id &&
                         <>
+                            <div style={{
+                                backgroundImage: `url("/src/img/thump.png")`,
+                                height: '280px',
+                                width: '100%',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundSize: '100% 100%',
+                                position: 'absolute',
+                                top: '70px',
+                                right: '0px',
+                            }}></div>
+                            <div className="top-content" style={{ background: 'transparent', padding: '80px 0', height: '100px', width: '100%' }}>
+                                <div className="search-client"
+                                    style={{
+                                        paddingLeft: '35px'
+                                    }}>
+                                    <SearchClient />
+                                </div>
+
+                            </div>
+                            <Container>
+                                <div className="company-spotlight-wrapper" style={{ border: '1px solid #eee', display: 'flex', position: 'relative', marginTop: '-100px', background: '#fff', borderRadius: '15px' }}>
+                                    <div
+                                        className='img-company'
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                        }}>
+                                        <img src="/src/img/bg.jpg" className='company-thump'
+                                            style={{
+                                                height: '200px',
+                                                width: '300px',
+                                                justifyContent: 'center',
+                                                borderRadius: '15px'
+                                            }} />
+
+                                        <img src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${jobDetail.company?.logo}`} className='company-icon'
+                                            style={{
+                                                height: '120px',
+                                                width: '120px',
+                                                borderRadius: '10px',
+                                                position: 'absolute',
+                                                top: '20%',
+                                                left: '20%'
+                                            }} />
+
+
+
+                                        <div className="col-content"
+                                            style={{
+                                                display: 'flex',
+                                                flexGrow: '1',
+                                                alignItems: 'center'
+                                            }}
+                                        >
+                                            <div
+                                                className='col-1-content'
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    justifyContent: 'center',
+                                                    flexDirection: 'column',
+                                                    marginLeft: '80px',
+                                                    rowGap: '10px',
+                                                    flex: '1 1 0'
+                                                }}>
+                                                <h4
+                                                    style={{
+                                                        fontSize: '20px'
+                                                    }}>
+                                                    {jobDetail.company?.name}</h4>
+                                                <p style={{
+                                                    marginRight: '15px',
+                                                }}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(jobDetail.location)}</p>
+                                                <a href="#" style={{ textDecoration: 'none' }}>Xem 24 việc làm<RightOutlined style={{ fontSize: '14px' }} /></a>
+                                            </div>
+                                            <div
+                                                className='col-2-content'
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'flex-start',
+                                                    justifyContent: 'center',
+                                                    flexDirection: 'column',
+                                                    marginLeft: '60px',
+                                                    rowGap: '10px',
+                                                    borderLeft: '2px dashed #eee',
+                                                    paddingLeft: '20px',
+                                                    height: '100%',
+                                                    width: '100%',
+                                                    flex: '1 1 20px'
+                                                }}
+                                            >
+                                                <p><RightCircleOutlined style={{ fontSize: '14px', marginRight: '2px' }} />{jobDetail.name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Container>
+
+
                             <Col span={24} md={16}>
-                                <div className={styles["header"]}>
-                                    {jobDetail.name}
+                                <div className="sticky-content"
+                                    style={{
+                                        background: '#fff',
+                                        minHeight: 700,
+                                        padding: 24,
+                                        border: '1px solid #eee',
+                                        borderRadius: '15px',
+                                        marginTop: '30px',
+                                        position: 'sticky',
+                                        top: '0px',
+                                    }}
+                                >
+                                    <div className="company-title" style={{ paddingBottom: '15px', display: 'flex' }}>
+                                        <img
+                                            src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${jobDetail.company?.logo}`}
+                                            style={{ height: '100px', width: '100px' }} />
+                                        <div style={{
+                                            display: 'flex', flexDirection: 'column', gap: '10px', justifyContent: 'center', paddingLeft: '12px'
+                                        }}>
+                                            <h4
+                                                style={{
+                                                    fontSize: '20px'
+                                                }}>
+                                                {jobDetail.name}</h4>
+                                            <p style={{
+                                                marginRight: '15px',
+                                            }}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(jobDetail.location)}</p>
+                                        </div>
+                                    </div>
+                                    <div className="submit"
+                                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                                    >
+                                        <Button
+                                            onClick={() => setIsModalOpen(true)}
+                                            className={styles["btn-apply"]}
+                                            danger style={{
+                                                width: '95%',
+                                                height: '50px',
+                                            }}>
+                                            NỘP ĐƠN ỨNG TUYỂN
+                                        </Button>
+                                        <HeartOutlined style={{ fontSize: '30px', color: 'red' }} />
+                                    </div>
+                                    <Divider />
+                                    <div className="detail-job"
+                                        style={{
+                                            maxHeight: '100vh',
+                                            overflow: 'scroll',
+                                            overflowX: 'hidden'
+                                        }}
+                                    >
+                                        <div style={{
+                                            minHeight: 300
+                                        }}>
+                                            <div className={styles["skills"]}>
+                                                {jobDetail?.skills?.map((item, index) => {
+                                                    return (
+                                                        <Tag key={`${index}-key`} color="gold" >
+                                                            {item}
+                                                        </Tag>
+                                                    )
+                                                })}
+                                            </div>
+                                            <div className={styles["salary"]}>
+                                                <DollarOutlined />
+                                                <span>&nbsp;{(jobDetail.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
+                                            </div>
+                                            <div className={styles["location"]}>
+                                                <EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(jobDetail.location)}
+                                            </div>
+                                            <div>
+                                                <HistoryOutlined /> {dayjs(jobDetail.updatedAt).fromNow()}
+                                            </div>
+                                            <Divider />
+                                            {parse(jobDetail.description)}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button
-                                        onClick={() => setIsModalOpen(true)}
-                                        className={styles["btn-apply"]}
-                                    >Apply Now</button>
-                                </div>
-                                <Divider />
-                                <div className={styles["skills"]}>
-                                    {jobDetail?.skills?.map((item, index) => {
-                                        return (
-                                            <Tag key={`${index}-key`} color="gold" >
-                                                {item}
-                                            </Tag>
-                                        )
-                                    })}
-                                </div>
-                                <div className={styles["salary"]}>
-                                    <DollarOutlined />
-                                    <span>&nbsp;{(jobDetail.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
-                                </div>
-                                <div className={styles["location"]}>
-                                    <EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(jobDetail.location)}
-                                </div>
-                                <div>
-                                    <HistoryOutlined /> {dayjs(jobDetail.updatedAt).fromNow()}
-                                </div>
-                                <Divider />
-                                {parse(jobDetail.description)}
                             </Col>
 
                             <Col span={24} md={8}>
-                                <div className={styles["company"]}>
-                                    <div>
-                                        <img
-                                            alt="example"
-                                            src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${jobDetail.company?.logo}`}
-                                        />
+                                <div className="job-listing-wrapper"
+                                    style={{
+                                        flexGrow: 1
+                                    }}
+                                >
+                                    <h4 style={{
+                                        fontSize: '20px',
+                                        marginBlockStart: '50px',
+                                        marginBlockEnd: '50px',
+                                        padding: '0 4px',
+                                    }}>việc java làm đang tuyển dụng</h4>
+
+                                    <div
+                                        className="job-listing"
+                                        style={{
+                                            padding: '0 0 48px 0',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            width: '100%',
+
+                                        }}>
+                                        <div className="office-job"
+                                            style={{
+                                                backgroundColor: '#FFF4E9',
+                                                minHeight: 280,
+                                                padding: 24,
+                                                border: '1px solid red',
+                                                borderRadius: '15px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <h4>Blablabla</h4>
+                                            <Divider />
+                                            <p>Content</p>
+                                            <Divider />
+                                            <p>Content</p>
+                                        </div>
+
+                                        <div className="office-job"
+                                            style={{
+                                                backgroundColor: '#FFF4E9',
+                                                minHeight: 280,
+                                                padding: 24,
+                                                border: '1px solid #eee',
+                                                borderRadius: '15px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <h4>Blablabla</h4>
+                                            <Divider />
+                                            <p>Content</p>
+                                            <Divider />
+                                            <p>Content</p>
+                                        </div>
+
+                                        <div className="office-job"
+                                            style={{
+                                                backgroundColor: '#FFF4E9',
+                                                minHeight: 280,
+                                                padding: 24,
+                                                border: '1px solid #eee',
+                                                borderRadius: '15px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <h4>Blablabla</h4>
+                                            <Divider />
+                                            <p>Content</p>
+                                            <Divider />
+                                            <p>Content</p>
+                                        </div>
+
+                                        <div className="office-job"
+                                            style={{
+                                                backgroundColor: '#FFF4E9',
+                                                minHeight: 280,
+                                                padding: 24,
+                                                border: '1px solid #eee',
+                                                borderRadius: '15px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <h4>Blablabla</h4>
+                                            <Divider />
+                                            <p>Content</p>
+                                            <Divider />
+                                            <p>Content</p>
+                                        </div>
+
+                                        <div className="office-job"
+                                            style={{
+                                                backgroundColor: '#FFF4E9',
+                                                minHeight: 280,
+                                                padding: 24,
+                                                border: '1px solid #eee',
+                                                borderRadius: '15px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            <h4>Blablabla</h4>
+                                            <Divider />
+                                            <p>Content</p>
+                                            <Divider />
+                                            <p>Content</p>
+                                        </div>
+
                                     </div>
-                                    <div>
-                                        {jobDetail.company?.name}
-                                    </div>
+
                                 </div>
                             </Col>
                         </>
