@@ -1,7 +1,10 @@
 import { RightCircleOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const AiResume = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="container-resume" style={{
             marginTop: '45px',
@@ -23,7 +26,15 @@ const AiResume = () => {
                     <p>Your AI-powered CV Maker for Crafting Job-Winning Resumes</p>
                 </div>
                 <div className="btn-cv">
-                    <Button type="primary" shape="round" size="large" style={{ backgroundColor: '#8B5CF6' }}>Build CV <RightCircleOutlined /></Button>
+                    <Button
+                        type="primary"
+                        shape="round"
+                        size="large"
+                        style={{ backgroundColor: '#8B5CF6' }}
+                        onClick={() => navigate('/resume-builder')}
+                    >
+                        Build CV <RightCircleOutlined />
+                    </Button>
                 </div>
             </div>
         </div>

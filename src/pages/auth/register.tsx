@@ -1,15 +1,23 @@
 import { Button, Divider, Form, Input, Row, Select, message, notification } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { callRegister } from 'config/api';
 import styles from 'styles/auth.module.scss';
 import { IUser } from '@/types/backend';
 const { Option } = Select;
-
+import { Country, State, City, IState } from 'country-state-city';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
+    // console.log(Country.getAllCountries())
+    // console.log(State.getStatesOfCountry('VN'));
+    // const [provinces, setProvinces] = useState([]); 
+
+    // useEffect(() => {
+    //     const vietnamProvinces: IState[] = State.getStatesOfCountry('VN');
+    //     setProvinces(vietnamProvinces);
+    // }, []);
 
     const onFinish = async (values: IUser) => {
         const { name, email, password, age, gender, address } = values;

@@ -56,7 +56,9 @@ const LayoutClient = () => {
       <div className={styles['content-app']}>
         <Outlet context={[searchTerm, setSearchTerm]} />
       </div>
-      <Footer />
+      <div id="no-print">
+        <Footer />
+      </div>
     </div>
   )
 }
@@ -88,7 +90,7 @@ export default function App() {
         { path: "company/:id", element: <ClientCompanyDetailPage /> },
         { path: "resume-builder", element: <LoginIsRequired> <ResumeBuilderPage /> </LoginIsRequired> },
         { path: "/resume-builder/resume/:resumeId/edit", element: <LoginIsRequired> <EditResume /> </LoginIsRequired> },
-        { path: "/my-resume/:resumeId/view", element: <LoginIsRequired> <ViewResume /> </LoginIsRequired> },
+        { path: "/my-resume/:resumeId/view", element: <ViewResume /> },
 
       ],
     },
