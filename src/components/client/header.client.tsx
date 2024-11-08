@@ -32,20 +32,20 @@ const Header = (props: any) => {
 
     const items: MenuProps['items'] = [
         {
-            label: <Link to={'/'}>Trang Chủ</Link>,
+            label: <Link to={'/'} style={{ fontWeight: '400' }}>Trang Chủ</Link>,
             key: '/',
             // icon: <DownOutlined />,
 
         },
         {
-            label: <Link to={'/job'}>Việc Làm IT</Link>,
+            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm IT</Link>,
             key: '/job',
-            icon: <DownOutlined />,
+            // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/company'}>Top Công ty IT</Link>,
+            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Top Công ty IT</Link>,
             key: '/company',
-            icon: <DownOutlined />,
+            // icon: <DownOutlined />,
         }
     ];
 
@@ -94,7 +94,7 @@ const Header = (props: any) => {
 
     return (
         <>
-            <div className={styles["header-section"]}>
+            <div className={styles["header-section"]} >
                 <div className={styles["container"]}>
                     {!isMobile ?
                         <div style={{ display: "flex", gap: 30 }}>

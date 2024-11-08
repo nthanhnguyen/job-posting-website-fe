@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 interface IProps {
-  //
+    //
 }
 
 const SearchClient = (props: IProps) => {
@@ -20,7 +20,7 @@ const SearchClient = (props: IProps) => {
         const query = new URLSearchParams();
         if (skills && skills.length > 0) {
             query.append('skills', skills.join(','));
-            
+
         }
         if (location && location.length > 0) {
             query.append('location', location.join(','));
@@ -28,7 +28,7 @@ const SearchClient = (props: IProps) => {
 
         navigate(`/job?${query.toString()}`);
     }
-    
+
 
     return (
         <ProForm
@@ -84,9 +84,9 @@ const SearchClient = (props: IProps) => {
                     <button
                         onClick={() => form.submit()}
                         style={{
-                            padding: '9px',
+                            padding: '6px',
                             width: '160px',
-                            borderRadius: '0 18px 18px 0',
+                            borderRadius: '18px',
                             border: 'none',
                             backgroundColor: '#9DD1FC',
                             fontSize: '17px',

@@ -75,7 +75,7 @@ const ClientJobDetailPage = (props: any) => {
 
                             </div>
                             <Container>
-                                <div className="company-spotlight-wrapper" style={{ border: '1px solid #eee', display: 'flex', position: 'relative', marginTop: '-100px', background: '#fff', borderRadius: '15px' }}>
+                                <div className="company-spotlight-wrapper" style={{ border: '1px solid #eee', display: 'flex', position: 'relative', marginTop: '5px', background: '#fff', borderRadius: '15px' }}>
                                     <div
                                         className='img-company'
                                         style={{

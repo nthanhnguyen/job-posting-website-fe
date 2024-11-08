@@ -80,23 +80,39 @@ const CompanyCard = (props: IProps) => {
 
                         {displayCompany?.map(item => {
                             return (
-                                <Col span={24} md={6} key={item._id}>
+                                <Col span={24} md={6} key={item._id} >
                                     <Card
                                         onClick={() => handleViewDetailJob(item)}
-                                        style={{ height: 350 }}
+                                        style={{
+                                            backgroundImage: `url('/src/img/bgcompany.svg')`,
+                                            backgroundRepeat: 'no-repeat',
+                                            height: 330
+                                        }}
                                         hoverable
                                         cover={
-                                            <div className={styles["card-customize"]} >
+                                            <div className={styles["card-customize"]}
+                                            >
                                                 <img
                                                     alt="example"
                                                     src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.logo}`}
+                                                    style={{ height: '200px', width: '200px', background: '#fff' }}
                                                 />
                                             </div>
                                         }
                                     >
-                                        <Divider />
-                                        <h3 style={{ textAlign: "center" }}>{item.name}</h3>
+                                        {/* <Divider /> */}
+                                        <div style={{ width: "100%", height: '20px' }}></div>
+                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: '20px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.name}</h3>
                                     </Card>
+                                    <div style={{
+                                        background: '#F5F5F5',
+                                        width: '94%',
+                                        height: '78px',
+                                        position: 'absolute',
+                                        bottom: '0',
+                                        marginBottom: '0px',
+                                        borderRadius: '0 0 12px 12px'
+                                    }}></div>
                                 </Col>
                             )
                         })}

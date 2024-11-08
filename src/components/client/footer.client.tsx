@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <div className='footer-main'>
             <div className='row'>
-                <div className='footer-content'>
+                <div className='footer-content' style={{ marginRight: '110px' }}>
                     <div className='logo-company'>
                         <img src='/src/img/logo.png' />
                         <ul className='social-icon'>

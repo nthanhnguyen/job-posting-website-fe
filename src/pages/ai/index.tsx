@@ -20,7 +20,12 @@ const AiResume = () => {
         }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '20px', fontFamily: '"Roboto", sans-serif' }}>
                 <div className="text-1" >
-                    <h1>Create your CV with AI : The Ultimate Online<br /> CV Maker</h1>
+                    <h1
+                        style={{
+                            fontSize: '25px',
+                            fontWeight: 'bold'
+                        }}
+                    >Create your CV with AI : The Ultimate Online<br /> CV Maker</h1>
                 </div>
                 <div className="text-2">
                     <p>Your AI-powered CV Maker for Crafting Job-Winning Resumes</p>
@@ -30,8 +35,9 @@ const AiResume = () => {
                         type="primary"
                         shape="round"
                         size="large"
-                        style={{ backgroundColor: '#8B5CF6' }}
+                        style={{ backgroundColor: '#8B5CF6', display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', fontWeight: '500' }}
                         onClick={() => navigate('/resume-builder')}
+
                     >
                         Build CV <RightCircleOutlined />
                     </Button>

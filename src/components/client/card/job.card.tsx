@@ -17,7 +17,7 @@ interface IProps {
 
 const JobCard = (props: IProps) => {
     const { showPagination = false } = props;
-    
+
     const [skills, setSkills] = useState<string[]>([]);
     const [location, setLocation] = useState<string[]>([]);
     const [searchParams] = useSearchParams();
@@ -109,7 +109,7 @@ const JobCard = (props: IProps) => {
 
                         {displayJob?.map(item => (
                             <Col span={24} md={12} key={item._id}>
-                                <Card size="small" title={null} hoverable onClick={() => handleViewDetailJob(item)}>
+                                <Card size="default" title={null} hoverable onClick={() => handleViewDetailJob(item)}>
                                     <div className={styles["card-job-content"]}>
                                         <div className={styles["card-job-left"]}>
                                             <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
