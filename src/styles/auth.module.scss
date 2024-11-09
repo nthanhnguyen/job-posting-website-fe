@@ -14,8 +14,14 @@ $shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0,
 
 .login-page,
 .register-page {
-    color: $color-black;
-    background: $color-light;
+    width: 100%;
+    height: 100%;
+    background-image: url('/src/img/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 
     // Components

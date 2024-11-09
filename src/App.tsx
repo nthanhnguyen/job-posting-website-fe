@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import NotFound from 'components/share/not.found';
 import Loading from 'components/share/loading';
 import LoginPage from 'pages/auth/login';
-import RegisterPage from 'pages/auth/register';
 import LayoutAdmin from 'components/admin/layout.admin';
 import ProtectedRoute from 'components/share/protected-route.ts';
 import Header from 'components/client/header.client';
@@ -35,6 +34,9 @@ import EditResume from './pages/resume-builder/resume/[resumeId]/edit';
 import { Toaster } from './components/ui/sonner';
 import ViewResume from './pages/my-resume/[resumeId]/view';
 import LoginIsRequired from './components/share/login-required';
+import SendMailPage from './pages/auth/register/SendMail';
+import ActivatePage from './pages/auth/register/activation';
+import RegisterPage from './pages/auth/register/page';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -168,6 +170,14 @@ export default function App() {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/register/send-mail",
+      element: <SendMailPage />,
+    },
+    {
+      path: "/activate/:token",
+      element: <ActivatePage />,
     },
   ]);
 
