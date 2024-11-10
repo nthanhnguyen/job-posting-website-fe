@@ -15,8 +15,8 @@ const SendMailPage = () => {
               <Divider />
             </div>
             <div>
-              One more step! We have sent you the account activation link to your email account
-              . Please check your email and click the link to activate your account.
+              Chỉ còn một bước nữa! Chúng tôi đã gửi liên kết kích hoạt tài khoản đến email của bạn.
+              Vui lòng kiểm tra email và nhấp vào liên kết để kích hoạt tài khoản của bạn.
             </div>
           </section>
         </div>

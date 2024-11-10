@@ -1,21 +1,29 @@
-import { callActivate } from '@/config/api';
-import { Button, Divider, Form, Input, Row, Select, message, notification, Tooltip } from 'antd';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { callActivateAccount } from '@/config/api';
+import { IAccount } from '@/types/backend';
+import { Button, Divider, message, notification } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from 'styles/auth.module.scss';
+import { setUserLoginInfo } from '@/redux/slice/accountSlide';
 
 const ActivatePage = () => {
-  const [credential, setCredential] = useState();
+  const [credential, setCredential] = useState<IAccount | undefined>(undefined);
   const params = useParams();
-  console.log(String(params.token));
   const [error, setError] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const [isSubmit, setIsSubmit] = useState(false);
+  const navigate = useNavigate();
+
+  let params_ = new URLSearchParams(location.search);
+  const callback = params_?.get("callback");
 
   useEffect(() => {
     (async function activation() {
       try {
-        const res = await callActivate(String(params.token));
-        if (res.success) {
-          setCredential(res.data);
+        const res = await callActivateAccount(String(params.token));
+        if (res?.data) {
+          setCredential(res?.data);
           setError(false);
         }
       } catch (error) {
@@ -23,6 +31,10 @@ const ActivatePage = () => {
       }
     })();
   }, []);
+
+  const onClickLogin = useCallback(() => {
+    navigate('/login')
+  }, [error, credential]);
 
   return (
     <div className={styles["register-page"]}
@@ -37,13 +49,33 @@ const ActivatePage = () => {
           <section className={styles.wrapper}>
             <div className={styles.heading}>
               <h2 className={`${styles.text} ${styles[""]}`}
-                style={{ textAlign: 'center' }}> Đăng Ký Tài Khoản </h2>
+                style={{ textAlign: 'center' }}> Kích hoạt tài khoản </h2>
               <Divider />
             </div>
-            <div>
-              One more step! We have sent you the account activation link to your email account
-              . Please check your email and click the link to activate your account.
-            </div>
+            {error ?
+              <div>
+                Kích hoạt không thành công. Vui lòng kiểm tra rằng bạn đang sử dụng liên kết kích hoạt hợp lệ.
+              </div>
+              :
+              <div>
+                Tài khoản của bạn đã được kích hoạt thành công, vui lòng nhấn nút đăng nhập để truy cập vào IT JobHub.
+              </div>
+            }
+            {!error &&
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={isSubmit}
+                onClick={onClickLogin}
+                style={{
+                  flex: 'center',
+                  width: '50%',
+                  fontWeight: '500',
+                }}
+              >
+                Đăng nhập
+              </Button>
+            }
           </section>
         </div>
       </main>

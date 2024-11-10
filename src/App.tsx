@@ -74,6 +74,7 @@ export default function App() {
     if (
       window.location.pathname === '/login'
       || window.location.pathname === '/register'
+      || window.location.pathname === '/activation/:token'
     )
       return;
     dispatch(fetchAccount())
@@ -176,7 +177,7 @@ export default function App() {
       element: <SendMailPage />,
     },
     {
-      path: "/activate/:token",
+      path: "/activation/:token",
       element: <ActivatePage />,
     },
   ]);

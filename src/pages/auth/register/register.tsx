@@ -187,7 +187,7 @@ const RegisterForm = () => {
                             <Divider>Or</Divider>
                             <p className="text text-normal">Đã có tài khoản?
                                 <span>
-                                    <Link to='/login'>Đăng Nhập</Link>
+                                    <Link to='/login'> Đăng Nhập</Link>
                                 </span>
                             </p>
                         </Form>
