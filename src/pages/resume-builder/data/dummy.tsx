@@ -128,5 +128,79 @@ export default {
             content: "Trong quá trình phát triển ứng dụng di động với React Native, việc cho phép người dùng tải lên hình ảnh từ thiết bị của họ là một tính năng phổ biến và quan trọng. Để thực hiện điều này…",
             image: '/src/img/bl3.jpg'
         }
-    ]
+    ],
+    blogcardlarge: [
+        {
+            _id: 1,
+            title: "Điều gì làm nên Siêu ứng dụng với 30 triệu khách hàng?",
+            content: "Cùng lắng nghe chia sẻ từ Phó GĐ Khối CNTT Vũ Ngọc Thành về yếu tố công nghệ tiên tiến giúp siêu ứng dụng App MBBank bứt phá, chạm mốc 30 triệu khách hàng, giữ vững vị trí dẫn đầu ...",
+            image: '/src/img/bl.jpg'
+        }
+    ],
+    blogcard: [
+        {
+            _id: 1,
+            title: "",
+            content: "Học Angular toàn diện với Lộ trình học cho người mới bắt đầu",
+            image: '/src/img/bl1.jpg'
+        },
+        {
+            _id: 2,
+            title: "",
+            content: "Top 30+ câu hỏi phỏng vấn Magento phổ biến",
+            image: '/src/img/bl2.jpg'
+        },
+        {
+            _id: 3,
+            title: "",
+            content: "Angular vs AngularJS: So sánh những điểm khác nhau quan trọng",
+            image: '/src/img/bl3.jpg'
+        },
+        {
+            _id: 4,
+            title: "",
+            content: "Lộ trình học Front End toàn diện A-Z chỉ trong vòng 10-12 tháng",
+            image: '/src/img/bl5.png'
+        }
+    ],
+    blog1: [
+        {
+            _id: 1,
+            title: "Điều gì làm nên Siêu ứng dụng với 30 triệu khách hàng?",
+            content: "Cùng lắng nghe chia sẻ từ Phó GĐ Khối CNTT Vũ Ngọc Thành về yếu tố công nghệ tiên tiến giúp siêu ứng dụng App MBBank bứt phá, chạm mốc 30 triệu khách hàng, giữ vững vị trí dẫn đầu ...",
+            image: '/src/img/bl.jpg'
+        },
+        {
+            _id: 2,
+            title: "MySQL download: Cài đặt MySQL trên Windows, MacOS, Linux",
+            content: "MySQL là một hệ quản trị cơ sở dữ liệu mã nguồn mở phổ biến, được sử dụng rộng rãi trong các ứng dụng web. Việc cài đặt MySQL có thể là một bước đầu quan trọng để bắt đầu…",
+            image: '/src/img/blog3.png'
+        },
+        {
+            _id: 3,
+            title: "Học Unreal Engine 5: Lộ trình học và Tài liệu học chi tiết",
+            content: "Unreal Engine 5 là phiên bản lập trình game mới nhất của Unreal Engine được phát hành vào năm 2023 bởi Epic Games. Công cụ này được nhiều lập trình viên ưa chuộng nhờ vào những khả năng vượt trội…",
+            image: '/src/img/blog1.png'
+        }
+    ],
+    blog2: [
+        {
+            _id: 1,
+            title: "“Là IT Thì Mình Cứ Viết Đi” – Cuộc thi viết hấp dẫn nhất cho dân IT chính thức trở lại",
+            content: "Cuộc thi viết “Là IT Thì Mình Cứ Viết Đi” do ITviec tổ chức từ ngày 26/04/2023 đến 26/06/2023, nhân dịp kỷ niệm 10 năm thành lập. Cuộc thi là sân chơi hấp dẫn cổ vũ tất cả anh em…",
+            image: '/src/img/bl6.png'
+        },
+        {
+            _id: 2,
+            title: "Top 15+ framework back-end, front-end và mobile phổ biến nhất 2024",
+            content: "Là một lập trình viên, bạn không cần phải phát triển mọi ứng dụng lại từ đầu bởi vì đã có các công cụ được thiết kế để hỗ trợ bạn, framework là một trong những công cụ hữu dụng…",
+            image: '/src/img/bl4.png'
+        },
+        {
+            _id: 3,
+            title: "“TỪ AO LÀNG ĐẾN OUT TRÌNH” – Lần đầu tiên chuyên gia IT giãi bày bằng con chữ",
+            content: "Nhân kỷ niệm 9 năm ngày thành lập, ITviec tổ chức cuộc thi viết “Từ Ao làng đến Out trình” nhằm mang đến một sân chơi mới dành cho “anh chị em” IT – nơi để mọi người cùng nhau…",
+            image: '/src/img/bl7.jpg'
+        }
+    ],
 }

@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { CodeOutlined, ContactsOutlined, DashOutlined, DownOutlined, LogoutOutlined, MenuFoldOutlined, RiseOutlined, TwitterOutlined } from '@ant-design/icons';
+import { ContactsOutlined, DashOutlined, LogoutOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Avatar, Drawer, Dropdown, MenuProps, Space, message } from 'antd';
 import { Menu, ConfigProvider } from 'antd';
 import styles from '@/styles/client.module.scss';
 import { isMobile } from 'react-device-detect';
-import { FaReact } from 'react-icons/fa';
-import logoapp from '../../img/logo.png';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -38,13 +37,18 @@ const Header = (props: any) => {
 
         },
         {
-            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm IT</Link>,
+            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm</Link>,
             key: '/job',
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Top Công ty IT</Link>,
+            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Top Công ty</Link>,
             key: '/company',
+            // icon: <DownOutlined />,
+        },
+        {
+            label: <Link to={'/blog'} style={{ fontWeight: '400' }}>Blog</Link>,
+            key: '/blog',
             // icon: <DownOutlined />,
         }
     ];
@@ -97,7 +101,7 @@ const Header = (props: any) => {
             <div className={styles["header-section"]} >
                 <div className={styles["container"]}>
                     {!isMobile ?
-                        <div style={{ display: "flex", gap: 30 }}>
+                        <div style={{ display: "flex", gap: 0 }}>
                             <div className={styles['brand']} >
                                 <img src='/src/img/logo.png' onClick={() => navigate('/')} title='' alt='Logo' />
                             </div>

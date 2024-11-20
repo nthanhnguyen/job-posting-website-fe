@@ -105,9 +105,73 @@ const BlogDetail = () => {
                     </Grid>
                 </Box>
                 <Divider textAlign="left" sx={{ fontWeight: 'bold', fontSize: '20px', marginTop: '25px', marginBottom: '25px' }}>Đọc nhiều nhất</Divider>
+                <Grid container spacing={4} columns={24}>
+                    {dummy.blog1?.map((data: any) => {
+                        return (
+                            <Grid size={8}
+                                key={data._id}
+                                sx={{
+                                    border: '1px solid #eee',
+                                    borderRadius: '12px',
+                                    background: '#fff',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '12px',
+                                    height: 600,
+                                }}>
+                                <div className='image-blog'
+                                    style={{
+                                        height: '250px',
+                                        width: '100%',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                </div>
+                                <div className='text-blog' style={{ padding: '20px 20px' }}>
+                                    <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
+                                    <p style={{ paddingBottom: '12px' }}>{data.content}</p>
+                                    <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyên môn IT</Button>
+                                </div>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
                 <Divider textAlign="left" sx={{ fontWeight: 'bold', fontSize: '20px', marginTop: '25px', marginBottom: '25px' }}>Bài viết chọn lọc</Divider>
+                <Grid container spacing={4} columns={24}>
+                    {dummy.blog2?.map((data: any) => {
+                        return (
+                            <Grid size={8}
+                                key={data._id}
+                                sx={{
+                                    border: '1px solid #eee',
+                                    borderRadius: '12px',
+                                    background: '#fff',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '12px',
+                                    height: 600,
+                                }}>
+                                <div className='image-blog'
+                                    style={{
+                                        height: '250px',
+                                        width: '100%',
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                </div>
+                                <div className='text-blog' style={{ padding: '20px 20px' }}>
+                                    <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
+                                    <p style={{ paddingBottom: '12px' }}>{data.content}</p>
+                                    <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyện IT</Button>
+                                </div>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
             </Container>
-            <div style={{ height: '150px', width: '100%', border: '1px solid red', background: '#FFF5E9', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px' }}>
+            <div style={{ height: '150px', width: '100%', border: '1px solid red', background: '#FFF5E9', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', marginTop: '45px' }}>
                 <div style={{ textTransform: 'uppercase', fontSize: '20px', fontWeight: 'bold' }}>
                     <span>Câu chuyện sự nghiệp của bạn sẽ truyền cảm hứng đến rất nhiều người.</span>
                 </div>
