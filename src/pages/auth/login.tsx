@@ -65,7 +65,7 @@ const LoginPage = () => {
                                     display: 'flex',
                                     justifyContent: 'center',
                                     height: '180px'
-                                }}><img src='src/img/logo.png'></img></h2>
+                                }}><img src='src/img/logo2.png'></img></h2>
                             <Divider />
 
                         </div>

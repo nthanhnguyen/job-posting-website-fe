@@ -60,7 +60,7 @@ const RegisterForm = () => {
             style={{
                 backgroundImage: `url(${"/src/img/bg.jpg"})`,
                 backgroundRepeat: 'no-repeat',
-                backgroundSize: 'cover'
+                backgroundSize: 'cover',
             }}
         >
             <main className={styles.main}>
