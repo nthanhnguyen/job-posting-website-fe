@@ -1,11 +1,11 @@
 import { Button, Container } from "@mui/material";
 import Grid from '@mui/material/Grid2';
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import dummy from '../resume-builder/data/dummy';
+
 
 const EmployerPage = () => {
+
     return (
         <Box>
             <div style={{
@@ -39,7 +39,7 @@ const EmployerPage = () => {
                             <p>Already have an Employer account? <a href="/login">Sign in</a></p>
                         </Grid>
                         <Grid size={8}>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', width: 400, position: 'relative', left: 120 }}>
                                 <img src="/src/img/logo.png" />
                             </div>
                         </Grid>
@@ -81,7 +81,7 @@ const EmployerPage = () => {
             </Box>
             <Box sx={{
                 backgroundImage: `url("/src/img/thump.png")`,
-                height: '150vh',
+                height: '130vh',
                 width: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100% 100%',
@@ -159,20 +159,60 @@ const EmployerPage = () => {
                         </Grid>
                     </div>
                 </Container>
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    h2: {
-                        color: '#fff',
-                        fontSize: '28px'
-                    },
-                    gap: 12,
-                    marginTop: '65px'
-                }}>
-                    <h2>Experience ITviec's service today</h2>
-                    <Button size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
-                </Box>
             </Box>
+            <Container sx={{ marginTop: '100px' }}>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={4} columns={24}>
+                        {dummy.blog1?.map((data: any) => {
+                            return (
+                                <Grid size={8}
+                                    key={data._id}
+                                    sx={{
+                                        border: '1px solid #eee',
+                                        borderRadius: '12px',
+                                        background: '#fff',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '12px',
+                                        height: 600,
+                                    }}>
+                                    <div className='image-blog'
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                    </div>
+                                    <div className='text-blog' style={{ padding: '20px 20px' }}>
+                                        <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
+                                        <p style={{ paddingBottom: '12px' }}>{data.content}</p>
+                                        <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyên môn IT</Button>
+                                    </div>
+                                </Grid>
+                            );
+                        })}
+                    </Grid>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        h2: {
+                            color: 'black',
+                            fontSize: '28px',
+                            fontWeight: 'bold'
+                        },
+                        gap: 12,
+                        marginTop: '65px'
+                    }}>
+                    <h2>Experience ITviec's service today</h2>
+                    <Button
+                        size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
+
+                </Box>
+            </Container>
         </Box >
     )
 }

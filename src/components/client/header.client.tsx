@@ -50,6 +50,11 @@ const Header = (props: any) => {
             label: <Link to={'/blog'} style={{ fontWeight: '400' }}>Blog</Link>,
             key: '/blog',
             // icon: <DownOutlined />,
+        },
+        {
+            label: <Link to={'/employer'} style={{ fontWeight: '400' }}>Employer</Link>,
+            key: '/employer',
+            // icon: <DownOutlined />,
         }
     ];
 

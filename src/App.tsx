@@ -98,7 +98,6 @@ export default function App() {
         { path: "/my-resume/:resumeId/view", element: <ViewResume /> },
         { path: "/employer", element: <EmployerPage /> },
         { path: "/blog", element: <BlogDetail /> },
-
       ],
     },
 

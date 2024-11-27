@@ -11,17 +11,7 @@ import { Link } from "react-router-dom";
 import type { MenuProps } from 'antd';
 
 
-type MenuItem = Required<MenuProps>['items'][number];
-const items: MenuItem[] = [
-    {
-        label: <Link to={'/'}>GIỚI THIỆU</Link>,
-        key: 'home',
-    },
-    {
-        label: <Link to={'/users'}>ĐÁNH GIÁ</Link>,
-        key: 'users',
-    }
-];
+
 
 const ClientCompanyDetailPage = (props: any) => {
     const [companyDetail, setCompanyDetail] = useState<ICompany | null>(null);
@@ -143,24 +133,6 @@ const ClientCompanyDetailPage = (props: any) => {
                             <Col span={24} md={16}>
                                 <div className="job-tag">
                                     <div className="content">
-                                        <div
-                                            style={{
-                                                background: '#fff',
-                                                minHeight: 20,
-                                                padding: 10,
-                                                border: '1px solid #eee',
-                                                borderRadius: '15px',
-                                            }}
-                                        >
-                                            <Container>
-                                                <Menu
-                                                    onClick={onClick}
-                                                    selectedKeys={[current]}
-                                                    mode="horizontal"
-                                                    items={items}
-                                                />
-                                            </Container>
-                                        </div>
                                         <div
                                             style={{
                                                 background: '#fff',
