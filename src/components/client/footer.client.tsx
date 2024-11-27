@@ -5,7 +5,7 @@ import 'styles/footer.scss';
 const Footer = () => {
     return (
         <div className='footer-main'>
-            <div className='row'>
+            <div className='row' style={{ height: '' }}>
                 <div className='footer-content' style={{ marginRight: '110px' }}>
                     <div className='logo-company'>
                         <img src='/src/img/logo.png' />

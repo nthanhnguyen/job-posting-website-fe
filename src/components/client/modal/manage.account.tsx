@@ -181,7 +181,7 @@ const UserUpdateInfo = (props: any) => {
 
                 >
                     <Form.Item
-                        style={{ marginBottom: '5px', width: '50%' }}
+                        style={{ marginBottom: '5px', width: '100%', }}
                         labelCol={{ span: 24 }}
                         label="Tên hiển thị"
                         name="name"
@@ -191,7 +191,7 @@ const UserUpdateInfo = (props: any) => {
                     </Form.Item>
 
                     <Form.Item
-                        style={{ marginBottom: '5px', width: '50%' }}
+                        style={{ marginBottom: '5px', width: '100%' }}
                         labelCol={{ span: 24 }}
                         label="Email"
                         name="email"
@@ -201,7 +201,7 @@ const UserUpdateInfo = (props: any) => {
                     </Form.Item>
 
                     <Form.Item
-                        style={{ marginBottom: '5px', width: '50%' }}
+                        style={{ marginBottom: '5px', width: '100%' }}
                         labelCol={{ span: 24 }}
                         label="Số điện thoại"
                         name="phoneNo"
@@ -228,7 +228,7 @@ const UserUpdateInfo = (props: any) => {
                     </Form.Item>
 
                     <Form.Item
-                        style={{ marginBottom: '5px', width: '50%' }}
+                        style={{ marginBottom: '5px', width: '100%' }}
                         labelCol={{ span: 24 }}
                         name="gender"
                         label="Giới tính"
@@ -242,7 +242,7 @@ const UserUpdateInfo = (props: any) => {
                     </Form.Item>
 
                     <Form.Item
-                        style={{ marginBottom: '5px', width: '50%' }}
+                        style={{ marginBottom: '5px', width: '100%' }}
                         labelCol={{ span: 24 }}
                         label="Địa chỉ"
                         name="address"
@@ -261,7 +261,7 @@ const UserUpdateInfo = (props: any) => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            style={{ marginTop: '20px', marginBottom: '5px', width: '30%' }}
+                            style={{ marginTop: '20px', marginBottom: '5px', width: '100%' }}
                         >
                             Lưu
                         </Button>
@@ -269,7 +269,7 @@ const UserUpdateInfo = (props: any) => {
 
                 </Form>
             }
-        </div>
+        </div >
 
     )
 }
@@ -449,7 +449,7 @@ const ChangePassword = () => {
                     </Form.Item>
 
                     <Col span={24}>
-                        <Button onClick={() => formConfirmPassword.submit()}>Xác nhận</Button>
+                        <Button type="primary" style={{ marginTop: '10px' }} onClick={() => formConfirmPassword.submit()}>Xác nhận</Button>
                     </Col>
                 </Form>
                 :
@@ -502,7 +502,7 @@ const ChangePassword = () => {
                     </Form.Item>
 
                     <Col span={24}>
-                        <Button htmlType="submit">Lưu</Button>
+                        <Button type="primary" style={{ marginTop: '10px' }} htmlType="submit">Lưu</Button>
                     </Col>
                 </Form>
             }
