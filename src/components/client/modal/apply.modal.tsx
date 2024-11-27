@@ -38,7 +38,7 @@ const ApplyModal = (props: IProps) => {
             if (jobDetail) {
                 const res = await callCreateResume(urlCV, jobDetail?.company?._id, jobDetail?._id);
                 if (res.data) {
-                    message.success("Rải CV thành công!");
+                    message.success("Gửi CV thành công!");
                     setIsModalOpen(false);
                 } else {
                     notification.error({
@@ -87,7 +87,7 @@ const ApplyModal = (props: IProps) => {
                 onOk={() => handleOkButton()}
                 onCancel={() => setIsModalOpen(false)}
                 maskClosable={false}
-                okText={isAuthenticated ? "Rải CV Nào " : "Đăng Nhập Nhanh"}
+                okText={isAuthenticated ? "Ứng tuyển " : "Đăng Nhập Nhanh"}
                 cancelButtonProps={
                     { style: { display: "none" } }
                 }
@@ -138,7 +138,7 @@ const ApplyModal = (props: IProps) => {
                     </div>
                     :
                     <div>
-                        Bạn chưa đăng nhập hệ thống. Vui lòng đăng nhập để có thể "Rải CV" bạn nhé -.-
+                        Bạn chưa đăng nhập hệ thống. Vui lòng đăng nhập để có thể ứng tuyển bạn nhé -.-
                     </div>
                 }
                 <Divider />

@@ -49,7 +49,7 @@ const ModalUser = (props: IProps) => {
     }, [dataInit]);
 
     const submitUser = async (valuesForm: any) => {
-        const { name, email, password, address, age, gender, role, company } = valuesForm;
+        const { name, email, password, address, phoneNo, gender, role, company } = valuesForm;
         if (dataInit?._id) {
             //update
             const user = {
@@ -57,7 +57,7 @@ const ModalUser = (props: IProps) => {
                 name,
                 email,
                 password,
-                age,
+                phoneNo,
                 gender,
                 address,
                 role: role.value,
@@ -84,7 +84,7 @@ const ModalUser = (props: IProps) => {
                 name,
                 email,
                 password,
-                age,
+                phoneNo,
                 gender,
                 address,
                 role: role.value,
@@ -168,6 +168,7 @@ const ModalUser = (props: IProps) => {
                 <Row gutter={16}>
                     <Col lg={12} md={12} sm={24} xs={24}>
                         <ProFormText
+                            disabled={dataInit?._id ? true : false}
                             label="Email"
                             name="email"
                             rules={[
@@ -195,11 +196,11 @@ const ModalUser = (props: IProps) => {
                         />
                     </Col>
                     <Col lg={6} md={6} sm={24} xs={24}>
-                        <ProFormDigit
-                            label="Tuổi"
-                            name="age"
+                        <ProFormText
+                            label="Số điện thoại"
+                            name="phoneNo"
                             rules={[{ required: true, message: 'Vui lòng không bỏ trống' }]}
-                            placeholder="Nhập nhập tuổi"
+                            placeholder="Nhập nhập số điện thoại"
                         />
                     </Col>
                     <Col lg={6} md={6} sm={24} xs={24}>

@@ -33,8 +33,6 @@ const LoginPage = () => {
         if (res?.data) {
             localStorage.setItem('access_token', res.data.access_token);
             dispatch(setUserLoginInfo(res.data.user))
-            console.log('here1: ', res.data.user);
-            console.log('here2: ', res.data.access_token);
             message.success('Đăng nhập tài khoản thành công!');
             window.location.href = callback ? callback : '/';
         } else {

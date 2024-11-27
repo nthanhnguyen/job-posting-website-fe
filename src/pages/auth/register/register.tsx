@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, Row, Select, message, notification, Tooltip } from 'antd';
+import { Button, Divider, Form, Input, Select, message, notification, Tooltip } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { callRegister } from 'config/api';
 import styles from 'styles/auth.module.scss';
 import { IUser } from '@/types/backend';
 const { Option } = Select;
-import { Country, State, City, IState } from 'country-state-city';
+import { State, IState } from 'country-state-city';
 import { RegisterContext } from '@/config/context';
 import { RegisterSteps } from './page';
 
@@ -22,9 +22,9 @@ const RegisterForm = () => {
     }, []);
 
     const onFinish = async (values: IUser) => {
-        const { name, email, password, age, gender, address } = values;
+        const { name, email, password, phoneNo, gender, address } = values;
         setIsSubmit(true);
-        const res = await callRegister(name, email, password as string, +age, gender, address);
+        const res = await callRegister(name, email, password as string, phoneNo, gender, address);
         setIsSubmit(false);
         if (res?.data?._id) {
             message.success('Thông tin đăng ký hợp lệ!');
@@ -130,20 +130,30 @@ const RegisterForm = () => {
                             <Form.Item
                                 style={{ marginBottom: '5px' }}
                                 labelCol={{ span: 24 }}
-                                label="Tuổi"
-                                name="age"
+                                label="Số điện thoại"
+                                name="phoneNo"
                                 rules={[
-                                    { required: true, message: 'Tuổi không được để trống!' },
+                                    { required: true, message: 'Số điện thoại không được để trống!' },
                                     {
-                                        validator: (_, value) =>
-                                            value && value >= 15
-                                                ? Promise.resolve()
-                                                : Promise.reject('Bạn chưa đủ độ tuổi lao động!')
+                                        validator: (_, value) => {
+                                            if (value.length < 10 || value.length > 11) {
+                                                return Promise.reject('Vui lòng nhập đúng số điện thoại!');
+                                            }
+                                            return Promise.resolve();
+                                        }
                                     }
                                 ]}
                             >
-                                <Input type='number' />
+                                <Input
+                                    maxLength={11}
+                                    onKeyPress={(e) => {
+                                        if (!/[0-9]/.test(e.key)) {
+                                            e.preventDefault(); // Chặn ký tự không phải số
+                                        }
+                                    }}
+                                />
                             </Form.Item>
+
 
                             <Form.Item
                                 style={{ marginBottom: '5px' }}

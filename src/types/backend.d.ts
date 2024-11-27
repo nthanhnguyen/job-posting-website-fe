@@ -57,7 +57,7 @@ export interface IUser {
     name: string;
     email: string;
     password?: string;
-    age: number;
+    phoneNo: number;
     gender: string;
     address: string;
     role?: {
@@ -74,6 +74,10 @@ export interface IUser {
     deletedAt?: boolean | null;
     createdAt?: string;
     updatedAt?: string;
+}
+
+export interface IChangePassword {
+    newPassword: string;
 }
 
 export interface IJob {

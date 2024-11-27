@@ -1,12 +1,12 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
  * 
 Module Auth
  */
-export const callRegister = (name: string, email: string, password: string, age: number, gender: string, address: string) => {
-    return axios.post<IBackendRes<IUser>>('/api/v1/auth/register', { name, email, password, age, gender, address })
+export const callRegister = (name: string, email: string, password: string, phoneNo: number, gender: string, address: string) => {
+    return axios.post<IBackendRes<IUser>>('/api/v1/auth/register', { name, email, password, phoneNo, gender, address })
 }
 
 export const callLogin = (username: string, password: string) => {
@@ -82,6 +82,7 @@ export const callCreateUser = (user: IUser) => {
 }
 
 export const callUpdateUser = (user: IUser) => {
+    console.log('user :>> ', user);
     return axios.patch<IBackendRes<IUser>>(`/api/v1/users`, { ...user })
 }
 
@@ -92,6 +93,15 @@ export const callDeleteUser = (id: string) => {
 export const callFetchUser = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IUser>>>(`/api/v1/users?${query}`);
 }
+
+export const callFetchUserById = (id: string) => {
+    return axios.get<IBackendRes<IUser>>(`/api/v1/users/${id}`);
+}
+
+export const callChangePassword = (newPassword: string) => {
+    return axios.post<IBackendRes<IChangePassword>>(`/api/v1/users/change-password`, { newPassword });
+}
+
 
 /**
  * 

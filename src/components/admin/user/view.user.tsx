@@ -26,7 +26,7 @@ const ViewDetailUser = (props: IProps) => {
                     <Descriptions.Item label="Email">{dataInit?.email}</Descriptions.Item>
 
                     <Descriptions.Item label="Giới Tính">{dataInit?.gender}</Descriptions.Item>
-                    <Descriptions.Item label="Tuổi">{dataInit?.age}</Descriptions.Item>
+                    <Descriptions.Item label="Số điện thoại">{dataInit?.phoneNo}</Descriptions.Item>
 
                     <Descriptions.Item label="Vai trò" >
                         <Badge status="processing" text={<>{dataInit?.role}</>} />
