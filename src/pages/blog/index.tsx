@@ -1,86 +1,89 @@
-import React from "react";
 import styles from 'styles/client.module.scss';
-import { Card } from 'antd';
+import { Button, Card, Divider } from 'antd';
 import 'styles/blog.scss'
-import { RightOutlined } from '@ant-design/icons';
-
-const { Meta } = Card;
-
+import { Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import dummy from '../resume-builder/data/dummy';
+import { useNavigate } from "react-router-dom";
 
 const Blog = () => {
+    const navigate = useNavigate();
     return (
         <div className="bg-container">
-            <div className="ant-divider css-dev-only-do-not-override-1ei40mt ant-divider-horizontal" role="separator" style={{ margin: '48px 0' }}></div>
+            <Divider style={{ marginTop: '45px' }} />
             <span className={styles["title"]}>Bài Viết Nổi Bật</span>
-            <div className="container">
-                <Card
-                    //hoverable
-                    style={{ width: 600, height: 590, marginTop: '48px' }}
-                    cover={<img alt="example" src="/src/img/blog1.png" />}
-                >
-                    <Meta title="Học Unreal Engine 5: Lộ trình học và Tài liệu học chi tiết" description="Unreal Engine 5 là phiên bản lập trình game mới nhất của Unreal Engine
- được phát hành vào năm 2023 bởi Epic Games. Công cụ..." />
-                    <div className="hyperlink">
-                        <a target="blank" href="https://itviec.com/blog/hoc-unreal-engine-5?itm_campaign=featuredpost&itm_medium=footer&itm_source=itviec.com">
-                            <p style={{ fontWeight: '500', color: 'blue', fontSize: '16px', paddingTop: '125px' }}>Bắt đầu học<RightOutlined /></p>
-                        </a>
-                    </div>
-                </Card>
-                <div className="blog-items">
-                    <Card
-                        //hoverable
-                        style={{ width: 300, margin: '48px 0' }}
-                        cover={<img alt="example" src="/src/img/blog2.png" />}
-                    >
-                        <Meta description="forEach JavaScript: Một số thao tác cơ bản và ví dụ chi tiết" />
-                        <div className="hyperlink">
-                            <a target="blank" href="https://itviec.com/blog/hoc-unreal-engine-5?itm_campaign=featuredpost&itm_medium=footer&itm_source=itviec.com">
-                                <p style={{ fontWeight: '500', color: 'blue', fontSize: '16px', paddingTop: '12px' }}>Bắt đầu học<RightOutlined /></p>
-                            </a>
-                        </div>
-                    </Card>
-                    <Card
-                        //hoverable
-                        style={{ width: 300, margin: '48px 0' }}
-                        cover={<img alt="example" src="/src/img/blog2.png" />}
-                    >
-                        <Meta description="forEach JavaScript: Một số thao tác cơ bản và ví dụ chi tiết" />
-                        <div className="hyperlink">
-                            <a target="blank" href="https://itviec.com/blog/hoc-unreal-engine-5?itm_campaign=featuredpost&itm_medium=footer&itm_source=itviec.com">
-                                <p style={{ fontWeight: '500', color: 'blue', fontSize: '16px', paddingTop: '12px' }}>Bắt đầu học<RightOutlined /></p>
-                            </a>
-                        </div>
-                    </Card>
-                    <Card
-                        className="blog-bottom"
-                        //hoverable
-                        style={{ width: 300, margin: '48px 0' }}
-                        cover={<img alt="example" src="/src/img/blog2.png" />}
-                    >
-                        <Meta description="forEach JavaScript: Một số thao tác cơ bản và ví dụ chi tiết" />
-                        <div className="hyperlink">
-                            <a target="blank" href="https://itviec.com/blog/hoc-unreal-engine-5?itm_campaign=featuredpost&itm_medium=footer&itm_source=itviec.com">
-                                <p style={{ fontWeight: '500', color: 'blue', fontSize: '16px', paddingTop: '12px' }}>Bắt đầu học<RightOutlined /></p>
-                            </a>
-                        </div>
-                    </Card>
-                    <Card
-                        className="blog-bottom"
-                        //hoverable
-                        style={{ width: 300, margin: '48px 0' }}
-                        cover={<img alt="example" src="/src/img/blog2.png" />}
-                    >
-                        <Meta description="forEach JavaScript: Một số thao tác cơ bản và ví dụ chi tiết" />
-                        <div className="hyperlink">
-                            <a target="blank" href="https://itviec.com/blog/hoc-unreal-engine-5?itm_campaign=featuredpost&itm_medium=footer&itm_source=itviec.com">
-                                <p style={{ fontWeight: '500', color: 'blue', fontSize: '16px', paddingTop: '12px' }}>Bắt đầu học<RightOutlined /></p>
-                            </a>
-                        </div>
-                    </Card>
-                </div>
-            </div>
-        </div >
+            <Box sx={{ flexGrow: 1, marginTop: '30px' }}>
+                <Grid container spacing={3} columns={16}>
+                    {dummy.blogcardlarge.map((data) => {
+                        return (
+                            <Grid size={8}
+                                sx={{
+                                    background: '#fff',
+                                    border: '1px solid #eee',
+                                    borderRadius: '12px',
+                                    height: 585
+                                }}
+                            >
+                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', gap: '20px' }}>
+                                    <div className='img-blog'>
+                                        <img src={data.image} style={{ height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                    </div>
+                                    <div className='cont-blog'
+                                        style={{ padding: '10px 10px' }}
+                                    >
+                                        <h2 style={{ fontSize: '20px', fontWeight: 'bold' }}>{data.title}</h2>
+                                        <p>{data.content}</p>
+                                    </div>
+                                    <div>
+                                        <Button
+                                            style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
+                                            onClick={() => navigate('/blog')}
+                                        > Xem thêm</Button>
+                                    </div>
+                                </div>
+                            </Grid>
+                        )
+                    })}
 
+                    <Grid size={8}>
+                        <Box sx={{ width: '100%' }}>
+                            <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                                {dummy.blogcard.map((data) => {
+                                    return (
+                                        <Grid size={6}
+                                            key={data._id}
+                                            sx={{
+                                                background: '#fff',
+                                                border: '1px solid #eee',
+                                                borderRadius: '12px',
+                                                height: 280
+                                            }}
+                                        >
+                                            <div className='img-blog'>
+                                                <img src={data.image} style={{ height: '150px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                            </div>
+                                            <div className='cont-blog'
+                                                style={{ padding: '10px 10px' }}
+                                            >
+                                                <p >{data.content}</p>
+                                            </div>
+                                            <div>
+                                                <Button
+                                                    style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
+                                                    onClick={() => navigate('/blog')}
+                                                > Xem thêm</Button>
+                                            </div>
+                                        </Grid>
+                                    )
+                                })}
+
+                            </Grid>
+                        </Box>
+                    </Grid>
+                </Grid >
+            </Box >
+
+        </div >
     );
 };
 

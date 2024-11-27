@@ -37,6 +37,7 @@ import LoginIsRequired from './components/share/login-required';
 import SendMailPage from './pages/auth/register/SendMail';
 import ActivatePage from './pages/auth/register/activation';
 import RegisterPage from './pages/auth/register/page';
+import BlogDetail from './pages/blog/detail';
 import EmployerPage from './pages/employer/detail';
 
 const LayoutClient = () => {
@@ -96,6 +97,7 @@ export default function App() {
         { path: "/resume-builder/resume/:resumeId/edit", element: <LoginIsRequired> <EditResume /> </LoginIsRequired> },
         { path: "/my-resume/:resumeId/view", element: <ViewResume /> },
         { path: "/employer", element: <EmployerPage /> },
+        { path: "/blog", element: <BlogDetail /> },
 
       ],
     },
