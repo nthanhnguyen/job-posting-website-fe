@@ -37,6 +37,11 @@ import LoginIsRequired from './components/share/login-required';
 import SendMailPage from './pages/auth/register/SendMail';
 import ActivatePage from './pages/auth/register/activation';
 import RegisterPage from './pages/auth/register/page';
+import LayoutEmployer from './components/hr/layout.employer';
+import CompanyPageForHr from './pages/hr/company';
+import JobPageForHr from './pages/hr/job';
+import ResumePageForHr from './pages/hr/resume';
+import ViewUpsertJobForHr from './components/hr/job/upsert.job';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -80,6 +85,8 @@ export default function App() {
     dispatch(fetchAccount())
   }, [])
 
+  const user = useAppSelector(state => state.account.user);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -100,7 +107,19 @@ export default function App() {
 
     {
       path: "/admin",
-      element: (<LayoutApp><LayoutAdmin /> </LayoutApp>),
+      // element: (<LayoutApp><LayoutAdmin /> </LayoutApp>),
+      element: (
+        <>
+          {isLoading === true ?
+            <Loading />
+            :
+            <LayoutApp>
+              {user?.role.name === 'SUPER_ADMIN' ? <LayoutAdmin /> : <NotFound />}
+            </LayoutApp>
+          }
+        </>
+
+      ),
       errorElement: <NotFound />,
       children: [
         {
@@ -162,6 +181,58 @@ export default function App() {
       ],
     },
 
+    {
+      path: "/employer",
+      // element: (<LayoutApp><LayoutAdmin /> </LayoutApp>),
+      element: (
+        <>
+          {isLoading === true ?
+            <Loading />
+            :
+            <LayoutApp>
+              {user?.role.name === 'HR' ? <LayoutEmployer /> : <NotFound />}
+            </LayoutApp>
+          }
+        </>
+      ),
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true, element:
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+        },
+        // {
+        //   path: "company",
+        //   element:
+        //     <ProtectedRoute>
+        //       <CompanyPageForHr />
+        //     </ProtectedRoute>
+        // },
+        {
+          path: "job",
+          children: [
+            {
+              index: true,
+              element: <ProtectedRoute> <JobPageForHr /></ProtectedRoute>
+            },
+            {
+              path: "upsert", element:
+                <ProtectedRoute><ViewUpsertJobForHr /></ProtectedRoute>
+            }
+          ]
+        },
+
+        {
+          path: "resume",
+          element:
+            <ProtectedRoute>
+              <ResumePageForHr />
+            </ProtectedRoute>
+        },
+      ],
+    },
 
     {
       path: "/login",

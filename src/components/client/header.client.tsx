@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { CodeOutlined, ContactsOutlined, DashOutlined, DownOutlined, LogoutOutlined, MenuFoldOutlined, RiseOutlined, TwitterOutlined } from '@ant-design/icons';
+import { ContactsOutlined, DashOutlined, DownOutlined, LogoutOutlined, MenuFoldOutlined, RiseOutlined, TwitterOutlined } from '@ant-design/icons';
 import { Avatar, Drawer, Dropdown, MenuProps, Space, message } from 'antd';
 import { Menu, ConfigProvider } from 'antd';
 import styles from '@/styles/client.module.scss';
 import { isMobile } from 'react-device-detect';
-import { FaReact } from 'react-icons/fa';
-import logoapp from '../../img/logo.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -29,6 +27,7 @@ const Header = (props: any) => {
     useEffect(() => {
         setCurrent(location.pathname);
     }, [location])
+
 
     const items: MenuProps['items'] = [
         {
@@ -73,13 +72,12 @@ const Header = (props: any) => {
             key: 'manage-account',
             icon: <ContactsOutlined />
         },
-        {
-            label: <Link
-                to={"/admin"}
-            >Trang Quản Trị</Link>,
-            key: 'admin',
-            icon: <DashOutlined />
-        },
+        user?.role.name === 'SUPER_ADMIN' || user?.role.name === 'HR' ?
+            {
+                label: <Link to={"/admin"}>Trang Quản Trị</Link>,
+                key: 'admin',
+                icon: <DashOutlined />
+            } : null,
         {
             label: <label
                 style={{ cursor: 'pointer' }}
@@ -88,7 +86,7 @@ const Header = (props: any) => {
             key: 'logout',
             icon: <LogoutOutlined />
         },
-    ];
+    ].filter(item => item !== null);
 
     const itemsMobiles = [...items, ...itemsDropdown];
 
