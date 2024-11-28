@@ -37,13 +37,23 @@ const Header = (props: any) => {
 
         },
         {
-            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm IT</Link>,
+            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm</Link>,
             key: '/job',
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Top Công ty IT</Link>,
+            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Top Công ty</Link>,
             key: '/company',
+            // icon: <DownOutlined />,
+        },
+        {
+            label: <Link to={'/blog'} style={{ fontWeight: '400' }}>Blog</Link>,
+            key: '/blog',
+            // icon: <DownOutlined />,
+        },
+        {
+            label: <Link to={'/employer'} style={{ fontWeight: '400' }}>Employer</Link>,
+            key: '/employer',
             // icon: <DownOutlined />,
         }
     ];
@@ -95,7 +105,7 @@ const Header = (props: any) => {
             <div className={styles["header-section"]} >
                 <div className={styles["container"]}>
                     {!isMobile ?
-                        <div style={{ display: "flex", gap: 30 }}>
+                        <div style={{ display: "flex", gap: 0 }}>
                             <div className={styles['brand']} >
                                 <img src='/src/img/logo.png' onClick={() => navigate('/')} title='' alt='Logo' />
                             </div>

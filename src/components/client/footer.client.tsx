@@ -5,7 +5,7 @@ import 'styles/footer.scss';
 const Footer = () => {
     return (
         <div className='footer-main'>
-            <div className='row'>
+            <div className='row' style={{ height: '' }}>
                 <div className='footer-content' style={{ marginRight: '110px' }}>
                     <div className='logo-company'>
                         <img src='/src/img/logo.png' />
@@ -16,7 +16,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className='col'>
-                        <h4>Về Jobfinding</h4>
+                        <h4>Về Jobhub</h4>
                         <ul className='list-style'>
                             <li>Trang chủ</li>
                             <li>Dịch vụ gợi ý ứng viên</li>
@@ -36,7 +36,7 @@ const Footer = () => {
                         <h4>Liên hệ để đăng tin tuyển dụng tại:</h4>
                         <ul className='list-style'>
                             <li><i className="fa-solid fa-phone"></i>Hồ Chí Minh: (+84) 123 456 789</li>
-                            <li><i className="fa-regular fa-envelope"></i>Email: jobfinding@gmail.com</li>
+                            <li><i className="fa-regular fa-envelope"></i>Email: jobhub@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ const Footer = () => {
             <hr />
 
             <div className='row-1'>
-                <p>Copyright © jobfinding</p>
+                <p>Copyright © jobhub</p>
             </div>
         </div>
     )

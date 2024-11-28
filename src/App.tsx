@@ -37,6 +37,8 @@ import LoginIsRequired from './components/share/login-required';
 import SendMailPage from './pages/auth/register/SendMail';
 import ActivatePage from './pages/auth/register/activation';
 import RegisterPage from './pages/auth/register/page';
+import BlogDetail from './pages/blog/detail';
+import EmployerPage from './pages/employer/detail';
 import LayoutEmployer from './components/hr/layout.employer';
 import CompanyPageForHr from './pages/hr/company';
 import JobPageForHr from './pages/hr/job';
@@ -101,7 +103,8 @@ export default function App() {
         { path: "resume-builder", element: <LoginIsRequired> <ResumeBuilderPage /> </LoginIsRequired> },
         { path: "/resume-builder/resume/:resumeId/edit", element: <LoginIsRequired> <EditResume /> </LoginIsRequired> },
         { path: "/my-resume/:resumeId/view", element: <ViewResume /> },
-
+        { path: "/employer", element: <EmployerPage /> },
+        { path: "/blog", element: <BlogDetail /> },
       ],
     },
 
