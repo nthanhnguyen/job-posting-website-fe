@@ -82,7 +82,6 @@ export const callCreateUser = (user: IUser) => {
 }
 
 export const callUpdateUser = (user: IUser) => {
-    console.log('user :>> ', user);
     return axios.patch<IBackendRes<IUser>>(`/api/v1/users`, { ...user })
 }
 
@@ -123,6 +122,10 @@ export const callFetchJob = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs?${query}`);
 }
 
+export const callFetchJobForHr = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/employer?${query}`);
+}
+
 export const callFetchJobById = (id: string) => {
     return axios.get<IBackendRes<IJob>>(`/api/v1/jobs/${id}`);
 }
@@ -145,6 +148,10 @@ export const callDeleteResume = (id: string) => {
 
 export const callFetchResume = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IResume>>>(`/api/v1/resumes?${query}`);
+}
+
+export const callFetchResumeForHr = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IResume>>>(`/api/v1/resumes/employer?${query}`);
 }
 
 export const callFetchResumeById = (id: string) => {
