@@ -31,6 +31,7 @@ const JobCard = (props: IProps) => {
     const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
     const navigate = useNavigate();
 
+
     useEffect(() => {
         // Get value fezz
         // Lấy giá trị từ query params và cập nhật ngay vào state
