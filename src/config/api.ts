@@ -126,6 +126,10 @@ export const callFetchJobForHr = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/employer?${query}`);
 }
 
+export const callFetchJobForCompany = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/company?${query}`);
+}
+
 export const callFetchJobById = (id: string) => {
     return axios.get<IBackendRes<IJob>>(`/api/v1/jobs/${id}`);
 }

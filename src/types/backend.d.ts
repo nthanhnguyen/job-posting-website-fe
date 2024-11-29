@@ -7,9 +7,9 @@ export interface IBackendRes<T> {
 
 export interface IModelPaginate<T> {
     meta: {
-        current: number;
-        pageSize: number;
-        pages: number;
+        current?: number;
+        pageSize?: number;
+        pages?: number;
         total: number;
     },
     result: T[]
@@ -208,6 +208,7 @@ export interface ISubscribers {
     name?: string;
     email?: string;
     skills: string[];
+    level: string;
     createdBy?: string;
     isDeleted?: boolean;
     deletedAt?: boolean | null;

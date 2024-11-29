@@ -11,6 +11,7 @@ import { SKILLS_LIST } from "@/config/utils";
 import { useAppSelector } from "@/redux/hooks";
 
 import { IState, State } from "country-state-city";
+import { ProFormSelect } from "@ant-design/pro-components";
 
 interface IProps {
     open: boolean;
@@ -289,11 +290,12 @@ const JobByEmail = (props: any) => {
     }, [])
 
     const onFinish = async (values: any) => {
-        const { skills } = values;
+        const { skills, level } = values;
         const res = await callUpdateSubscriber({
             email: user.email,
             name: user.name,
-            skills: skills ? skills : []
+            skills: skills ? skills : [],
+            level: level,
         });
         if (res.data) {
             message.success("Cập nhật thông tin thành công");
@@ -334,6 +336,21 @@ const JobByEmail = (props: any) => {
                                 options={SKILLS_LIST}
                             />
                         </Form.Item>
+                    </Col>
+                    <Col span={24} md={6}>
+                        <ProFormSelect
+                            name="level"
+                            label="Trình độ"
+                            valueEnum={{
+                                INTERN: 'INTERN',
+                                FRESHER: 'FRESHER',
+                                JUNIOR: 'JUNIOR',
+                                MIDDLE: 'MIDDLE',
+                                SENIOR: 'SENIOR',
+                            }}
+                            placeholder="Please select a level"
+                            rules={[{ required: true, message: 'Vui lòng chọn level!' }]}
+                        />
                     </Col>
                     <Col span={24}>
                         <Button onClick={() => form.submit()}>Cập nhật</Button>

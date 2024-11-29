@@ -1,7 +1,7 @@
 import { callFetchJob } from '@/config/api';
 import { LOCATION_LIST, convertSlug, getLocationName } from '@/config/utils';
 import { IJob } from '@/types/backend';
-import { EnvironmentOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { BankOutlined, EnvironmentOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { Card, Col, Empty, Pagination, Row, Spin } from 'antd';
 import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -117,6 +117,8 @@ const JobCard = (props: IProps) => {
                                         </div>
                                         <div className={styles["card-job-right"]}>
                                             <div className={styles["job-title"]}>{item.name}</div>
+                                            <div style={{ fontWeight: 500, fontSize: '15px' }}>{item?.company?.name}</div>
+                                            {/* <div className={styles["job-location"]}><BankOutlined style={{ color: '#0c2d48' }} />{item?.company?.name}</div> */}
                                             <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
                                             <div><ThunderboltOutlined style={{ color: 'orange' }} />&nbsp;{(item.salary + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
                                             <div className={styles["job-updatedAt"]}>{dayjs(item.updatedAt).fromNow()}</div>

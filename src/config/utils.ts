@@ -86,6 +86,12 @@ export const getLocationName = (value: string) => {
     return 'unknown'
 }
 
+export const getSkillName = (value: string) => {
+    const skillFilter = SKILLS_LIST.filter(item => item.value === value);
+    if (skillFilter.length) return skillFilter[0].label;
+    return 'unknown'
+}
+
 export function colorMethod(method: "POST" | "PUT" | "GET" | "DELETE" | string) {
     switch (method) {
         case "POST":

@@ -6,7 +6,7 @@ import styles from 'styles/client.module.scss';
 import parse from 'html-react-parser';
 import { Col, Divider, Row, Skeleton, Tag, Select, Input, Button } from "antd";
 import { DollarOutlined, EnvironmentOutlined, HistoryOutlined } from "@ant-design/icons";
-import { getLocationName } from "@/config/utils";
+import { getLocationName, getSkillName } from "@/config/utils";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ApplyModal from "@/components/client/modal/apply.modal";
@@ -36,7 +36,6 @@ const ClientJobDetailPage = (props: any) => {
     const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
     const [skills, setSkills] = useState<string[]>([]);
 
-    let location = useLocation();
     let params = new URLSearchParams(location.search);
     const id = params?.get("id"); // job id
 
@@ -96,12 +95,6 @@ const ClientJobDetailPage = (props: any) => {
         setIsLoading(false);
         console.log(">> check result", displayJob)
     };
-
-
-
-    const handleChange = () => {
-        //
-    }
 
     return (
 
@@ -292,19 +285,20 @@ const ClientJobDetailPage = (props: any) => {
                                     </div>
                                 </div>
                             </Col>
-
-                            <Col span={24} md={8}>
+                        {/* Component job card preview*/}
+                        <Col span={24} md={8}>
                                 <div className="job-listing-wrapper"
                                     style={{
                                         flexGrow: 1
                                     }}
                                 >
                                     <h4 style={{
+                                        fontWeight: 500,
                                         fontSize: '20px',
                                         marginBlockStart: '50px',
                                         marginBlockEnd: '50px',
                                         padding: '0 4px',
-                                    }}>việc java làm đang tuyển dụng</h4>
+                                    }}>Việc làm liên quan</h4>
 
                                     <div
                                         className="job-listing"
@@ -344,62 +338,27 @@ const ClientJobDetailPage = (props: any) => {
                                                         <p style={{ color: 'green' }}><DollarOutlined />  You'll love it</p>
                                                     </div>
                                                     <div style={{ color: 'green', marginTop: '2px' }}>
-                                                        <span>&nbsp;{(jobDetail.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
+                                                        <span>&nbsp;{(item.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
                                                     </div>
                                                 </div>
                                                 <Divider />
-                                                {jobDetail?.skills?.map((item, index) => {
+                                                <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                {item?.skills?.map((item, index) => {
                                                     return (
                                                         <Tag key={`${index}-key`} color="red" >
-                                                            {item}
+                                                            {getSkillName(item)}
                                                         </Tag>
                                                     )
                                                 })}
                                                 <Divider />
-                                                <p>{item.level}</p>
+
                                             </div>
                                         ))}
-
-
-
-                                        {/* <div className="office-job"
-                                            style={{
-                                                backgroundColor: '#FFF4E9',
-                                                minHeight: 280,
-                                                padding: 24,
-                                                border: '1px solid #eee',
-                                                borderRadius: '15px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
-
-                                        <div className="office-job"
-                                            style={{
-                                                backgroundColor: '#FFF4E9',
-                                                minHeight: 280,
-                                                padding: 24,
-                                                border: '1px solid #eee',
-                                                borderRadius: '15px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div> */}
-
                                     </div>
 
                                 </div>
-                            </Col>
+                            </Col> 
+
                         </>
                     }
                 </Row>

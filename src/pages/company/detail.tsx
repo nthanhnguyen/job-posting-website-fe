@@ -1,23 +1,20 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
-import { ICompany } from "@/types/backend";
-import { callFetchCompanyById } from "@/config/api";
+import { ICompany, IJob } from "@/types/backend";
+import { callFetchCompanyById, callFetchJobForCompany } from "@/config/api";
 import styles from 'styles/client.module.scss';
 import parse from 'html-react-parser';
-import { Col, Divider, Row, Skeleton, Button, Menu } from "antd";
-import { EnvironmentOutlined } from "@ant-design/icons";
+import { Col, Divider, Row, Skeleton, Button, Menu, Tag } from "antd";
+import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Container } from "@mui/material";
-import { Link } from "react-router-dom";
 import type { MenuProps } from 'antd';
+import { getLocationName, getSkillName } from "@/config/utils";
 
-import { callFetchJob } from '@/config/api';
-import { LOCATION_LIST, convertSlug, getLocationName } from '@/config/utils';
-import { IJob } from '@/types/backend';
 
 
 const ClientCompanyDetailPage = (props: any) => {
     const [companyDetail, setCompanyDetail] = useState<ICompany | null>(null);
-    const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
+    const [jobList, setJobList] = useState<IJob[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const topContentRef = React.useRef<HTMLDivElement | null>(null);
     const [isStickyVisible, setIsStickyVisible] = useState(false);
@@ -25,7 +22,7 @@ const ClientCompanyDetailPage = (props: any) => {
 
     let location = useLocation();
     let params = new URLSearchParams(location.search);
-    const id = params?.get("id"); // job id
+    const id = params?.get("id"); // company id
 
     const onClick: MenuProps['onClick'] = (e) => {
         console.log('click ', e);
@@ -39,6 +36,22 @@ const ClientCompanyDetailPage = (props: any) => {
                 const res = await callFetchCompanyById(id);
                 if (res?.data) {
                     setCompanyDetail(res.data)
+                }
+                setIsLoading(false)
+            }
+        }
+        init();
+    }, [id]);
+
+    useEffect(() => {
+        let query = `companyId=${id}`;
+        const init = async () => {
+            if (id) {
+                setIsLoading(true)
+                const res = await callFetchJobForCompany(query);
+                if (res?.data) {
+                    setJobList(res.data.result);
+                    console.log('jobList :>> ', jobList);
                 }
                 setIsLoading(false)
             }
@@ -146,7 +159,7 @@ const ClientCompanyDetailPage = (props: any) => {
                                                 marginTop: '48px'
                                             }}
                                         >
-                                            <h4>THÔNG TIN CHUNG</h4>
+                                            <h4 style={{ fontWeight: 600, fontSize: '20px' }}>THÔNG TIN CHUNG</h4>
                                             <Divider />
                                             {parse(companyDetail?.description ?? "")}
                                         </div>
@@ -154,9 +167,82 @@ const ClientCompanyDetailPage = (props: any) => {
                                 </div>
                             </Col>
 
-
-
+                            {/* Component job card preview*/}
                             <Col span={24} md={8}>
+                                <div className="job-listing-wrapper"
+                                    style={{
+                                        flexGrow: 1
+                                    }}
+                                >
+                                    <h4 style={{
+                                        fontWeight: 500,
+                                        fontSize: '20px',
+                                        marginBlockStart: '50px',
+                                        marginBlockEnd: '50px',
+                                        padding: '0 4px',
+                                    }}>Việc làm liên quan</h4>
+
+                                    <div
+                                        className="job-listing"
+                                        style={{
+                                            padding: '0 0 48px 0',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            width: '100%',
+
+                                        }}>
+                                        {jobList?.map(item => (
+                                            <div className="office-job"
+                                                key={item._id}
+                                                style={{
+                                                    backgroundColor: '#FFF4E9',
+                                                    minHeight: 280,
+                                                    padding: 24,
+                                                    border: '1px solid #eee',
+                                                    borderRadius: '15px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                    <div className="company-image"
+                                                        style={{ width: '70px', marginBottom: '5px' }}>
+                                                        <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
+                                                    </div>
+                                                    <div className="company-name"
+                                                        style={{ textTransform: 'uppercase', }}
+                                                    >
+                                                        {item.company?.name}
+                                                    </div>
+                                                </div>
+                                                <div style={{ fontWeight: '500', marginTop: '5px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                    <div>
+                                                        <p style={{ color: 'green' }}><DollarOutlined />  You'll love it</p>
+                                                    </div>
+                                                    <div style={{ color: 'green', marginTop: '2px' }}>
+                                                        <span>&nbsp;{(item.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
+                                                    </div>
+                                                </div>
+                                                <Divider />
+                                                <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                {item?.skills?.map((item, index) => {
+                                                    return (
+                                                        <Tag key={`${index}-key`} color="red" >
+                                                            {getSkillName(item)}
+                                                        </Tag>
+                                                    )
+                                                })}
+                                                <Divider />
+
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                </div>
+                            </Col>                
+
+
+                            {/* <Col span={24} md={8}>
                                 <div className="job-listing-wrapper" style={{ marginTop: 90 }}>
                                     <h4 style={{
                                         fontSize: '25px', marginBlockStart: '50px', marginBlockEnd: '50px', padding: '0 4px', marginLeft: '25px'
@@ -178,7 +264,7 @@ const ClientCompanyDetailPage = (props: any) => {
 
                                     </div>
                                 </div>
-                            </Col>
+                            </Col> */}
                         </>
                     }
                 </Row>
