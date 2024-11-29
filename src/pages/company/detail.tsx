@@ -10,11 +10,14 @@ import { Container } from "@mui/material";
 import { Link } from "react-router-dom";
 import type { MenuProps } from 'antd';
 
-
+import { callFetchJob } from '@/config/api';
+import { LOCATION_LIST, convertSlug, getLocationName } from '@/config/utils';
+import { IJob } from '@/types/backend';
 
 
 const ClientCompanyDetailPage = (props: any) => {
     const [companyDetail, setCompanyDetail] = useState<ICompany | null>(null);
+    const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const topContentRef = React.useRef<HTMLDivElement | null>(null);
     const [isStickyVisible, setIsStickyVisible] = useState(false);
@@ -151,6 +154,8 @@ const ClientCompanyDetailPage = (props: any) => {
                                 </div>
                             </Col>
 
+
+
                             <Col span={24} md={8}>
                                 <div className="job-listing-wrapper" style={{ marginTop: 90 }}>
                                     <h4 style={{
@@ -160,51 +165,20 @@ const ClientCompanyDetailPage = (props: any) => {
                                         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', maxHeight: '700px', overflow: 'scroll', marginTop: '45px', overflowX: 'hidden' }}
                                     >
                                         <div className="office-job"
+
                                             style={{
                                                 background: '#FFF4E9', minHeight: '280px', padding: '24px', border: '1px solid #eee', borderRadius: '15px', width: '300px', marginBottom: '20px'
                                             }}>
-                                            <h4>Blablabla</h4>
+                                            <h4></h4>
                                             <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
-                                        <div className="office-job"
-                                            style={{
-                                                background: '#FFF4E9', minHeight: '280px', padding: '24px', border: '1px solid #eee', borderRadius: '15px', width: '300px', marginBottom: '20px'
-                                            }}>
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
+                                            <p></p>
                                             <Divider />
                                             <p>Content</p>
                                         </div>
-                                        <div className="office-job"
-                                            style={{
-                                                background: '#FFF4E9', minHeight: '280px', padding: '24px', border: '1px solid #eee', borderRadius: '15px', width: '300px', marginBottom: '20px'
-                                            }}>
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
-                                        <div className="office-job"
-                                            style={{
-                                                background: '#FFF4E9', minHeight: '280px', padding: '24px', border: '1px solid #eee', borderRadius: '15px', width: '300px', marginBottom: '20px'
-                                            }}>
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
+
                                     </div>
                                 </div>
                             </Col>
-
-
-
                         </>
                     }
                 </Row>

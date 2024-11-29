@@ -4,6 +4,7 @@ import { LOCATION_LIST, SKILLS_LIST } from '@/config/utils';
 import { ProForm } from '@ant-design/pro-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Skills from '@/pages/resume-builder/resume/components/forms/Skills';
 
 interface IProps {
     //

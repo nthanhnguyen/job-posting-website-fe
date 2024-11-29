@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { IJob } from "@/types/backend";
 import { callFetchJobById } from "@/config/api";
@@ -13,15 +13,28 @@ import ApplyModal from "@/components/client/modal/apply.modal";
 import { FilterOutlined, HeartOutlined, RightCircleOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
 import { Container } from "@mui/material";
 import SearchClient from "@/components/client/search.client";
+import { callFetchJob } from '@/config/api';
+
+
 
 dayjs.extend(relativeTime)
 
 
 const ClientJobDetailPage = (props: any) => {
     const [jobDetail, setJobDetail] = useState<IJob | null>(null);
+    const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [searchParams] = useSearchParams();
+
+
+    const [current, setCurrent] = useState(1);
+    const [pageSize, setPageSize] = useState(5);
+    const [total, setTotal] = useState(0);
+    const [filter, setFilter] = useState("");
+    const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
+    const [skills, setSkills] = useState<string[]>([]);
 
     let location = useLocation();
     let params = new URLSearchParams(location.search);
@@ -41,8 +54,53 @@ const ClientJobDetailPage = (props: any) => {
         init();
     }, [id]);
 
+    useEffect(() => {
+        // Get value fezz
+        // Lấy giá trị từ query params và cập nhật ngay vào state
+        const skillsParam = searchParams.get('skills');
+        const locationParam = searchParams.get('location');
+
+        // Use temp variables to save updated value
+        const updatedSkills = skillsParam ? skillsParam.split(',') : [];
+        const updatedLocation = locationParam ? locationParam.split(',') : [];
+
+        setSkills(updatedSkills);
+
+        // Call fetchJob after updated state
+        fetchJob(updatedSkills, updatedLocation);
+    }, [searchParams, current, pageSize, filter, sortQuery]);
+
+    const fetchJob = async (updatedSkills: string[], updatedLocation: string[]) => {
+        setIsLoading(true);
+        let query = `current=${current}&pageSize=${pageSize}`;
+        if (filter) {
+            query += `&${filter}`;
+        }
+        if (sortQuery) {
+            query += `&${sortQuery}`;
+        }
+
+        // Add skills and location to query if exist
+        if (updatedSkills.length > 0) {
+            query += `&skills=${encodeURIComponent(updatedSkills.join(','))}`;
+        }
+        if (updatedLocation.length > 0) {
+            query += `&location=${encodeURIComponent(updatedLocation.join(','))}`;
+        }
+
+        const res = await callFetchJob(query);
+        if (res && res.data) {
+            setDisplayJob(res.data.result);
+            setTotal(res.data.meta.total);
+        }
+        setIsLoading(false);
+        console.log(">> check result", displayJob)
+    };
+
+
+
     const handleChange = () => {
-        return
+        //
     }
 
     return (
@@ -257,24 +315,54 @@ const ClientJobDetailPage = (props: any) => {
                                             width: '100%',
 
                                         }}>
-                                        <div className="office-job"
-                                            style={{
-                                                backgroundColor: '#FFF4E9',
-                                                minHeight: 280,
-                                                padding: 24,
-                                                border: '1px solid red',
-                                                borderRadius: '15px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
+                                        {displayJob?.map(item => (
+                                            <div className="office-job"
+                                                key={item._id}
+                                                style={{
+                                                    backgroundColor: '#FFF4E9',
+                                                    minHeight: 280,
+                                                    padding: 24,
+                                                    border: '1px solid #eee',
+                                                    borderRadius: '15px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                    <div className="company-image"
+                                                        style={{ width: '70px', marginBottom: '5px' }}>
+                                                        <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
+                                                    </div>
+                                                    <div className="company-name"
+                                                        style={{ textTransform: 'uppercase', }}
+                                                    >
+                                                        {item.company?.name}
+                                                    </div>
+                                                </div>
+                                                <div style={{ fontWeight: '500', marginTop: '5px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                    <div>
+                                                        <p style={{ color: 'green' }}><DollarOutlined />  You'll love it</p>
+                                                    </div>
+                                                    <div style={{ color: 'green', marginTop: '2px' }}>
+                                                        <span>&nbsp;{(jobDetail.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
+                                                    </div>
+                                                </div>
+                                                <Divider />
+                                                {jobDetail?.skills?.map((item, index) => {
+                                                    return (
+                                                        <Tag key={`${index}-key`} color="red" >
+                                                            {item}
+                                                        </Tag>
+                                                    )
+                                                })}
+                                                <Divider />
+                                                <p>{item.level}</p>
+                                            </div>
+                                        ))}
 
-                                        <div className="office-job"
+
+
+                                        {/* <div className="office-job"
                                             style={{
                                                 backgroundColor: '#FFF4E9',
                                                 minHeight: 280,
@@ -306,41 +394,7 @@ const ClientJobDetailPage = (props: any) => {
                                             <p>Content</p>
                                             <Divider />
                                             <p>Content</p>
-                                        </div>
-
-                                        <div className="office-job"
-                                            style={{
-                                                backgroundColor: '#FFF4E9',
-                                                minHeight: 280,
-                                                padding: 24,
-                                                border: '1px solid #eee',
-                                                borderRadius: '15px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
-
-                                        <div className="office-job"
-                                            style={{
-                                                backgroundColor: '#FFF4E9',
-                                                minHeight: 280,
-                                                padding: 24,
-                                                border: '1px solid #eee',
-                                                borderRadius: '15px',
-                                                marginBottom: '20px'
-                                            }}
-                                        >
-                                            <h4>Blablabla</h4>
-                                            <Divider />
-                                            <p>Content</p>
-                                            <Divider />
-                                            <p>Content</p>
-                                        </div>
+                                        </div> */}
 
                                     </div>
 
