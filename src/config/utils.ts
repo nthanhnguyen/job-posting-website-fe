@@ -3,6 +3,7 @@ import { grey, green, blue, red, orange } from '@ant-design/colors';
 export const SKILLS_LIST =
     [
         { label: "React.JS", value: "REACT.JS" },
+        { label: "Node.JS", value: "NODE.JS" },
         { label: "React Native", value: "REACT NATIVE" },
         { label: "Vue.JS", value: "VUE.JS" },
         { label: "Angular", value: "ANGULAR" },
@@ -11,7 +12,22 @@ export const SKILLS_LIST =
         { label: "Java", value: "JAVA" },
         { label: "Frontend", value: "FRONTEND" },
         { label: "Backend", value: "BACKEND" },
-        { label: "Fullstack", value: "FULLSTACK" }
+        { label: "Fullstack", value: "FULLSTACK" },
+        { label: "C Sharp", value: "C SHARP" },
+        { label: "Asp.net", value: "ASP.NET" },
+        { label: ".NET", value: ".NET" },
+        { label: "PHP", value: "PHP" },
+        { label: "Laravel", value: "LARAVEL" },
+        { label: "MySQL", value: "MYSQL" },
+        { label: "PostgreSql", value: "POSTGRESQL" },
+        { label: "NoSQL", value: "NOSQL" },
+        { label: "SQL", value: "SQL" },
+        { label: "Python", value: "PYTHON" },
+        { label: "Django", value: "DJANGO" },
+        { label: "Next.JS", value: "NEXT.JS" },
+        { label: "Golang", value: "GOLANG" },
+        { label: "English", value: "ENGLISH" },
+        { label: "Scrum", value: "SCRUM" },
     ];
 
 export const LOCATION_LIST =
