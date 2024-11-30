@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { IJob } from "@/types/backend";
-import { callFetchJobById } from "@/config/api";
+import { callFetchJobById, callFetchRelatedJob } from "@/config/api";
 import styles from 'styles/client.module.scss';
 import parse from 'html-react-parser';
 import { Col, Divider, Row, Skeleton, Tag, Select, Input, Button } from "antd";
@@ -30,11 +30,10 @@ const ClientJobDetailPage = (props: any) => {
 
 
     const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(6);
     const [total, setTotal] = useState(0);
     const [filter, setFilter] = useState("");
-    const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
-    const [skills, setSkills] = useState<string[]>([]);
+    const sortQuery = "sort=-updatedAt"
 
     let params = new URLSearchParams(location.search);
     const id = params?.get("id"); // job id
@@ -45,7 +44,11 @@ const ClientJobDetailPage = (props: any) => {
                 setIsLoading(true)
                 const res = await callFetchJobById(id);
                 if (res?.data) {
-                    setJobDetail(res.data)
+                    setJobDetail(res.data);
+                    console.log('jobDetail :>> ', jobDetail);
+                    if (res.data?.skills) {
+                        fetchJob(res.data.skills);
+                    }
                 }
                 setIsLoading(false)
             }
@@ -53,41 +56,16 @@ const ClientJobDetailPage = (props: any) => {
         init();
     }, [id]);
 
-    useEffect(() => {
-        // Get value fezz
-        // Lấy giá trị từ query params và cập nhật ngay vào state
-        const skillsParam = searchParams.get('skills');
-        const locationParam = searchParams.get('location');
-
-        // Use temp variables to save updated value
-        const updatedSkills = skillsParam ? skillsParam.split(',') : [];
-        const updatedLocation = locationParam ? locationParam.split(',') : [];
-
-        setSkills(updatedSkills);
-
-        // Call fetchJob after updated state
-        fetchJob(updatedSkills, updatedLocation);
-    }, [searchParams, current, pageSize, filter, sortQuery]);
-
-    const fetchJob = async (updatedSkills: string[], updatedLocation: string[]) => {
+    const fetchJob = async (updatedSkills: string[]) => {
         setIsLoading(true);
-        let query = `current=${current}&pageSize=${pageSize}`;
-        if (filter) {
-            query += `&${filter}`;
-        }
-        if (sortQuery) {
-            query += `&${sortQuery}`;
-        }
+        let query = `&${sortQuery}`;
 
         // Add skills and location to query if exist
         if (updatedSkills.length > 0) {
             query += `&skills=${encodeURIComponent(updatedSkills.join(','))}`;
         }
-        if (updatedLocation.length > 0) {
-            query += `&location=${encodeURIComponent(updatedLocation.join(','))}`;
-        }
 
-        const res = await callFetchJob(query);
+        const res = await callFetchRelatedJob(query);
         if (res && res.data) {
             setDisplayJob(res.data.result);
             setTotal(res.data.meta.total);
@@ -264,7 +242,7 @@ const ClientJobDetailPage = (props: any) => {
                                                 {jobDetail?.skills?.map((item, index) => {
                                                     return (
                                                         <Tag key={`${index}-key`} color="gold" >
-                                                            {item}
+                                                            {getSkillName(item)}
                                                         </Tag>
                                                     )
                                                 })}

@@ -1,4 +1,4 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
@@ -122,16 +122,24 @@ export const callFetchJob = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs?${query}`);
 }
 
+export const callFetchRelatedJob = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginateC<IJob>>>(`/api/v1/jobs?${query}`);
+}
+
 export const callFetchJobForHr = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/employer?${query}`);
 }
 
 export const callFetchJobForCompany = (query: string) => {
-    return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/company?${query}`);
+    return axios.get<IBackendRes<IModelPaginateC<IJob>>>(`/api/v1/jobs/company?${query}`);
 }
 
 export const callFetchJobById = (id: string) => {
     return axios.get<IBackendRes<IJob>>(`/api/v1/jobs/${id}`);
+}
+
+export const callFetchSubscriberJob = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/subscriber-job?${query}`);
 }
 
 /**
