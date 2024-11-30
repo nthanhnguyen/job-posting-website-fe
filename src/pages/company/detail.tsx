@@ -181,65 +181,67 @@ const ClientCompanyDetailPage = (props: any) => {
                                         marginBlockEnd: '50px',
                                         padding: '0 4px',
                                     }}>Việc làm liên quan</h4>
+                                    <div className="job-listing"
+                                        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', maxHeight: '700px', overflow: 'scroll', marginTop: '45px', overflowX: 'hidden' }}
+                                    >
+                                        <div
+                                            className="job-listing"
+                                            style={{
+                                                padding: '0 0 48px 0',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                width: '100%',
 
-                                    <div
-                                        className="job-listing"
-                                        style={{
-                                            padding: '0 0 48px 0',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            width: '100%',
+                                            }}>
+                                            {jobList?.map(item => (
+                                                <div className="office-job"
+                                                    key={item._id}
+                                                    style={{
+                                                        backgroundColor: '#FFF4E9',
+                                                        minHeight: 280,
+                                                        padding: 24,
+                                                        border: '1px solid #eee',
+                                                        borderRadius: '15px',
+                                                        marginBottom: '20px'
+                                                    }}
+                                                >
+                                                    <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
+                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                        <div className="company-image"
+                                                            style={{ width: '70px', marginBottom: '5px' }}>
+                                                            <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
+                                                        </div>
+                                                        <div className="company-name"
+                                                            style={{ textTransform: 'uppercase', }}
+                                                        >
+                                                            {item.company?.name}
+                                                        </div>
+                                                    </div>
+                                                    <div style={{ fontWeight: '500', marginTop: '5px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+                                                        <div>
+                                                            <p style={{ color: 'green' }}><DollarOutlined />  You'll love it</p>
+                                                        </div>
+                                                        <div style={{ color: 'green', marginTop: '2px' }}>
+                                                            <span>&nbsp;{(item.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
+                                                        </div>
+                                                    </div>
+                                                    <Divider />
+                                                    <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                    {item?.skills?.map((item, index) => {
+                                                        return (
+                                                            <Tag key={`${index}-key`} color="red" >
+                                                                {getSkillName(item)}
+                                                            </Tag>
+                                                        )
+                                                    })}
+                                                    <Divider />
 
-                                        }}>
-                                        {jobList?.map(item => (
-                                            <div className="office-job"
-                                                key={item._id}
-                                                style={{
-                                                    backgroundColor: '#FFF4E9',
-                                                    minHeight: 280,
-                                                    padding: 24,
-                                                    border: '1px solid #eee',
-                                                    borderRadius: '15px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                                                    <div className="company-image"
-                                                        style={{ width: '70px', marginBottom: '5px' }}>
-                                                        <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
-                                                    </div>
-                                                    <div className="company-name"
-                                                        style={{ textTransform: 'uppercase', }}
-                                                    >
-                                                        {item.company?.name}
-                                                    </div>
                                                 </div>
-                                                <div style={{ fontWeight: '500', marginTop: '5px', display: 'flex', alignItems: 'center', gap: '20px' }}>
-                                                    <div>
-                                                        <p style={{ color: 'green' }}><DollarOutlined />  You'll love it</p>
-                                                    </div>
-                                                    <div style={{ color: 'green', marginTop: '2px' }}>
-                                                        <span>&nbsp;{(item.salary + "")?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</span>
-                                                    </div>
-                                                </div>
-                                                <Divider />
-                                                <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
-                                                {item?.skills?.map((item, index) => {
-                                                    return (
-                                                        <Tag key={`${index}-key`} color="red" >
-                                                            {getSkillName(item)}
-                                                        </Tag>
-                                                    )
-                                                })}
-                                                <Divider />
-
-                                            </div>
-                                        ))}
+                                            ))}
+                                        </div>
                                     </div>
-
                                 </div>
-                            </Col>                
+                            </Col>
 
 
                             {/* <Col span={24} md={8}>
