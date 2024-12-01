@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { ICompany, IJob } from "@/types/backend";
 import { callFetchCompanyById, callFetchJobForCompany } from "@/config/api";
@@ -8,7 +8,7 @@ import { Col, Divider, Row, Skeleton, Button, Menu, Tag } from "antd";
 import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Container } from "@mui/material";
 import type { MenuProps } from 'antd';
-import { getLocationName, getSkillName } from "@/config/utils";
+import { convertSlug, getLocationName, getSkillName } from "@/config/utils";
 
 
 
@@ -24,10 +24,7 @@ const ClientCompanyDetailPage = (props: any) => {
     let params = new URLSearchParams(location.search);
     const id = params?.get("id"); // company id
 
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click ', e);
-        setCurrent(e.key);
-    };
+    const navigate = useNavigate();
 
     useEffect(() => {
         const init = async () => {
@@ -75,6 +72,11 @@ const ClientCompanyDetailPage = (props: any) => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const handleViewDetailJob = (item: IJob) => {
+        const slug = convertSlug(item.name);
+        navigate(`/job/${slug}?id=${item._id}`);
+    };
 
     return (
         <div className={`${styles["container"]} ${styles["detail-job-section"]}`}>
@@ -180,7 +182,7 @@ const ClientCompanyDetailPage = (props: any) => {
                                         marginBlockStart: '50px',
                                         marginBlockEnd: '50px',
                                         padding: '0 4px',
-                                    }}>Việc làm liên quan</h4>
+                                    }}>{jobList.length} việc làm đang ứng tuyển</h4>
                                     <div className="job-listing"
                                         style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', maxHeight: '700px', overflow: 'scroll', marginTop: '45px', overflowX: 'hidden' }}
                                     >
@@ -202,8 +204,10 @@ const ClientCompanyDetailPage = (props: any) => {
                                                         padding: 24,
                                                         border: '1px solid #eee',
                                                         borderRadius: '15px',
-                                                        marginBottom: '20px'
+                                                        marginBottom: '20px',
+                                                        cursor: 'pointer'
                                                     }}
+                                                    onClick={() => handleViewDetailJob(item)}
                                                 >
                                                     <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>

@@ -1,12 +1,12 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { IJob } from "@/types/backend";
-import { callFetchJobById, callFetchRelatedJob } from "@/config/api";
+import { callFetchJobById } from "@/config/api";
 import styles from 'styles/client.module.scss';
 import parse from 'html-react-parser';
 import { Col, Divider, Row, Skeleton, Tag, Select, Input, Button } from "antd";
 import { DollarOutlined, EnvironmentOutlined, HistoryOutlined } from "@ant-design/icons";
-import { getLocationName, getSkillName } from "@/config/utils";
+import { convertSlug, getLocationName, getSkillName } from "@/config/utils";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ApplyModal from "@/components/client/modal/apply.modal";
@@ -26,17 +26,14 @@ const ClientJobDetailPage = (props: any) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [searchParams] = useSearchParams();
 
-
-    const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(6);
     const [total, setTotal] = useState(0);
-    const [filter, setFilter] = useState("");
     const sortQuery = "sort=-updatedAt"
 
     let params = new URLSearchParams(location.search);
     const id = params?.get("id"); // job id
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const init = async () => {
@@ -45,9 +42,8 @@ const ClientJobDetailPage = (props: any) => {
                 const res = await callFetchJobById(id);
                 if (res?.data) {
                     setJobDetail(res.data);
-                    console.log('jobDetail :>> ', jobDetail);
                     if (res.data?.skills) {
-                        fetchJob(res.data.skills);
+                        await fetchJob(res.data.skills, id); // bug in here
                     }
                 }
                 setIsLoading(false)
@@ -56,7 +52,7 @@ const ClientJobDetailPage = (props: any) => {
         init();
     }, [id]);
 
-    const fetchJob = async (updatedSkills: string[]) => {
+    const fetchJob = async (updatedSkills: string[], excludeJobId: string ) => {
         setIsLoading(true);
         let query = `&${sortQuery}`;
 
@@ -65,18 +61,24 @@ const ClientJobDetailPage = (props: any) => {
             query += `&skills=${encodeURIComponent(updatedSkills.join(','))}`;
         }
 
-        const res = await callFetchRelatedJob(query);
+        if (excludeJobId) {
+            query += `&excludeJobId=${excludeJobId}`;
+        }
+
+        const res = await callFetchJob(query);
         if (res && res.data) {
             setDisplayJob(res.data.result);
             setTotal(res.data.meta.total);
         }
         setIsLoading(false);
-        console.log(">> check result", displayJob)
+    };
+
+    const handleViewDetailJob = (item: IJob) => {
+        const slug = convertSlug(item.name);
+        navigate(`/job/${slug}?id=${item._id}`);
     };
 
     return (
-
-
         <div className={`${styles["container"]} ${styles["detail-job-section"]}`}>
             {isLoading ?
                 <Skeleton />
@@ -205,7 +207,8 @@ const ClientJobDetailPage = (props: any) => {
                                         }}>
                                             <h4
                                                 style={{
-                                                    fontSize: '20px'
+                                                    fontSize: '20px',
+                                                    fontWeight: 600,
                                                 }}>
                                                 {jobDetail.name}</h4>
                                             <p style={{
@@ -276,8 +279,7 @@ const ClientJobDetailPage = (props: any) => {
                                         marginBlockStart: '50px',
                                         marginBlockEnd: '50px',
                                         padding: '0 4px',
-                                    }}>Việc làm liên quan</h4>
-
+                                    }}>Việc làm tương tự</h4>
                                     <div
                                         className="job-listing"
                                         style={{
@@ -296,8 +298,11 @@ const ClientJobDetailPage = (props: any) => {
                                                     padding: 24,
                                                     border: '1px solid #eee',
                                                     borderRadius: '15px',
-                                                    marginBottom: '20px'
+                                                    marginBottom: '20px',
+                                                    cursor: 'pointer'
                                                 }}
+                                                onClick={() => handleViewDetailJob(item)}
+                                                
                                             >
                                                 <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
