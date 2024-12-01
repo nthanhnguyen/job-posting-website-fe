@@ -4,6 +4,7 @@ import { Button, Container, Divider, Typography } from '@mui/material';
 import dummy from '../resume-builder/data/dummy';
 import Modal from '@mui/material/Modal';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const style = {
     position: 'absolute',
@@ -72,7 +73,7 @@ const BlogDetail = () => {
                 <Divider textAlign="left" sx={{ fontWeight: 'bold', fontSize: '20px', marginTop: '25px', marginBottom: '25px' }}>Mới nhất</Divider>
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={4} columns={24}>
-                        {dummy.blog?.map((data: any) => {
+                        {dummy.blog0?.map((data: any) => {
                             return (
                                 <Grid size={8}
                                     key={data._id}
@@ -85,19 +86,21 @@ const BlogDetail = () => {
                                         gap: '12px',
                                         height: 600,
                                     }}>
-                                    <div className='image-blog'
-                                        style={{
-                                            height: '250px',
-                                            width: '100%',
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
-                                    </div>
+                                    <a href={`/blog/detail/viecit/${data._id}`}>
+                                        <div className='image-blog'
+                                            style={{
+                                                height: '250px',
+                                                width: '100%',
+                                                cursor: 'pointer'
+                                            }}
+                                        >
+                                            <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                        </div>
+                                    </a>
                                     <div className='text-blog' style={{ padding: '20px 20px' }}>
                                         <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
-                                        <p style={{ paddingBottom: '12px' }}>{data.content}</p>
-                                        <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyên môn IT</Button>
+                                        <p style={{ paddingBottom: '12px' }}>{data.description}</p>
+                                        <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Việc IT</Button>
                                     </div>
                                 </Grid>
                             );
@@ -119,18 +122,20 @@ const BlogDetail = () => {
                                     gap: '12px',
                                     height: 600,
                                 }}>
-                                <div className='image-blog'
-                                    style={{
-                                        height: '250px',
-                                        width: '100%',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
-                                </div>
+                                <a href={`/blog/detail/chuyenmonit/${data._id}`}>
+                                    <div className='image-blog'
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                    </div>
+                                </a>
                                 <div className='text-blog' style={{ padding: '20px 20px' }}>
                                     <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
-                                    <p style={{ paddingBottom: '12px' }}>{data.content}</p>
+                                    <p style={{ paddingBottom: '12px' }}>{data.description}</p>
                                     <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyên môn IT</Button>
                                 </div>
                             </Grid>
@@ -152,18 +157,20 @@ const BlogDetail = () => {
                                     gap: '12px',
                                     height: 600,
                                 }}>
-                                <div className='image-blog'
-                                    style={{
-                                        height: '250px',
-                                        width: '100%',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
-                                </div>
+                                <a href={`/blog/detail/chuyenit/${data._id}`}>
+                                    <div className='image-blog'
+                                        style={{
+                                            height: '250px',
+                                            width: '100%',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        <img style={{ borderRadius: '12px 12px 0 0' }} src={data.image} />
+                                    </div>
+                                </a>
                                 <div className='text-blog' style={{ padding: '20px 20px' }}>
                                     <h1 style={{ fontWeight: 'bold', fontSize: '20px', paddingBottom: '12px' }}>{data.title}</h1>
-                                    <p style={{ paddingBottom: '12px' }}>{data.content}</p>
+                                    <p style={{ paddingBottom: '12px' }}>{data.description}</p>
                                     <Button sx={{ fontSize: '12px', textTransform: 'inherit' }} size='small' variant="outlined">Chuyện IT</Button>
                                 </div>
                             </Grid>
@@ -176,7 +183,7 @@ const BlogDetail = () => {
                     <span>Câu chuyện sự nghiệp của bạn sẽ truyền cảm hứng đến rất nhiều người.</span>
                 </div>
                 <div>
-                    <Button onClick={handleOpen} sx={{ background: 'red', color: '#fff', border: 'unset', fontSize: '18px' }} variant='outlined' size='large'>Chia sẻ ngay</Button>
+                    {/* <Button onClick={handleOpen} sx={{ background: 'red', color: '#fff', border: 'unset', fontSize: '18px' }} variant='outlined' size='large'>Chia sẻ ngay</Button> */}
                     <Modal
                         open={open}
                         onClose={handleClose}
