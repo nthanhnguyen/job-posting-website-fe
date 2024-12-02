@@ -1,8 +1,8 @@
 import { callFetchJob } from '@/config/api';
-import { LOCATION_LIST, convertSlug, getLocationName } from '@/config/utils';
+import { LOCATION_LIST, convertSlug, getLocationName, getSkillName } from '@/config/utils';
 import { IJob } from '@/types/backend';
 import { BankOutlined, EnvironmentOutlined, ThunderboltOutlined } from '@ant-design/icons';
-import { Card, Col, Empty, Pagination, Row, Spin } from 'antd';
+import { Card, Col, Empty, Pagination, Row, Spin, Tag } from 'antd';
 import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -25,7 +25,7 @@ const JobCard = (props: IProps) => {
     const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [current, setCurrent] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageSize, setPageSize] = useState(6);
     const [total, setTotal] = useState(0);
     const [filter, setFilter] = useState("");
     const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
@@ -121,6 +121,13 @@ const JobCard = (props: IProps) => {
                                             {/* <div className={styles["job-location"]}><BankOutlined style={{ color: '#0c2d48' }} />{item?.company?.name}</div> */}
                                             <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
                                             <div><ThunderboltOutlined style={{ color: 'orange' }} />&nbsp;{(item.salary + "").replace(/\B(?=(\d{3})+(?!\d))/g, ',')} đ</div>
+                                            {item?.skills?.map((item, index) => {
+                                                        return (
+                                                            <Tag style={{ color: 'black', border: '1px solid black' }} key={`${index}-key`} color="#F0FFFF" >
+                                                                {getSkillName(item)}
+                                                            </Tag>
+                                                        )
+                                                    })}
                                             <div className={styles["job-updatedAt"]}>{dayjs(item.updatedAt).fromNow()}</div>
                                         </div>
                                     </div>

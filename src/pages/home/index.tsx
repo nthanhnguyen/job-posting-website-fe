@@ -5,8 +5,12 @@ import JobCard from '@/components/client/card/job.card';
 import CompanyCard from '@/components/client/card/company.card';
 import Blog from '../blog';
 import AiResume from '../ai';
+import SubscriberJobCard from '@/components/client/card/job-subscriber.card';
+import { useAppSelector } from '@/redux/hooks';
 
 const HomePage = () => {
+    const user = useAppSelector(state => state.account.user);
+
     return (
         <div>
 
@@ -34,6 +38,7 @@ const HomePage = () => {
                 <div style={{ margin: 50 }}></div>
                 <Divider />
                 <JobCard />
+                {user && <SubscriberJobCard />}
                 <div style={{ margin: 50 }}></div>
                 <Divider />
                 <AiResume />

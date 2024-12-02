@@ -284,6 +284,7 @@ const JobByEmail = (props: any) => {
             const res = await callGetSubscriberSkills();
             if (res && res.data) {
                 form.setFieldValue("skills", res.data.skills);
+                form.setFieldValue("level", res.data.level);
             }
         }
         init();

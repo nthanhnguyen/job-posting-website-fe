@@ -46,6 +46,7 @@ import ViewUpsertJobForHr from './components/hr/job/upsert.job';
 import BlogDetailPage from './pages/blog/blogdetail';
 import BlogDetailPage1 from './pages/blog/blogdetail1';
 import BlogDetailPage2 from './pages/blog/blogdetail2';
+import ClientSubscriberJobPage from './pages/job/subscriber.job';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -99,6 +100,12 @@ export default function App() {
       children: [
         { index: true, element: <HomePage /> },
         { path: "job", element: <ClientJobPage /> },
+        {
+          path: "subscriber-job", element:
+            <LoginIsRequired>
+              <ClientSubscriberJobPage />
+            </LoginIsRequired>
+        },
         { path: "job/:id", element: <ClientJobDetailPage /> },
         { path: "company", element: <ClientCompanyPage /> },
         { path: "company/:id", element: <ClientCompanyDetailPage /> },

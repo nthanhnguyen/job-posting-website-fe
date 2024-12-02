@@ -26,8 +26,6 @@ const ResumePageForHr = () => {
     const [dataInit, setDataInit] = useState<IResume | null>(null);
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
 
-    const user = useAppSelector(state => state.account.user);
-
     const handleDeleteResume = async (_id: string | undefined) => {
         if (_id) {
             const res = await callDeleteResume(_id);
@@ -160,7 +158,7 @@ const ResumePageForHr = () => {
         // },
     ];
 
-    const buildQuery = (params: any, sort: any, filter: any, hrId: any) => {
+    const buildQuery = (params: any, sort: any, filter: any) => {
         const clone = { ...params };
         // if (clone.name) clone.name = `/${clone.name}/i`;
         // if (clone.salary) clone.salary = `/${clone.salary}/i`;
@@ -189,10 +187,6 @@ const ResumePageForHr = () => {
             temp = `${temp}&${sortBy}`;
         }
 
-        if (hrId) {
-            temp = `${temp}&hrId=${hrId}`;
-        }
-
         temp += "&populate=companyId,jobId&fields=companyId._id, companyId.name, companyId.logo, jobId._id, jobId.name";
         return temp;
     }
@@ -210,7 +204,7 @@ const ResumePageForHr = () => {
                     columns={columns}
                     dataSource={resumes}
                     request={async (params, sort, filter): Promise<any> => {
-                        const query = buildQuery(params, sort, filter, user._id);
+                        const query = buildQuery(params, sort, filter);
                         dispatch(fetchResumeForHr({ query }));
                     }}
                     scroll={{ x: true }}

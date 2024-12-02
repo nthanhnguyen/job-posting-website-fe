@@ -177,7 +177,7 @@ const JobPageForHr = () => {
         },
     ];
 
-    const buildQuery = (params: any, sort: any, filter: any, hrId: any) => {
+    const buildQuery = (params: any, sort: any, filter: any) => {
         const clone = { ...params };
         if (clone.name) clone.name = `/${clone.name}/i`;
         if (clone.salary) clone.salary = `/${clone.salary}/i`;
@@ -208,10 +208,6 @@ const JobPageForHr = () => {
             temp = `${temp}&${sortBy}`;
         }
 
-        if (hrId) {
-            temp = `${temp}&hrId=${hrId}`;
-        }
-
         return temp;
     }
 
@@ -228,7 +224,7 @@ const JobPageForHr = () => {
                     columns={columns}
                     dataSource={jobs}
                     request={async (params, sort, filter): Promise<any> => {
-                        const query = buildQuery(params, sort, filter, user._id);
+                        const query = buildQuery(params, sort, filter);
                         dispatch(fetchJobForHr({ query }))
                     }}
                     scroll={{ x: true }}
