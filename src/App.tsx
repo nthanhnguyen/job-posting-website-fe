@@ -31,7 +31,6 @@ import ClientCompanyPage from './pages/company';
 import ClientCompanyDetailPage from './pages/company/detail';
 import ResumeBuilderPage from './pages/resume-builder';
 import EditResume from './pages/resume-builder/resume/[resumeId]/edit';
-import { Toaster } from './components/ui/sonner';
 import ViewResume from './pages/my-resume/[resumeId]/view';
 import LoginIsRequired from './components/share/login-required';
 import SendMailPage from './pages/auth/register/SendMail';
@@ -44,6 +43,9 @@ import CompanyPageForHr from './pages/hr/company';
 import JobPageForHr from './pages/hr/job';
 import ResumePageForHr from './pages/hr/resume';
 import ViewUpsertJobForHr from './components/hr/job/upsert.job';
+import BlogDetailPage from './pages/blog/blogdetail';
+import BlogDetailPage1 from './pages/blog/blogdetail1';
+import BlogDetailPage2 from './pages/blog/blogdetail2';
 import ClientSubscriberJobPage from './pages/job/subscriber.job';
 
 const LayoutClient = () => {
@@ -112,6 +114,9 @@ export default function App() {
         { path: "/my-resume/:resumeId/view", element: <ViewResume /> },
         { path: "/employer-contact", element: <EmployerPage /> },
         { path: "/blog", element: <BlogDetail /> },
+        { path: "/blog/detail/chuyenit/:_id", element: <BlogDetailPage /> },
+        { path: "/blog/detail/chuyenmonit/:_id", element: <BlogDetailPage1 /> },
+        { path: "/blog/detail/viecit/:_id", element: <BlogDetailPage2 /> },
       ],
     },
 
