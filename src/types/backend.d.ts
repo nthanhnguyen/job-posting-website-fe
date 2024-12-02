@@ -131,6 +131,7 @@ export interface IResume {
         _id: string;
         name: string;
     };
+    relevancePercentage?: number;
     history?: {
         status: string;
         updatedAt: Date;

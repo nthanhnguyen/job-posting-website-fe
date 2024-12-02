@@ -37,7 +37,6 @@ import SendMailPage from './pages/auth/register/SendMail';
 import ActivatePage from './pages/auth/register/activation';
 import RegisterPage from './pages/auth/register/page';
 import BlogDetail from './pages/blog/detail';
-import EmployerPage from './pages/employer/detail';
 import LayoutEmployer from './components/hr/layout.employer';
 import CompanyPageForHr from './pages/hr/company';
 import JobPageForHr from './pages/hr/job';
@@ -47,6 +46,7 @@ import BlogDetailPage from './pages/blog/blogdetail';
 import BlogDetailPage1 from './pages/blog/blogdetail1';
 import BlogDetailPage2 from './pages/blog/blogdetail2';
 import ClientSubscriberJobPage from './pages/job/subscriber.job';
+import EmployerPage from './pages/employer/detail';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");

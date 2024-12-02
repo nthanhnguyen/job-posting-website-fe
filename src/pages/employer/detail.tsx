@@ -163,7 +163,7 @@ const EmployerPage = () => {
             <Container sx={{ marginTop: '100px' }}>
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={4} columns={24}>
-                        {dummy.blog1?.map((data: any) => {
+                        {/* {dummy.blog1?.map((data: any) => {
                             return (
                                 <Grid size={8}
                                     key={data._id}
@@ -192,7 +192,7 @@ const EmployerPage = () => {
                                     </div>
                                 </Grid>
                             );
-                        })}
+                        })} */}
                     </Grid>
                 </Box>
                 <Box
@@ -207,9 +207,10 @@ const EmployerPage = () => {
                         gap: 12,
                         marginTop: '65px'
                     }}>
-                    <h2>Experience ITviec's service today</h2>
+                    <h2>Experience Jobhub's service today</h2>
                     <Button
-                        size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
+                        size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay
+                    </Button>
 
                 </Box>
             </Container>
