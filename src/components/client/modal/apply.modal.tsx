@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import enUS from 'antd/lib/locale/en_US';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
-import { callCreateResume, callUploadSingleFile } from "@/config/api";
-import { useState } from 'react';
+import { callCreateResume, callUploadResumeFile, callUploadSingleFile } from "@/config/api";
+import { useEffect, useState } from 'react';
+import { getSkillName } from "@/config/utils";
 
 interface IProps {
     isModalOpen: boolean;
@@ -20,6 +21,22 @@ const ApplyModal = (props: IProps) => {
     const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
     const user = useAppSelector(state => state.account.user);
     const [urlCV, setUrlCV] = useState<string>("");
+    const [skillsArray, setSkillsArray] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (jobDetail?.skills) {
+            const skillsTempArray:string[] = [];
+        
+            // Iterate through jobDetail.skills and populate skillsArray
+            jobDetail.skills.map((item) => {
+                const skill = getSkillName(item);  // Assuming getSkillName(item) returns a string or value
+                skillsTempArray.push(skill);  // Add the returned skill to the array
+            });
+        
+            // Optionally, you can log or use the skillsArray here
+            setSkillsArray(skillsTempArray);
+        }
+    }, [jobDetail]);
 
     const navigate = useNavigate();
 
@@ -36,7 +53,7 @@ const ApplyModal = (props: IProps) => {
         else {
             //todo
             if (jobDetail) {
-                const res = await callCreateResume(urlCV, jobDetail?.company?._id, jobDetail?._id);
+                const res = await callCreateResume(urlCV, jobDetail?.company?._id, jobDetail?._id, skillsArray);
                 if (res.data) {
                     message.success("Gửi CV thành công!");
                     setIsModalOpen(false);
@@ -55,7 +72,7 @@ const ApplyModal = (props: IProps) => {
         multiple: false,
         accept: "application/pdf,application/msword, .doc, .docx, .pdf",
         async customRequest({ file, onSuccess, onError }: any) {
-            const res = await callUploadSingleFile(file, "resume");
+            const res = await callUploadResumeFile(file, "resume");
             if (res && res.data) {
                 setUrlCV(res.data.fileName);
                 if (onSuccess) onSuccess('ok')

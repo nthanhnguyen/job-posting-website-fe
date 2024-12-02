@@ -45,8 +45,19 @@ export const callUploadSingleFile = (file: any, folderType: string) => {
     });
 }
 
-
-
+export const callUploadResumeFile = (file: any, folderType: string) => {
+    const bodyFormData = new FormData();
+    bodyFormData.append('fileUpload', file);
+    return axios<IBackendRes<{ fileName: string }>>({
+        method: 'post',
+        url: '/api/v1/files/upload-resume',
+        data: bodyFormData,
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "folder_type": folderType
+        },
+    });
+}
 
 /**
  * 
@@ -146,8 +157,8 @@ export const callFetchSubscriberJob = (query: string) => {
  * 
 Module Resume
  */
-export const callCreateResume = (url: string, companyId: any, jobId: any) => {
-    return axios.post<IBackendRes<IResume>>('/api/v1/resumes', { url, companyId, jobId })
+export const callCreateResume = (url: string, companyId: any, jobId: any, skillList: string[]) => {
+    return axios.post<IBackendRes<IResume>>('/api/v1/resumes', { url, companyId, jobId, skillList })
 }
 
 export const callUpdateResumeStatus = (id: any, status: string) => {
