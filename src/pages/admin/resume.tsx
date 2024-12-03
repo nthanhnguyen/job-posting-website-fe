@@ -6,7 +6,7 @@ import { ActionType, ProColumns, ProFormSelect } from '@ant-design/pro-component
 import { Button, Input, Popconfirm, Select, Space, Tag, message, notification } from "antd";
 import { useState, useRef } from 'react';
 import dayjs from 'dayjs';
-import { callDeleteResume } from "@/config/api";
+import { callDeleteResume, callUpdateResumeStatuses } from "@/config/api";
 import queryString from 'query-string';
 import { useNavigate } from "react-router-dom";
 import { fetchResume } from "@/redux/slice/resumeSlide";
@@ -28,31 +28,57 @@ const ResumePage = () => {
     const [minRelevance, setMinRelevance] = useState<number | null>(null);
     const [maxRelevance, setMaxRelevance] = useState<number | null>(null);
     const [selectAll, setSelectAll] = useState(false); // State to track if "select all" checkbox is checked
+    const [status, setStatus] = useState<string | undefined>(undefined);
 
-    const handleDeleteResume = async (_id: string | undefined) => {
-        if (_id) {
-            const res = await callDeleteResume(_id);
-            if (res && res.data) {
-                message.success('Xóa Resume thành công');
-                reloadTable();
-            } else {
-                notification.error({
-                    message: 'Có lỗi xảy ra',
-                    description: res.message
-                });
-            }
-        }
-    }
+    // const handleDeleteResume = async (_id: string | undefined) => {
+    //     if (_id) {
+    //         const res = await callDeleteResume(_id);
+    //         if (res && res.data) {
+    //             message.success('Xóa Resume thành công');
+    //             reloadTable();
+    //         } else {
+    //             notification.error({
+    //                 message: 'Có lỗi xảy ra',
+    //                 description: res.message
+    //             });
+    //         }
+    //     }
+    // }
 
     const reloadTable = () => {
         tableRef?.current?.reload();
     }
 
-    const handleCheckboxChange = (checked: boolean, _id: string) => {
-        setSelectedResumes((prevSelected) =>
+    const handleCheckboxChange = async (checked: boolean, _id: string) => {
+        await setSelectedResumes((prevSelected) =>
             checked ? [...prevSelected, _id] : prevSelected.filter(id => id !== _id)
         );
     };
+
+    // useEffect(() => {
+    // }, [selectedResumes])
+
+    const handleChangeStatus = async () => {
+        if (!status) {
+            message.warning("Vui lòng chọn trạng thái");
+            return;
+        }
+        console.log('selectedResumes :>> ', selectedResumes);
+
+        const res = await callUpdateResumeStatuses(selectedResumes, status);
+        if (res.data) {
+            message.success("Cập nhật trạng thái thành công!");
+            // Reload the table after successful status update
+            reloadTable();
+            handleResetSelection();
+        } else {
+            notification.error({
+                message: 'Có lỗi xảy ra',
+                description: res.message
+            });
+        }
+    };
+
     const handleSelectResumes = () => {
         // Select resumes within the relevance percentage range
         const selected = resumes.filter((resume) => {
@@ -166,7 +192,7 @@ const ResumePage = () => {
                         APPROVED: 'APPROVED',
                         REJECTED: 'REJECTED',
                     }}
-                    placeholder="Chọn level"
+                    placeholder="Chọn status"
                 />
             ),
         },
@@ -326,7 +352,8 @@ const ResumePage = () => {
             <Access
                 permission={ALL_PERMISSIONS.RESUMES.GET_PAGINATE}
             >
-                <div style={{ marginBottom: 16 }}>
+                <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+                <div>
                     <span>Phù hợp: </span>
                     <Input
                         style={{ width: 100, marginRight: 8 }}
@@ -354,6 +381,32 @@ const ResumePage = () => {
                         Reset
                     </Button>
                 </div>
+                
+                {/* New status dropdown and button */}
+                <Space>
+                    <Select
+                        value={status}
+                        onChange={setStatus}
+                        style={{ width: 150 }}
+                        placeholder="Chọn trạng thái"
+                    >
+                        <Select.Option value="PENDING">PENDING</Select.Option>
+                        <Select.Option value="REVIEWING">REVIEWING</Select.Option>
+                        <Select.Option value="APPROVED">APPROVED</Select.Option>
+                        <Select.Option value="REJECTED">REJECTED</Select.Option>
+                    </Select>
+                    <Button 
+                        type="primary"
+                        onClick={handleChangeStatus}
+                    >
+                        Thay đổi status
+                    </Button>
+                </Space>
+            </div>
+                
+
+            
+
                 <DataTable<IResume>
                     actionRef={tableRef}
                     headerTitle="Danh sách Resumes"
