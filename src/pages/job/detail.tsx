@@ -52,7 +52,7 @@ const ClientJobDetailPage = (props: any) => {
         init();
     }, [id]);
 
-    const fetchJob = async (updatedSkills: string[], excludeJobId: string ) => {
+    const fetchJob = async (updatedSkills: string[], excludeJobId: string) => {
         setIsLoading(true);
         let query = `&${sortQuery}`;
 
@@ -266,8 +266,8 @@ const ClientJobDetailPage = (props: any) => {
                                     </div>
                                 </div>
                             </Col>
-                        {/* Component job card preview*/}
-                        <Col span={24} md={8}>
+                            {/* Component job card preview*/}
+                            <Col span={24} md={8}>
                                 <div className="job-listing-wrapper"
                                     style={{
                                         flexGrow: 1
@@ -302,8 +302,9 @@ const ClientJobDetailPage = (props: any) => {
                                                     cursor: 'pointer'
                                                 }}
                                                 onClick={() => handleViewDetailJob(item)}
-                                                
+
                                             >
+                                                <div style={{ color: 'grey', fontWeight: '500', marginBottom: '5px' }}><div className={styles["job-updatedAt"]}>Posted {dayjs(item.updatedAt).fromNow()}</div></div>
                                                 <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                                     <div className="company-image"
@@ -325,7 +326,9 @@ const ClientJobDetailPage = (props: any) => {
                                                     </div>
                                                 </div>
                                                 <Divider />
-                                                <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                <div style={{ marginBottom: '10px' }}>
+                                                    <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                </div>
                                                 {item?.skills?.map((item, index) => {
                                                     return (
                                                         <Tag key={`${index}-key`} color="red" >
@@ -333,14 +336,12 @@ const ClientJobDetailPage = (props: any) => {
                                                         </Tag>
                                                     )
                                                 })}
-                                                <Divider />
-
                                             </div>
                                         ))}
                                     </div>
 
                                 </div>
-                            </Col> 
+                            </Col>
 
                         </>
                     }

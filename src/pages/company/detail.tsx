@@ -9,8 +9,12 @@ import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Container } from "@mui/material";
 import type { MenuProps } from 'antd';
 import { convertSlug, getLocationName, getSkillName } from "@/config/utils";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 
+
+dayjs.extend(relativeTime)
 
 const ClientCompanyDetailPage = (props: any) => {
     const [companyDetail, setCompanyDetail] = useState<ICompany | null>(null);
@@ -209,6 +213,7 @@ const ClientCompanyDetailPage = (props: any) => {
                                                     }}
                                                     onClick={() => handleViewDetailJob(item)}
                                                 >
+                                                    <div style={{ color: 'grey', fontWeight: '500', marginBottom: '5px' }}><div className={styles["job-updatedAt"]}>Posted {dayjs(item.updatedAt).fromNow()}</div></div>
                                                     <h4 style={{ fontSize: '15px', fontWeight: 'bold', marginBottom: '10px' }}>{item.name}</h4>
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                                         <div className="company-image"
@@ -230,16 +235,15 @@ const ClientCompanyDetailPage = (props: any) => {
                                                         </div>
                                                     </div>
                                                     <Divider />
-                                                    <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
-                                                    {item?.skills?.map((item, index) => {
+                                                    <div style={{ marginBottom: '10px' }}>
+                                                        <div className={styles["job-location"]}><EnvironmentOutlined style={{ color: '#58aaab' }} />&nbsp;{getLocationName(item.location)}</div>
+                                                    </div>                                                    {item?.skills?.map((item, index) => {
                                                         return (
                                                             <Tag key={`${index}-key`} color="red" >
                                                                 {getSkillName(item)}
                                                             </Tag>
                                                         )
                                                     })}
-                                                    <Divider />
-
                                                 </div>
                                             ))}
                                         </div>
