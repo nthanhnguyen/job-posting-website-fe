@@ -93,7 +93,14 @@ const ViewDetailResumeForHr = (props: IProps) => {
                     </Descriptions.Item>
                     <Descriptions.Item label="Ngày tạo">{dataInit && dataInit.createdAt ? dayjs(dataInit.createdAt).format('DD-MM-YYYY HH:mm:ss') : ""}</Descriptions.Item>
                     <Descriptions.Item label="Ngày sửa">{dataInit && dataInit.updatedAt ? dayjs(dataInit.updatedAt).format('DD-MM-YYYY HH:mm:ss') : ""}</Descriptions.Item>
-
+                    <Descriptions.Item label="Chi tiết">
+                    {dataInit && dataInit.url &&
+                    <a
+                        href={`${import.meta.env.VITE_BACKEND_URL}/images/resume/${dataInit?.url}`}
+                        target="_blank">Resume
+                    </a>
+                    }
+                    </Descriptions.Item>
                 </Descriptions>
             </Drawer>
         </>

@@ -77,6 +77,7 @@ const SubscriberJobCard = (props: IProps) => {
                   <Link to="subscriber-job">Xem tất cả</Link>
                 }
               </div>
+              
             </Col>
 
             {displayJob?.map(item => (

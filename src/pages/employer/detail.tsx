@@ -195,6 +195,7 @@ const EmployerPage = () => {
                         gap: 12,
                         marginTop: '30px',
                     }}>
+<<<<<<< HEAD
                     <h2 style={{ color: 'white' }}>Experience ITviec's service today</h2>
                     <Button
                         size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
