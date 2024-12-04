@@ -82,9 +82,15 @@ const Header = (props: any) => {
             key: 'manage-account',
             icon: <ContactsOutlined />
         },
-        user?.role.name === 'SUPER_ADMIN' || user?.role.name === 'HR' ?
+        user?.role.name === 'SUPER_ADMIN' ?
             {
                 label: <Link to={"/admin"}>Trang Quản Trị</Link>,
+                key: 'admin',
+                icon: <DashOutlined />
+            } : null,
+        user?.role.name === 'HR' ?
+            {
+                label: <Link to={"/admin"}>Trang nhà tuyển dụng</Link>,
                 key: 'admin',
                 icon: <DashOutlined />
             } : null,

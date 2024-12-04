@@ -32,9 +32,22 @@ const LoginPage = () => {
         setIsSubmit(false);
         if (res?.data) {
             localStorage.setItem('access_token', res.data.access_token);
-            dispatch(setUserLoginInfo(res.data.user))
+            dispatch(setUserLoginInfo(res.data.user));
             message.success('Đăng nhập tài khoản thành công!');
-            window.location.href = callback ? callback : '/';
+            switch (res.data.user.role.name) {
+                case 'NORMAL_USER':
+                    window.location.href = callback ? callback : '/';
+                    break;
+                case 'SUPER_ADMIN':
+                    window.location.href = callback ? callback : '/admin';
+                    break;
+                case 'HR':
+                    window.location.href = callback ? callback : '/employer';
+                    break;
+                default:
+                    console.error('Không xác định được vai trò của người dùng!');
+                    break;
+            }
         } else {
             notification.error({
                 message: "Có lỗi xảy ra",

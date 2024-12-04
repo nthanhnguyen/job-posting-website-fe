@@ -125,7 +125,7 @@ const LayoutAdmin = () => {
         if (res && res.data) {
             dispatch(setLogoutAction({}));
             message.success('Đăng xuất thành công');
-            navigate('/')
+            navigate('/login')
         }
     }
 
