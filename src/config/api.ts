@@ -1,4 +1,4 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC, ICheckApplying } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
@@ -165,6 +165,10 @@ export const callUpdateResumeStatus = (id: any, status: string) => {
     return axios.patch<IBackendRes<IResume>>(`/api/v1/resumes/${id}`, { status })
 }
 
+export const callUpdateResumeFile = (id: any, url: string, skillList: string[]) => {
+    return axios.patch<IBackendRes<IResume>>(`/api/v1/resumes/update-file/${id}`, { url, skillList })
+}
+
 export const callUpdateResumeStatuses = (ids: string[], status: string) => {
     return axios.post<IBackendRes<IResume>>(`/api/v1/resumes/update-statuses`, { ids, status })
 }
@@ -187,6 +191,10 @@ export const callFetchResumeById = (id: string) => {
 
 export const callFetchResumeByUser = () => {
     return axios.post<IBackendRes<IResume[]>>(`/api/v1/resumes/by-user`);
+}
+
+export const callCheckApplying = (jobId: string) => {
+    return axios.get<IBackendRes<ICheckApplying>>(`/api/v1/resumes/check-applying/${jobId}`);
 }
 
 /**

@@ -1,12 +1,12 @@
 import { useAppSelector } from "@/redux/hooks";
-import { IJob } from "@/types/backend";
+import { ICheckApplying, IJob } from "@/types/backend";
 import { ProForm, ProFormText } from "@ant-design/pro-components";
 import { Button, Col, ConfigProvider, Divider, Modal, Row, Upload, message, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 import enUS from 'antd/lib/locale/en_US';
 import { UploadOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
-import { callCreateResume, callUploadResumeFile, callUploadSingleFile } from "@/config/api";
+import { callCheckApplying, callCreateResume, callUpdateResumeFile, callUploadResumeFile, callUploadSingleFile } from "@/config/api";
 import { useEffect, useState } from 'react';
 import { getSkillName } from "@/config/utils";
 
@@ -22,6 +22,8 @@ const ApplyModal = (props: IProps) => {
     const user = useAppSelector(state => state.account.user);
     const [urlCV, setUrlCV] = useState<string>("");
     const [skillsArray, setSkillsArray] = useState<string[]>([]);
+    const [checkApplying, setCheckApplying] = useState<ICheckApplying | null>(null);
+    const [resumeId, setResumeId] = useState<string | undefined>("");
 
     useEffect(() => {
         if (jobDetail?.skills) {
@@ -36,7 +38,24 @@ const ApplyModal = (props: IProps) => {
             // Optionally, you can log or use the skillsArray here
             setSkillsArray(skillsTempArray);
         }
+        if (jobDetail?._id) {
+            checkApplicationStatus(jobDetail?._id);
+        }
     }, [jobDetail]);
+
+    useEffect(() => {
+        if (jobDetail?._id) {
+            checkApplicationStatus(jobDetail?._id);
+            setResumeId(checkApplying?.resumeId);
+        }
+    }, [isModalOpen]);
+
+    const checkApplicationStatus = async (jobId: string) => {
+        const res = await callCheckApplying(jobId);
+        if (res.data) {
+            setCheckApplying(res.data);
+        }
+    };
 
     const navigate = useNavigate();
 
@@ -53,15 +72,28 @@ const ApplyModal = (props: IProps) => {
         else {
             //todo
             if (jobDetail) {
-                const res = await callCreateResume(urlCV, jobDetail?.company?._id, jobDetail?._id, skillsArray);
-                if (res.data) {
-                    message.success("Gửi CV thành công!");
-                    setIsModalOpen(false);
+                if (checkApplying?.isApplied) {
+                    const res = await callUpdateResumeFile(resumeId, urlCV, skillsArray);
+                    if (res.data) {
+                        message.success("Chỉnh sửa CV thành công!");
+                        setIsModalOpen(false);
+                    } else {
+                        notification.error({
+                            message: 'Có lỗi xảy ra',
+                            description: res.message
+                        });
+                    }
                 } else {
-                    notification.error({
-                        message: 'Có lỗi xảy ra',
-                        description: res.message
-                    });
+                    const res = await callCreateResume(urlCV, jobDetail?.company?._id, jobDetail?._id, skillsArray);
+                    if (res.data) {
+                        message.success("Gửi CV thành công!");
+                        setIsModalOpen(false);
+                    } else {
+                        notification.error({
+                            message: 'Có lỗi xảy ra',
+                            description: res.message
+                        });
+                    }
                 }
             }
         }
@@ -99,15 +131,25 @@ const ApplyModal = (props: IProps) => {
 
     return (
         <>
-            <Modal title="Ứng Tuyển Job"
+            <Modal 
+                title="Ứng Tuyển Job"
                 open={isModalOpen}
-                onOk={() => handleOkButton()}
+                onOk={() => {
+                    if ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending)) {
+                        handleOkButton();
+                    }
+                }}
                 onCancel={() => setIsModalOpen(false)}
                 maskClosable={false}
-                okText={isAuthenticated ? "Ứng tuyển " : "Đăng Nhập Nhanh"}
-                cancelButtonProps={
-                    { style: { display: "none" } }
-                }
+                okText={isAuthenticated && ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending)) ? "Gửi CV" : undefined}
+                okButtonProps={{
+                    style: {
+                        display: isAuthenticated && ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending)) ? "inline-block" : "none",
+                    },
+                }}
+                cancelButtonProps={{
+                    style: { display: "none" },
+                }}
                 destroyOnClose={true}
             >
                 <Divider />
@@ -121,9 +163,23 @@ const ApplyModal = (props: IProps) => {
                             >
                                 <Row gutter={[10, 10]}>
                                     <Col span={24}>
-                                        <div>
-                                            Bạn đang ứng tuyển công việc <b>{jobDetail?.name} </b>tại  <b>{jobDetail?.company?.name}</b>
-                                        </div>
+
+                                        {checkApplying?.isApplied && checkApplying?.isPending && 
+                                            <div>
+                                                Bạn đã ứng tuyển công việc <b>{jobDetail?.name} </b>tại  <b>{jobDetail?.company?.name}</b> trước đó, bạn có thể chỉnh sửa CV
+                                            </div>
+
+                                        }
+                                        {!checkApplying?.isPending && checkApplying?.isApplied && 
+                                            <div>
+                                                CV của bạn ứng tuyển cho công việc <b>{jobDetail?.name} </b>tại  <b>{jobDetail?.company?.name}</b> đã được xem xét, bạn không thể chỉnh sửa CV
+                                            </div>
+                                        }
+                                        {!checkApplying?.isApplied && !checkApplying?.isPending &&
+                                            <div>
+                                                Bạn đang ứng tuyển công việc <b>{jobDetail?.name} </b>tại  <b>{jobDetail?.company?.name}</b>
+                                            </div>
+                                        }
                                     </Col>
                                     <Col span={24}>
                                         <ProFormText
@@ -144,7 +200,21 @@ const ApplyModal = (props: IProps) => {
                                         >
 
                                             <Upload {...propsUpload}>
-                                                <Button icon={<UploadOutlined />}>Tải lên CV của bạn ( Hỗ trợ *.doc, *.docx, *.pdf, and &lt; 5MB )</Button>
+                                            {(!isAuthenticated && ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending))) ? 
+                                                <Button 
+                                                    disabled = {true} 
+                                                    icon={<UploadOutlined />}
+                                                >
+                                                    {checkApplying?.url}
+                                                </Button>
+                                                :
+                                                <Button 
+                                                    disabled = {false} 
+                                                    icon={<UploadOutlined />}
+                                                >
+                                                    Tải lên CV của bạn ( Hỗ trợ *.doc, *.docx, *.pdf, and &lt; 5MB )
+                                                </Button>
+                                            }
                                             </Upload>
                                         </ProForm.Item>
                                     </Col>
@@ -155,8 +225,9 @@ const ApplyModal = (props: IProps) => {
                     </div>
                     :
                     <div>
-                        Bạn chưa đăng nhập hệ thống. Vui lòng đăng nhập để có thể ứng tuyển bạn nhé -.-
+                        Bạn chưa đăng nhập hệ thống. Vui lòng đăng nhập để có thể ứng tuyển bạn nhé!
                     </div>
+                    
                 }
                 <Divider />
             </Modal>
