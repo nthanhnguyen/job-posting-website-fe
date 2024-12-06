@@ -546,7 +546,7 @@ const ManageAccount = (props: IProps) => {
         } : null,
         user?.role.name === 'USER' ? {
             key: 'email-by-skills',
-            label: `Nhận Jobs qua Email`,
+            label: `Kỹ năng và trình độ`,
             children: <JobByEmail />,
         } : null,
         {

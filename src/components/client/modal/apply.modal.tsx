@@ -200,7 +200,7 @@ const ApplyModal = (props: IProps) => {
                                         >
 
                                             <Upload {...propsUpload}>
-                                            {(!isAuthenticated && ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending))) ? 
+                                            {!(isAuthenticated && ((checkApplying?.isApplied && checkApplying?.isPending) || (!checkApplying?.isApplied && !checkApplying?.isPending))) ? 
                                                 <Button 
                                                     disabled = {true} 
                                                     icon={<UploadOutlined />}
