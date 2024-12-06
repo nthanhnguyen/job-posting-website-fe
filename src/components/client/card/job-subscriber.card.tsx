@@ -77,12 +77,17 @@ const SubscriberJobCard = (props: IProps) => {
                   <Link to="subscriber-job">Xem tất cả</Link>
                 }
               </div>
-              
+
             </Col>
 
             {displayJob?.map(item => (
               <Col span={24} md={12} key={item._id}>
-                <Card size="default" title={null} hoverable onClick={() => handleViewDetailJob(item)}>
+                <Card size="default" title={null} hoverable onClick={() => handleViewDetailJob(item)}
+                  style={{
+                    backgroundImage: `url('/src/img/bgcompany.svg')`,
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
                   <div className={styles["card-job-content"]}>
                     <div className={styles["card-job-left"]}>
                       <img alt="example" src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.company?.logo}`} />
