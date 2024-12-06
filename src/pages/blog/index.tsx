@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import dummy from '../resume-builder/data/dummy';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Blog = () => {
     const [hoveredLargeCard, setHoveredLargeCard] = useState(null);
@@ -25,7 +26,7 @@ const Blog = () => {
     const handleSmallCardMouseLeave = () => {
         setHoveredSmallCard(null);
     };
-
+    const navigate = useNavigate();
     const boxStyle: React.CSSProperties = {
         display: 'flex',
         flexDirection: 'column',
@@ -56,7 +57,7 @@ const Blog = () => {
                                 onMouseLeave={handleLargeCardMouseLeave}
                             >
                                 <div style={boxStyle}>
-                                    <a href='http://localhost:3000/blog/detail/chuyenmonit/AdIQwzwTsilnuxm'>
+                                    <a onClick={()=> navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}>
                                         <div className='img-blog'                                        >
                                             <img src={data.image} style={{ height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
                                         </div>
@@ -69,7 +70,7 @@ const Blog = () => {
                                     </div>
                                     <div>
                                         <a style={{ padding: '12px 12px', color: 'blue' }}
-                                            href='http://localhost:3000/blog/detail/chuyenmonit/AdIQwzwTsilnuxm'
+                                            onClick={()=> navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}
                                         > Xem thêm</a>
                                     </div>
                                 </div>
@@ -111,7 +112,7 @@ const Blog = () => {
                                             <div>
                                                 <Button
                                                     style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
-                                                    href={data.link}
+                                                    onClick={()=>navigate(`${data.link}`)}
                                                 > Xem thêm</Button>
                                             </div>
                                         </Grid>

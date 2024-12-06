@@ -227,28 +227,28 @@ export default {
             title: "",
             content: "Học Angular toàn diện với Lộ trình học cho người mới bắt đầu",
             image: '/src/img/bl1.jpg',
-            link: 'http://localhost:3000/blog/detail/viecit/ur9nHxPhhkVm8uH'
+            link: '/blog/detail/viecit/ur9nHxPhhkVm8uH'
         },
         {
             _id: 2,
             title: "",
             content: "Top 30+ câu hỏi phỏng vấn Magento phổ biến",
             image: '/src/img/bl2.jpg',
-            link: 'http://localhost:3000/blog/detail/viecit/NJF8GDIFers0aeO'
+            link: '/blog/detail/viecit/NJF8GDIFers0aeO'
         },
         {
             _id: 3,
             title: "",
             content: "Angular vs AngularJS: So sánh những điểm khác nhau quan trọng",
             image: '/src/img/bl3.jpg',
-            link: 'http://localhost:3000/blog/detail/viecit/vEFgPmv3eMkRM5W'
+            link: '/blog/detail/viecit/vEFgPmv3eMkRM5W'
         },
         {
             _id: 4,
             title: "",
             content: "Cuộc thi viết “Là IT Thì Mình Cứ Viết Đi” do JobHub tổ chức ...",
             image: '/src/img/bl6.png',
-            link: 'http://localhost:3000/blog/detail/chuyenit/8jBGZjPowaZGsXj'
+            link: '/blog/detail/chuyenit/8jBGZjPowaZGsXj'
         }
     ],
     blog1: [
