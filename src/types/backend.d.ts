@@ -256,3 +256,10 @@ export interface IResumeInfo {
       rating: number;
     }[];
   }
+
+export interface ICheckApplying {
+    resumeId?: string;
+    isApplied: boolean;
+    isPending: boolean
+    url: string; 
+}

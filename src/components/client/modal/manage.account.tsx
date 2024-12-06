@@ -536,17 +536,19 @@ const ManageAccount = (props: IProps) => {
         // console.log(key);
     };
 
+    const user = useAppSelector(state => state.account.user);
+
     const items: TabsProps['items'] = [
-        {
+        user?.role.name === 'USER' ? {
             key: 'user-resume',
             label: `Việc làm đã ứng tuyển`,
             children: <UserResume />,
-        },
-        {
+        } : null,
+        user?.role.name === 'USER' ? {
             key: 'email-by-skills',
-            label: `Nhận Jobs qua Email`,
+            label: `Kỹ năng và trình độ`,
             children: <JobByEmail />,
-        },
+        } : null,
         {
             key: 'user-update-info',
             label: `Cập nhật thông tin`,
@@ -557,7 +559,7 @@ const ManageAccount = (props: IProps) => {
             label: `Thay đổi mật khẩu`,
             children: <ChangePassword />,
         },
-    ];
+    ].filter(item => item !== null);;
 
 
     return (

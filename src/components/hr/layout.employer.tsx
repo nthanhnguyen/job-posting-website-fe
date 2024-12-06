@@ -10,6 +10,7 @@ import {
     AliwangwangOutlined,
     BugOutlined,
     ScheduleOutlined,
+    ContactsOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Dropdown, Space, message, Avatar, Button } from 'antd';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ import { isMobile } from 'react-device-detect';
 import type { MenuProps } from 'antd';
 import { setLogoutAction } from '@/redux/slice/accountSlide';
 import { ALL_PERMISSIONS } from '@/config/permissions';
+import ManageAccount from '../client/modal/manage.account';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -123,9 +125,11 @@ const LayoutEmployer = () => {
         if (res && res.data) {
             dispatch(setLogoutAction({}));
             message.success('Đăng xuất thành công');
-            navigate('/')
+            navigate('/login')
         }
     }
+
+    const [openMangeAccount, setOpenManageAccount] = useState<boolean>(false);
 
     // if (isMobile) {
     //     items.push({
@@ -140,8 +144,12 @@ const LayoutEmployer = () => {
 
     const itemsDropdown = [
         {
-            label: <Link to={'/'}>Trang chủ</Link>,
-            key: 'home',
+            label: <label
+                style={{ cursor: 'pointer' }}
+                onClick={() => setOpenManageAccount(true)}
+            >Quản lý tài khoản</label>,
+            key: 'manage-account',
+            icon: <ContactsOutlined />
         },
         {
             label: <label
@@ -213,6 +221,10 @@ const LayoutEmployer = () => {
                         React Typescript series Nest.JS &copy; Hỏi Dân IT - Made with <HeartTwoTone />
                     </Footer> */}
                 </Layout>
+                <ManageAccount
+                    open={openMangeAccount}
+                    onClose={setOpenManageAccount}
+                />
             </Layout>
 
         </>

@@ -29,7 +29,7 @@ const HomePage = () => {
                 <div className="search-content" style={{ marginTop: 20, padding: '80px 0' }}>
                     <Col span={24}>
                         <h2 style={{ fontSize: "32px", color: "#fff", marginBottom: '20px' }}>
-                            Việc Làm IT Cho Developer "Chất"
+                            Việc Làm Cho IT "Chất"
                         </h2>
                     </Col>
                     <SearchClient />
