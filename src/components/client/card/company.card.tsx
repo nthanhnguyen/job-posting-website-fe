@@ -84,8 +84,9 @@ const CompanyCard = (props: IProps) => {
                                     <Card
                                         onClick={() => handleViewDetailJob(item)}
                                         style={{
-                                            backgroundImage: `url('/src/img/bgcompany.svg')`,
+                                            backgroundImage: `url('https://freesvg.org/img/1666855551curved-lines-on-white-background.png')`,
                                             backgroundRepeat: 'no-repeat',
+                                            backgroundSize: 'cover',
                                             height: 330
                                         }}
                                         hoverable
@@ -111,7 +112,7 @@ const CompanyCard = (props: IProps) => {
                                         position: 'absolute',
                                         bottom: '0',
                                         marginBottom: '0px',
-                                        borderRadius: '0 0 12px 12px'
+                                        borderRadius: '0 0 12px 12px',
                                     }}></div>
                                 </Col>
                             )

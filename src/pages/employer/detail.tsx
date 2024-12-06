@@ -161,12 +161,12 @@ const EmployerPage = () => {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 70, justifyContent: 'center', alignItems: 'center' }}>
                                     <Box>
                                         <h2 style={{ fontWeight: 'bold', fontSize: '30px' }}>Job Posting</h2>
-                                        <p style={{ marginTop: '12px', fontSize: '18px' }}>Boost IT recruiting with our Tech and IT job platform. Manage top candidate CVs from ITviec with ease. Intuitive interface, prompt support, powerful tools.</p>
+                                        <p style={{ marginTop: '12px', fontSize: '18px' }}>Boost IT recruiting with our Tech and IT job platform. Manage top candidate CVs from JobHub with ease. Intuitive interface, prompt support, powerful tools.</p>
                                     </Box>
                                     <Box sx={{ fontSize: '18px', fontWeight: '500' }}>
                                         <Grid container spacing={2} columns={16}>
                                             <Grid size={8} sx={{ height: '100px', padding: '7px 7px', background: 'linear-gradient(180deg, #FFF6F6 0%, rgba(255, 223, 223, 0) 100%)' }}>
-                                                Better opportunities to approach top IT candidates from ITviec
+                                                Better opportunities to approach top IT candidates from JobHub
                                             </Grid>
                                             <Grid size={8} sx={{ height: '100px', padding: '7px 7px', background: 'linear-gradient(180deg, #FFF6F6 0%, rgba(255, 223, 223, 0) 100%)' }}>
                                                 Attract the right candidates by the right skills
@@ -196,7 +196,7 @@ const EmployerPage = () => {
                         marginTop: '30px',
                     }}>
 <<<<<<< HEAD
-                    <h2 style={{ color: 'white' }}>Experience ITviec's service today</h2>
+                    <h2 style={{ color: 'white' }}>Experience JobHub's service today</h2>
                     <Button
                         size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
                 </Box> */}
@@ -302,7 +302,7 @@ const EmployerPage = () => {
                         >
                             <Input size='large' placeholder="Website URL" />
                         </Form.Item>
-                        <Radio></Radio>I have read and agree to ITviec’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information.
+                        <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information.
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px' }}>
                             <div>
                                 <p>Already have an Employer account? <a style={{ fontWeight: '500' }} href="/login">Sign in</a></p>

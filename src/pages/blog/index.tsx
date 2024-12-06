@@ -4,10 +4,34 @@ import 'styles/blog.scss'
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import dummy from '../resume-builder/data/dummy';
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
 const Blog = () => {
-    const navigate = useNavigate();
+    const [hoveredLargeCard, setHoveredLargeCard] = useState(null);
+    const [hoveredSmallCard, setHoveredSmallCard] = useState(null);
+
+    const handleLargeCardMouseEnter = (id: any) => {
+        setHoveredLargeCard(id);
+    };
+
+    const handleLargeCardMouseLeave = () => {
+        setHoveredLargeCard(null);
+    };
+
+    const handleSmallCardMouseEnter = (id: any) => {
+        setHoveredSmallCard(id);
+    };
+
+    const handleSmallCardMouseLeave = () => {
+        setHoveredSmallCard(null);
+    };
+
+    const boxStyle: React.CSSProperties = {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        gap: '20px',
+    };
     return (
         <div className="bg-container">
             <Divider style={{ marginTop: '45px' }} />
@@ -21,13 +45,22 @@ const Blog = () => {
                                     background: '#fff',
                                     border: '1px solid #eee',
                                     borderRadius: '12px',
-                                    height: 585
+                                    height: 585,
+                                    position: 'relative',
+                                    overflow: 'hidden',
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                    transform: hoveredLargeCard === data._id ? 'scale(1.02)' : 'scale(1)',
+                                    boxShadow: hoveredLargeCard === data._id ? '0px 8px 15px rgba(0, 0, 0, 0.2)' : 'none',
                                 }}
+                                onMouseEnter={() => handleLargeCardMouseEnter(data._id)}
+                                onMouseLeave={handleLargeCardMouseLeave}
                             >
-                                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', gap: '20px' }}>
-                                    <div className='img-blog'>
-                                        <img src={data.image} style={{ height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
-                                    </div>
+                                <div style={boxStyle}>
+                                    <a href='http://localhost:3000/blog/detail/chuyenmonit/AdIQwzwTsilnuxm'>
+                                        <div className='img-blog'                                        >
+                                            <img src={data.image} style={{ height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                        </div>
+                                    </a>
                                     <div className='cont-blog'
                                         style={{ padding: '10px 10px' }}
                                     >
@@ -35,10 +68,9 @@ const Blog = () => {
                                         <p>{data.content}</p>
                                     </div>
                                     <div>
-                                        <Button
-                                            style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
-                                            onClick={() => navigate('/blog')}
-                                        > Xem thêm</Button>
+                                        <a style={{ padding: '12px 12px', color: 'blue' }}
+                                            href='http://localhost:3000/blog/detail/chuyenmonit/AdIQwzwTsilnuxm'
+                                        > Xem thêm</a>
                                     </div>
                                 </div>
                             </Grid>
@@ -56,12 +88,21 @@ const Blog = () => {
                                                 background: '#fff',
                                                 border: '1px solid #eee',
                                                 borderRadius: '12px',
-                                                height: 280
+                                                height: 280,
+                                                position: 'relative',
+                                                overflow: 'hidden',
+                                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                                transform: hoveredSmallCard === data._id ? 'scale(1.02)' : 'scale(1)',
+                                                boxShadow: hoveredSmallCard === data._id ? '0px 8px 15px rgba(0, 0, 0, 0.2)' : 'none',
                                             }}
+                                            onMouseEnter={() => handleSmallCardMouseEnter(data._id)}
+                                            onMouseLeave={handleSmallCardMouseLeave}
                                         >
-                                            <div className='img-blog'>
-                                                <img src={data.image} style={{ height: '150px', width: '100%', borderRadius: '12px 12px 0 0' }} />
-                                            </div>
+                                            <a href={data.link}>
+                                                <div className='img-blog'>
+                                                    <img src={data.image} style={{ height: '150px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                                </div>
+                                            </a>
                                             <div className='cont-blog'
                                                 style={{ padding: '10px 10px' }}
                                             >
@@ -70,7 +111,7 @@ const Blog = () => {
                                             <div>
                                                 <Button
                                                     style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
-                                                    onClick={() => navigate('/blog')}
+                                                    href={data.link}
                                                 > Xem thêm</Button>
                                             </div>
                                         </Grid>
