@@ -101,7 +101,7 @@ const JobCard = (props: IProps) => {
                     <Row gutter={[20, 20]}>
                         <Col span={24}>
                             <div className={isMobile ? styles["dflex-mobile"] : styles["dflex-pc"]}>
-                                <span className={styles["title"]}>Công Việc Mới Nhất</span>
+                                <span className={styles["title"]} style={{ fontWeight: 600 }}>Công việc mới nhất</span>
                                 {!showPagination &&
                                     <Link to="job">Xem tất cả</Link>
                                 }

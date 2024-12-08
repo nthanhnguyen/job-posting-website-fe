@@ -285,7 +285,7 @@ const ViewUpsertJob = (props: any) => {
 
                                     }}
                                     rules={[{ required: true, message: 'Vui lòng chọn ngày cấp' }]}
-                                    placeholder="dd/mm/yyyy"
+                                    placeholder="DD/MM/YYYY"
                                 />
                             </Col>
                             <Col span={24} md={6}>
@@ -295,11 +295,10 @@ const ViewUpsertJob = (props: any) => {
                                     normalize={(value) => value && dayjs(value, 'DD/MM/YYYY')}
                                     fieldProps={{
                                         format: 'DD/MM/YYYY',
-
                                     }}
                                     // width="auto"
                                     rules={[{ required: true, message: 'Vui lòng chọn ngày cấp' }]}
-                                    placeholder="dd/mm/yyyy"
+                                    placeholder="DD/MM/YYYY"
                                 />
                             </Col>
                             <Col span={24} md={6}>
@@ -317,8 +316,8 @@ const ViewUpsertJob = (props: any) => {
                             <Col span={24}>
                                 <ProForm.Item
                                     name="description"
-                                    label="Miêu tả job"
-                                    rules={[{ required: true, message: 'Vui lòng nhập miêu tả job!' }]}
+                                    label="Mô tả job"
+                                    rules={[{ required: true, message: 'Vui lòng nhập mô tả job!' }]}
                                 >
                                     <ReactQuill
                                         theme="snow"

@@ -289,3 +289,6 @@ export const callFetchUserResumesById = (id: string) => {
 export const callUpdateUserResumes = (resumeInfo: any, id: string) => {
     return axios.patch<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`, { ...resumeInfo.data })
 }
+export const callDeleteUserResumes = (id: string) => {
+    return axios.delete<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`);
+}
