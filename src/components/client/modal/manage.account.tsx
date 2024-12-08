@@ -539,12 +539,12 @@ const ManageAccount = (props: IProps) => {
     const user = useAppSelector(state => state.account.user);
 
     const items: TabsProps['items'] = [
-        user?.role.name === 'USER' ? {
+        user?.role.name === 'NORMAL_USER' ? {
             key: 'user-resume',
             label: `Việc làm đã ứng tuyển`,
             children: <UserResume />,
         } : null,
-        user?.role.name === 'USER' ? {
+        user?.role.name === 'NORMAL_USER' ? {
             key: 'email-by-skills',
             label: `Kỹ năng và trình độ`,
             children: <JobByEmail />,
