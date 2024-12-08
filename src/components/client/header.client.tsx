@@ -31,28 +31,28 @@ const Header = (props: any) => {
 
     const items: MenuProps['items'] = [
         {
-            label: <Link to={'/'} style={{ fontWeight: '400' }}>Trang Chủ</Link>,
+            label: <Link to={'/'} style={{ fontWeight: '380' }}>Trang Chủ</Link>,
             key: '/',
             // icon: <DownOutlined />,
 
         },
         {
-            label: <Link to={'/job'} style={{ fontWeight: '400' }}>Việc Làm</Link>,
+            label: <Link to={'/job'} style={{ fontWeight: '380' }}>Việc Làm</Link>,
             key: '/job',
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/company'} style={{ fontWeight: '400' }}>Công ty</Link>,
+            label: <Link to={'/company'} style={{ fontWeight: '380' }}>Công ty</Link>,
             key: '/company',
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/blog'} style={{ fontWeight: '400' }}>Blog</Link>,
+            label: <Link to={'/blog'} style={{ fontWeight: '380' }}>Blog</Link>,
             key: '/blog',
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/employer-contact'} style={{ fontWeight: '400' }}>Employer</Link>,
+            label: <Link to={'/employer-contact'} style={{ fontWeight: '380' }}>Employer</Link>,
             key: '/employer-contact',
             // icon: <DownOutlined />,
         }

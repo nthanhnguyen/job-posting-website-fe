@@ -3,9 +3,31 @@ import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import { Form, Input, Select, Radio } from "antd";
 import { ClockCircleOutlined, PhoneOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 
 
 const EmployerPage = () => {
+
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1100);
+    const [isMobileViewThump, setIsMobileViewThump] = useState(window.innerWidth <= 845);
+
+    const handleResize = () => {
+        setIsMobileView(window.innerWidth <= 1100);
+    };
+
+    const handleAnotherResize = () => {
+        setIsMobileViewThump(window.innerWidth <= 845);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleAnotherResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleAnotherResize);
+        };
+    }, []);
 
     return (
         <Box sx={{ background: '#eee' }}>
@@ -19,28 +41,37 @@ const EmployerPage = () => {
                 top: '70px',
                 right: '0px',
             }}></div>
-            <Container >
+            <Container>
                 <Box sx={{ flexGrow: 1, paddingTop: '190px', zIndex: 9, position: 'relative' }}>
-                    <Grid container spacing={2} columns={16}>
-                        <Grid size={8} sx={{
+                    <Grid sx={{
+                        flexDirection: isMobileViewThump ? 'column-reverse' : 'unset',
+                        position: isMobileViewThump ? 'relative' : 'unset',
+                        bottom: '50px'
+                    }}
+                        container spacing={2} columns={16}>
+                        <Grid size={{ xs: 16, sm: 12, md: 8 }} sx={{
                             h2: {
-                                fontSize: '40px',
+                                fontSize: isMobileViewThump ? '20px' : '40px',
                                 fontWeight: 'bold',
                                 marginBottom: '10px',
-                                color: '#fff'
+                                color: '#fff',
+                                textAlign: isMobileViewThump ? 'center' : 'unset'
                             },
                             P: {
-                                fontSize: '18px',
-                                color: '#fff'
+                                fontSize: isMobileViewThump ? '16px' : '18px',
+                                color: '#fff',
+                                textAlign: isMobileViewThump ? 'center' : 'unset'
                             },
                         }}  >
                             <h2>Hire the best IT Professionals in Vietnam with JobHub</h2>
                             <p style={{ marginBottom: '10px' }}>With in-depth understanding in the IT sector and specialized skills, we can help you reach and hire the best IT candidates.</p>
-                            <Button size="large" sx={{ background: '#C82222', marginBottom: '10px' }} variant="contained">Liên hệ ngay</Button>
+                            <div style={{ display: 'flex', justifyContent: isMobileViewThump ? 'center' : 'flex-start' }}>
+                                <Button size="large" sx={{ background: '#C82222', marginBottom: '10px' }} variant="contained">Liên hệ ngay</Button>
+                            </div>
                             <p>Already have an Employer account? <a style={{ fontWeight: '500' }} href="/login">Sign in</a></p>
                         </Grid>
-                        <Grid size={8}>
-                            <div style={{ display: 'flex', width: 400, position: 'relative', left: 120 }}>
+                        <Grid size={{ xs: 20, sm: 12, md: 8 }}>
+                            <div style={{ display: 'flex', width: isMobileViewThump ? 150 : 400, alignItems: 'center', justifyContent: 'center', position: 'relative', left: 150 }}>
                                 <img src="/src/img/logo.png" />
                             </div>
                         </Grid>
@@ -49,11 +80,12 @@ const EmployerPage = () => {
             </Container>
             <Box sx={{
                 backgroundImage: `url("/src/img/bgcompany.svg")`,
-                height: '60vh',
+                height: 'fit-content',
                 width: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100% 100%',
-                marginTop: '205px'
+                marginTop: '205px',
+                marginBottom: '25px'
             }}>
                 <Container>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 100, textAlign: 'center' }}>
@@ -67,7 +99,7 @@ const EmployerPage = () => {
                     </div>
                     <Box>
                         <Grid container spacing={2} columns={40}>
-                            <Grid size={13} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
+                            <Grid size={{ xs: 40, sm: 20, md: 13 }} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative', top: '-50px' }}>
                                     <div>
                                         <img src="https://itviec.com/assets/employer_landing/first-hand-8f9978db44dfb1095793ff239fa072e94bfd1d74d7b62a875d7f69eba997b911.svg" />
@@ -78,7 +110,7 @@ const EmployerPage = () => {
                                     </div>
                                 </div>
                             </Grid>
-                            <Grid size={13} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
+                            <Grid size={{ xs: 40, sm: 20, md: 13 }} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative', top: '-50px' }}>
                                     <div>
                                         <img src="https://itviec.com/assets/employer_landing/second-hand-ef88cbd609f610ad98826b198a83feb349b8896a396f114c31721640592f6698.svg" />
@@ -88,7 +120,7 @@ const EmployerPage = () => {
                                         <p>CVs sent</p>
                                     </div>
                                 </div>                            </Grid>
-                            <Grid size={13} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
+                            <Grid size={{ xs: 40, sm: 20, md: 13 }} sx={{ background: '#fff', height: '170px', padding: '12px 12px', border: '1px solid #eee', borderRadius: '12px' }}>
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', position: 'relative', top: '-50px' }}>
                                     <div>
                                         <img src="https://itviec.com/assets/employer_landing/third-hand-4285467762b4dd431d96729f58e05928f8b304f711ce0d683660648ebd294f36.svg" />
@@ -108,6 +140,7 @@ const EmployerPage = () => {
                 width: '100%',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: '100% 100%',
+                display: isMobileView ? 'none' : 'block'
             }}>
                 <Container sx={{ position: 'relative', top: '25px', display: 'flex', flexDirection: 'column' }}>
                     <div>
@@ -183,30 +216,13 @@ const EmployerPage = () => {
                     </div>
 
                 </Container>
-                {/* <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        h2: {
-                            color: 'black',
-                            fontSize: '28px',
-                            fontWeight: 'bold'
-                        },
-                        gap: 12,
-                        marginTop: '30px',
-                    }}>
-<<<<<<< HEAD
-                    <h2 style={{ color: 'white' }}>Experience JobHub's service today</h2>
-                    <Button
-                        size="large" sx={{ background: '#C82222', marginBottom: '10px', fontSize: '20px' }} variant="contained">Liên hệ ngay</Button>
-                </Box> */}
             </Box>
             <Container sx={{ marginTop: '60px' }}>
                 <Grid container spacing={2}>
-                    <Grid sx={{ border: '1px solid #eee', height: 'fit-content', padding: '20px 20px', borderRadius: '15px', background: '#fff', marginBottom: '50px' }} size={8}>
+                    <Grid sx={{ border: '1px solid #eee', height: 'fit-content', padding: '20px 20px', borderRadius: '15px', background: '#fff', marginBottom: '50px' }} size={{ xs: 12, sm: 8, md: 8 }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px' }}>Your contact information</h2>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                            <Grid size={6}>
+                            <Grid size={{ xs: 12, sm: 8, md: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
@@ -217,7 +233,7 @@ const EmployerPage = () => {
                                     <Input size='large' placeholder="Full Name" />
                                 </Form.Item>
                             </Grid>
-                            <Grid size={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
@@ -228,7 +244,7 @@ const EmployerPage = () => {
                                     <Input size='large' placeholder="Work title" />
                                 </Form.Item>
                             </Grid>
-                            <Grid size={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
@@ -239,7 +255,7 @@ const EmployerPage = () => {
                                     <Input size='large' placeholder="Work email" />
                                 </Form.Item>
                             </Grid>
-                            <Grid size={6}>
+                            <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
@@ -303,14 +319,14 @@ const EmployerPage = () => {
                             <Input size='large' placeholder="Website URL" />
                         </Form.Item>
                         <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information.
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px' }}>
+                        <div style={{ display: 'flex', flexDirection: isMobileView ? 'column' : 'unset', justifyContent: 'space-between', marginTop: '50px' }}>
                             <div>
                                 <p>Already have an Employer account? <a style={{ fontWeight: '500' }} href="/login">Sign in</a></p>
                             </div>
-                            <div><Button size="large" sx={{ background: '#C82222', marginBottom: '10px' }} variant="contained">Contact me</Button></div>
+                            <div><Button size="large" sx={{ width: isMobileView ? '100%' : '100%', marginTop: isMobileView ? '20px' : '0', background: '#C82222', marginBottom: '10px' }} variant="contained">Contact me</Button></div>
                         </div>
                     </Grid>
-                    <Grid sx={{ border: '1px solid #eee', height: '100px' }} size={4}>
+                    <Grid sx={{ border: '1px solid #eee', height: 'fit-content', marginBottom: isMobileView ? '30px' : '0px' }} size={{ xs: 12, sm: 8, md: 4 }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                             <div style={{ height: 100, borderRadius: '12px', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', padding: '10px 10px', gap: 10, fontSize: '20px' }}>
                                 <PhoneOutlined style={{ fontSize: '30px', color: 'blue' }} />
@@ -338,7 +354,7 @@ const EmployerPage = () => {
                 </Grid>
 
             </Container>
-            <Box
+            {/* <Box
                 sx={{
                     h2: {
                         color: 'black',
@@ -354,7 +370,7 @@ const EmployerPage = () => {
                     position: 'relative',
                     top: '45px',
                 }}>Experience JobHub's service today</h2>
-            </Box>
+            </Box> */}
         </Box >
     )
 }

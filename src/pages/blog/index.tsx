@@ -4,12 +4,33 @@ import 'styles/blog.scss'
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import dummy from '../resume-builder/data/dummy';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Blog = () => {
     const [hoveredLargeCard, setHoveredLargeCard] = useState(null);
     const [hoveredSmallCard, setHoveredSmallCard] = useState(null);
+
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 899);
+    const [isMobileViewThump, setIsMobileViewThump] = useState(window.innerWidth <= 1250);
+
+    const handleResize = () => {
+        setIsMobileView(window.innerWidth <= 899);
+    };
+
+    const handleAnotherResize = () => {
+        setIsMobileViewThump(window.innerWidth <= 1250);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleAnotherResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleAnotherResize);
+        };
+    }, []);
 
     const handleLargeCardMouseEnter = (id: any) => {
         setHoveredLargeCard(id);
@@ -32,6 +53,7 @@ const Blog = () => {
         flexDirection: 'column',
         justifyContent: 'space-around',
         gap: '20px',
+        cursor: 'pointer'
     };
     return (
         <div className="bg-container">
@@ -41,12 +63,12 @@ const Blog = () => {
                 <Grid container spacing={3} columns={16}>
                     {dummy.blogcardlarge.map((data) => {
                         return (
-                            <Grid size={8}
+                            <Grid size={{ xs: 16, sm: 20, md: 8 }}
                                 sx={{
                                     background: '#fff',
                                     border: '1px solid #eee',
                                     borderRadius: '12px',
-                                    height: 585,
+                                    height: { xs: 650, sm: 545, md: 585 },
                                     position: 'relative',
                                     overflow: 'hidden',
                                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -57,9 +79,9 @@ const Blog = () => {
                                 onMouseLeave={handleLargeCardMouseLeave}
                             >
                                 <div style={boxStyle}>
-                                    <a onClick={()=> navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}>
+                                    <a onClick={() => navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}>
                                         <div className='img-blog'                                        >
-                                            <img src={data.image} style={{ height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                            <img src={data.image} style={{ objectFit: 'cover', height: '350px', width: '100%', borderRadius: '12px 12px 0 0' }} />
                                         </div>
                                     </a>
                                     <div className='cont-blog'
@@ -70,7 +92,7 @@ const Blog = () => {
                                     </div>
                                     <div>
                                         <a style={{ padding: '12px 12px', color: 'blue' }}
-                                            onClick={()=> navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}
+                                            onClick={() => navigate('/blog/detail/chuyenmonit/AdIQwzwTsilnuxm')}
                                         > Xem thêm</a>
                                     </div>
                                 </div>
@@ -86,10 +108,11 @@ const Blog = () => {
                                         <Grid size={6}
                                             key={data._id}
                                             sx={{
+                                                display: isMobileView ? 'none' : 'block',
                                                 background: '#fff',
                                                 border: '1px solid #eee',
                                                 borderRadius: '12px',
-                                                height: 280,
+                                                height: { sm: 265, md: 280 },
                                                 position: 'relative',
                                                 overflow: 'hidden',
                                                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -101,7 +124,7 @@ const Blog = () => {
                                         >
                                             <a href={data.link}>
                                                 <div className='img-blog'>
-                                                    <img src={data.image} style={{ height: '150px', width: '100%', borderRadius: '12px 12px 0 0' }} />
+                                                    <img src={data.image} style={{ objectFit: 'cover', height: '150px', width: '100%', borderRadius: '12px 12px 0 0' }} />
                                                 </div>
                                             </a>
                                             <div className='cont-blog'
@@ -111,8 +134,8 @@ const Blog = () => {
                                             </div>
                                             <div>
                                                 <Button
-                                                    style={{ border: 'none', boxShadow: 'none', color: 'blue' }}
-                                                    onClick={()=>navigate(`${data.link}`)}
+                                                    style={{ display: isMobileViewThump ? 'none' : 'block', border: 'none', boxShadow: 'none', color: 'blue' }}
+                                                    onClick={() => navigate(`${data.link}`)}
                                                 > Xem thêm</Button>
                                             </div>
                                         </Grid>
