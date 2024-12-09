@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { Button, Container, Divider, Typography } from '@mui/material';
 import dummy from '../resume-builder/data/dummy';
 import Modal from '@mui/material/Modal';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const style = {
@@ -23,10 +23,31 @@ const BlogDetail = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 595);
+    const [isMobileViewThump, setIsMobileViewThump] = useState(window.innerWidth <= 985);
+
+    const handleResize = () => {
+        setIsMobileView(window.innerWidth <= 595);
+    };
+
+    const handleAnotherResize = () => {
+        setIsMobileViewThump(window.innerWidth <= 985);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', handleAnotherResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleAnotherResize);
+        };
+    }, []);
+
     return (
         <Box sx={{ background: '#f7f7f7' }}>
             <div style={{ height: '360px', width: '100%' }}>
-                <h2 style={{ zIndex: 9, position: 'relative', textAlign: 'center', top: '120px', fontSize: '40px', fontWeight: 500, color: 'white' }}>
+                <h2 style={{ top: isMobileView ? '75px' : '120px', zIndex: 9, position: 'relative', textAlign: 'center', fontSize: '40px', fontWeight: 500, color: 'white' }}>
                     JobHub Blog - Ý tưởng phát triển sự nghiệp IT của bạn
                 </h2>
                 <div style={{
@@ -45,11 +66,11 @@ const BlogDetail = () => {
                     <Grid container spacing={4} columns={32}>
                         {dummy.data?.map((data: any) => {
                             return (
-                                <Grid size={8}
+                                <Grid size={{ xs: 16, sm: 10, md: 8 }}
                                     key={data._id}
                                     sx={{
                                         background: '#fff',
-                                        height: '280px',
+                                        height: { xs: 300, sm: 283, md: 265 },
                                         border: '1px solid #eee',
                                         padding: '20px 20px',
                                         textAlign: 'justify',
@@ -72,10 +93,10 @@ const BlogDetail = () => {
                 </Box>
                 <Divider textAlign="left" sx={{ fontWeight: 'bold', fontSize: '20px', marginTop: '25px', marginBottom: '25px' }}>Mới nhất</Divider>
                 <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={4} columns={24}>
+                    <Grid container spacing={4} columns={24} size={{ xs: 16, sm: 10, md: 8 }}>
                         {dummy.blog0?.map((data: any) => {
                             return (
-                                <Grid size={8}
+                                <Grid size={{ xs: 32, sm: 12, md: 8 }}
                                     key={data._id}
                                     sx={{
                                         border: '1px solid #eee',
@@ -84,7 +105,7 @@ const BlogDetail = () => {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         gap: '12px',
-                                        height: 600,
+                                        height: { xs: 530, sm: 610, md: 600 },
                                     }}>
                                     <a href={`/blog/detail/viecit/${data._id}`}>
                                         <div className='image-blog'
@@ -111,7 +132,7 @@ const BlogDetail = () => {
                 <Grid container spacing={4} columns={24}>
                     {dummy.blog1?.map((data: any) => {
                         return (
-                            <Grid size={8}
+                            <Grid size={{ xs: 32, sm: 12, md: 8 }}
                                 key={data._id}
                                 sx={{
                                     border: '1px solid #eee',
@@ -120,7 +141,7 @@ const BlogDetail = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: '12px',
-                                    height: 600,
+                                    height: { xs: 530, sm: 610, md: 600 },
                                 }}>
                                 <a href={`/blog/detail/chuyenmonit/${data._id}`}>
                                     <div className='image-blog'
@@ -146,7 +167,7 @@ const BlogDetail = () => {
                 <Grid container spacing={4} columns={24}>
                     {dummy.blog2?.map((data: any) => {
                         return (
-                            <Grid size={8}
+                            <Grid size={{ xs: 32, sm: 12, md: 8 }}
                                 key={data._id}
                                 sx={{
                                     border: '1px solid #eee',
@@ -155,7 +176,7 @@ const BlogDetail = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: '12px',
-                                    height: 600,
+                                    height: { xs: 530, sm: 610, md: 600 },
                                 }}>
                                 <a href={`/blog/detail/chuyenit/${data._id}`}>
                                     <div className='image-blog'
@@ -178,27 +199,9 @@ const BlogDetail = () => {
                     })}
                 </Grid>
             </Container>
-            <div style={{ height: '150px', width: '100%', border: '1px solid red', background: '#FFF5E9', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', marginTop: '45px' }}>
+            <div style={{ display: isMobileViewThump ? 'none' : 'flex', position: 'relative', height: '150px', width: '100%', border: '1px solid red', background: '#FFF5E9', justifyContent: 'center', alignItems: 'center', marginTop: '45px' }}>
                 <div style={{ textTransform: 'uppercase', fontSize: '20px', fontWeight: 'bold' }}>
                     <span>Câu chuyện sự nghiệp của bạn sẽ truyền cảm hứng đến rất nhiều người.</span>
-                </div>
-                <div>
-                    {/* <Button onClick={handleOpen} sx={{ background: 'red', color: '#fff', border: 'unset', fontSize: '18px' }} variant='outlined' size='large'>Chia sẻ ngay</Button> */}
-                    <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Chức năng đang hoàn thiện
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                Hãy quay lại sau bạn nhé!
-                            </Typography>
-                        </Box>
-                    </Modal>
                 </div>
             </div>
         </Box>

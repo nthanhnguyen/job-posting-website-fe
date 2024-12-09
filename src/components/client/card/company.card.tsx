@@ -24,6 +24,15 @@ const CompanyCard = (props: IProps) => {
     const [sortQuery, setSortQuery] = useState("sort=-updatedAt");
     const navigate = useNavigate();
 
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobileView(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     useEffect(() => {
         fetchCompany();
     }, [current, pageSize, filter, sortQuery]);
@@ -69,7 +78,7 @@ const CompanyCard = (props: IProps) => {
             <div className={styles["company-content"]}>
                 <Spin spinning={isLoading} tip="Loading...">
                     <Row gutter={[20, 20]}>
-                        <Col span={24}>
+                        <Col span={24} >
                             <div className={isMobile ? styles["dflex-mobile"] : styles["dflex-pc"]}>
                                 <span className={styles["title"]} style={{ fontWeight: 600 }}>Nhà tuyển dụng</span>
                                 {!showPagination &&
@@ -80,14 +89,18 @@ const CompanyCard = (props: IProps) => {
 
                         {displayCompany?.map(item => {
                             return (
-                                <Col span={24} md={6} key={item._id} >
+                                <Col span={24}
+                                    xs={24}
+                                    sm={12}
+                                    md={8}
+                                    lg={6} key={item._id} >
                                     <Card
                                         onClick={() => handleViewDetailJob(item)}
                                         style={{
                                             backgroundImage: `url('https://freesvg.org/img/1666855551curved-lines-on-white-background.png')`,
                                             backgroundRepeat: 'no-repeat',
                                             backgroundSize: 'cover',
-                                            height: 330
+                                            height: isMobile ? 260 : 330,
                                         }}
                                         hoverable
                                         cover={
@@ -96,18 +109,22 @@ const CompanyCard = (props: IProps) => {
                                                 <img
                                                     alt="example"
                                                     src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${item?.logo}`}
-                                                    style={{ height: '200px', width: '200px', background: '#fff' }}
+                                                    style={{
+                                                        height: isMobile ? '150px' : '200px',
+                                                        width: isMobile ? '150px' : '200px',
+                                                        background: '#fff'
+                                                    }}
                                                 />
                                             </div>
                                         }
                                     >
                                         {/* <Divider /> */}
                                         <div style={{ width: "100%", height: '20px' }}></div>
-                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: '20px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.name}</h3>
+                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '20px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.name}</h3>
                                     </Card>
                                     <div style={{
                                         background: '#F5F5F5',
-                                        width: '94%',
+                                        width: isMobileView ? '96%' : '94%',
                                         height: '78px',
                                         position: 'absolute',
                                         bottom: '0',

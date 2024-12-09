@@ -41,7 +41,7 @@ const BlogDetailPage = () => {
                                         >
                                             <h3 style={{ fontSize: '26px', fontWeight: 'bold' }}>{item.title_content}</h3>
                                             <div style={{ fontSize: '18px' }}>
-                                                <img src={item.images} />
+                                                <img style={{ objectFit: 'cover' }} src={item.images} />
                                                 {parse(item.content_data ?? "")}
                                             </div>
 
@@ -52,7 +52,7 @@ const BlogDetailPage = () => {
                         </div>
                     </Col>
 
-                    <Col span={24} md={8}>
+                    <Col span={24} xs={24} sm={10} md={8}>
                         <div className="job-listing-wrapper" style={{
                             flexGrow: 1
                         }}>
@@ -61,7 +61,7 @@ const BlogDetailPage = () => {
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                                 alignItems: 'center',
-                                maxHeight: '700px',
+                                maxHeight: 'fit-content',
                                 marginTop: '45px',
                             }}>
                                 <div className="job-listing" style={{ padding: '0 0 48px 0', display: 'flex', flexDirection: 'column', width: '100%', }}>
