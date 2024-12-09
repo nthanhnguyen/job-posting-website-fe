@@ -1,4 +1,4 @@
-import { Button, Container } from "@mui/material";
+import { Button, Container, FormControl, InputLabel, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
 import { Form, Input, Select, Radio } from "antd";
@@ -7,6 +7,12 @@ import { useEffect, useState } from "react";
 
 
 const EmployerPage = () => {
+
+    const [age, setAge] = useState('');
+
+    const handleChange = (event: SelectChangeEvent) => {
+        setAge(event.target.value);
+    };
 
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1100);
     const [isMobileViewThump, setIsMobileViewThump] = useState(window.innerWidth <= 845);
@@ -28,6 +34,8 @@ const EmployerPage = () => {
             window.removeEventListener('resize', handleAnotherResize);
         };
     }, []);
+
+
 
     return (
         <Box sx={{ background: '#eee' }}>
@@ -230,7 +238,8 @@ const EmployerPage = () => {
 
                                     rules={[{ required: true, message: 'Họ tên không được để trống!' }]}
                                 >
-                                    <Input size='large' placeholder="Full Name" />
+                                    {/* <Input size='large' placeholder="Full Name" /> */}
+                                    <TextField id="outlined-basic" fullWidth label="Full Name" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -241,7 +250,8 @@ const EmployerPage = () => {
 
                                     rules={[{ required: true, message: 'Tiêu đề không được để trống!' }]}
                                 >
-                                    <Input size='large' placeholder="Work title" />
+                                    {/* <Input size='large' placeholder="Work title" /> */}
+                                    <TextField id="outlined-basic" fullWidth label="Work title" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -252,7 +262,8 @@ const EmployerPage = () => {
 
                                     rules={[{ required: true, message: 'Email không được để trống!' }]}
                                 >
-                                    <Input size='large' placeholder="Work email" />
+                                    {/* <Input size='large' placeholder="Work email" /> */}
+                                    <TextField id="outlined-basic" placeholder="alo" fullWidth label="Work email" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -263,7 +274,8 @@ const EmployerPage = () => {
 
                                     rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
                                 >
-                                    <Input size='large' placeholder="Phone number" />
+                                    {/* <Input size='large' placeholder="Phone number" /> */}
+                                    <TextField id="outlined-basic" fullWidth label="Phone number" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                         </Grid>
@@ -295,7 +307,8 @@ const EmployerPage = () => {
 
                             rules={[{ required: true, message: 'Tên công ty không được để trống!' }]}
                         >
-                            <Input size='large' placeholder="Company name" />
+                            {/* <Input size='large' placeholder="Company name" /> */}
+                            <TextField id="outlined-basic" fullWidth label="Company name" size="small" variant="outlined" />
                         </Form.Item>
                         <Select
                             allowClear
@@ -309,6 +322,7 @@ const EmployerPage = () => {
                                 { value: 'other', label: 'Others' },
                             ]}
                         />
+
                         <Form.Item
                             style={{ marginBottom: '10px', width: '100%', }}
                             labelCol={{ span: 24 }}
@@ -316,7 +330,8 @@ const EmployerPage = () => {
 
                             rules={[{ required: true, message: 'Email không được để trống!' }]}
                         >
-                            <Input size='large' placeholder="Website URL" />
+                            {/* <Input size='large' placeholder="Website URL" /> */}
+                            <TextField id="outlined-basic" fullWidth label="Website URL" size="small" variant="outlined" />
                         </Form.Item>
                         <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information.
                         <div style={{ display: 'flex', flexDirection: isMobileView ? 'column' : 'unset', justifyContent: 'space-between', marginTop: '50px' }}>
