@@ -101,12 +101,12 @@ const EmployerPage = () => {
                                 textAlign: isMobileViewThump ? 'center' : 'unset'
                             },
                         }}  >
-                            <h2>Hire the best IT Professionals in Vietnam with JobHub</h2>
-                            <p style={{ marginBottom: '10px' }}>With in-depth understanding in the IT sector and specialized skills, we can help you reach and hire the best IT candidates.</p>
+                            <h2>Thuê những chuyên gia CNTT giỏi nhất với JobHub</h2>
+                            <p style={{ marginBottom: '10px', textAlign: 'justify' }}>Với hiểu biết sâu sắc về lĩnh vực CNTT và các kỹ năng chuyên môn, chúng tôi có thể giúp bạn tiếp cận và tuyển dụng được những ứng viên CNTT giỏi nhất.</p>
                             <div style={{ display: 'flex', justifyContent: isMobileViewThump ? 'center' : 'flex-start' }}>
                                 <Button size="large" sx={{ background: '#C82222', marginBottom: '10px' }} variant="contained">Liên hệ ngay</Button>
                             </div>
-                            <p>Already have an Employer account? <a style={{ fontWeight: '500' }} href="/login">Sign in</a></p>
+                            <p>Bạn đã có tài khoản? <a style={{ fontWeight: '500' }} href="/login">Đăng nhập</a></p>
                         </Grid>
                         <Grid size={{ xs: 20, sm: 12, md: 8 }}>
                             <div style={{ display: 'flex', width: isMobileViewThump ? 150 : 400, alignItems: 'center', justifyContent: 'center', position: 'relative', left: 150 }}>
