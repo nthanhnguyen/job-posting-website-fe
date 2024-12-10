@@ -106,8 +106,8 @@ function Experience() {
   return (
     <div>
       <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
-        <h2 className='font-bold text-lg'>Professional Experience</h2>
-        <p>Add Your previous Job experience</p>
+        <h2 className='font-bold text-lg'>Kinh nghiệm chuyên môn</h2>
+        <p>Thêm kinh nghiệm làm việc trước đây của bạn</p>
         <div>
           {experienceList.map((item, index) => (
             <div key={index}>

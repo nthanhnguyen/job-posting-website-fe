@@ -35,7 +35,37 @@ const EmployerPage = () => {
         };
     }, []);
 
+    const [formData, setFormData] = useState({
+        name: "",
+        position: "",
+        email: "",
+        phone: "",
+        address: "",
+        companyName: "",
+        companyUrl: "",
+        companyLocation: "",
+    });
 
+    //To do
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
+        const { name, value } = event.target;
+        setFormData((prev) => ({ ...prev, [name || ""]: value }));
+    };
+
+    const handleSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); // Ngăn trang reload
+        setFormData({
+            name: "",
+            position: "",
+            email: "",
+            phone: "",
+            address: "",
+            companyName: "",
+            companyUrl: "",
+            companyLocation: "",
+        });
+        console.log("Form reset!");
+    };
 
     return (
         <Box sx={{ background: '#eee' }}>
@@ -226,68 +256,71 @@ const EmployerPage = () => {
                 </Container>
             </Box>
             <Container sx={{ marginTop: '60px' }}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} 
+                    component="form"
+                    onSubmit={handleSubmitForm}
+                >
                     <Grid sx={{ border: '1px solid #eee', height: 'fit-content', padding: '20px 20px', borderRadius: '15px', background: '#fff', marginBottom: '50px' }} size={{ xs: 12, sm: 8, md: 8 }}>
-                        <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px' }}>Your contact information</h2>
+                        <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px' }}>Thông tin Quý khách</h2>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid size={{ xs: 12, sm: 8, md: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
-                                    name="name-contact"
+                                    name="name"
 
                                     rules={[{ required: true, message: 'Họ tên không được để trống!' }]}
                                 >
                                     {/* <Input size='large' placeholder="Full Name" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Full Name" size="small" variant="outlined" />
+                                    <TextField id="outlined-basic" fullWidth label="Họ tên" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
-                                    name="worktitle-contact"
+                                    name="position"
 
-                                    rules={[{ required: true, message: 'Tiêu đề không được để trống!' }]}
+                                    rules={[{ required: true, message: 'Chức vụ không được để trống!' }]}
                                 >
                                     {/* <Input size='large' placeholder="Work title" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Work title" size="small" variant="outlined" />
+                                    <TextField id="outlined-basic" fullWidth label="Chức vụ" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
-                                    name="email-contact"
+                                    name="email"
 
                                     rules={[{ required: true, message: 'Email không được để trống!' }]}
                                 >
                                     {/* <Input size='large' placeholder="Work email" /> */}
-                                    <TextField id="outlined-basic" placeholder="alo" fullWidth label="Work email" size="small" variant="outlined" />
+                                    <TextField id="outlined-basic" fullWidth label="Email" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
                                 <Form.Item
                                     style={{ marginBottom: '15px', width: '100%', }}
                                     labelCol={{ span: 24 }}
-                                    name="phone-contact"
+                                    name="phone"
 
                                     rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
                                 >
                                     {/* <Input size='large' placeholder="Phone number" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Phone number" size="small" variant="outlined" />
+                                    <TextField id="outlined-basic" fullWidth label="Số điện thoại" size="small" variant="outlined" />
                                 </Form.Item>
                             </Grid>
                         </Grid>
                         <Form.Item
                             style={{ marginBottom: '15px', width: '100%', marginTop: '9px' }}
                             labelCol={{ span: 24 }}
-                            name="gender"
-                            rules={[{ required: true, message: 'Giới tính không được để trống!' }]}
+                            name="address"
+                            rules={[{ required: true, message: 'Địa chỉ không được để trống!' }]}
                         >
                             <Select
                                 allowClear
-                                placeholder='How did you know JobHub'
+                                placeholder='Bạn biết Job Hub từ đâu?'
                                 size="large"
                                 style={{ width: '100%' }}
                                 options={[
@@ -299,20 +332,20 @@ const EmployerPage = () => {
                                 ]}
                             />
                         </Form.Item>
-                        <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px' }}>Company information</h2>
+                        <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px' }}>Thông tin công ty</h2>
                         <Form.Item
                             style={{ marginBottom: '20px', width: '100%', }}
                             labelCol={{ span: 24 }}
-                            name="company-name"
+                            name="companyName"
 
                             rules={[{ required: true, message: 'Tên công ty không được để trống!' }]}
                         >
                             {/* <Input size='large' placeholder="Company name" /> */}
-                            <TextField id="outlined-basic" fullWidth label="Company name" size="small" variant="outlined" />
+                            <TextField id="outlined-basic" fullWidth label="Tên công ty" size="small" variant="outlined" />
                         </Form.Item>
                         <Select
                             allowClear
-                            placeholder='Company location'
+                            placeholder='Địa chỉ công ty'
                             size="large"
                             style={{ width: '100%', marginBottom: '20px' }}
                             options={[
@@ -326,19 +359,19 @@ const EmployerPage = () => {
                         <Form.Item
                             style={{ marginBottom: '10px', width: '100%', }}
                             labelCol={{ span: 24 }}
-                            name="web-url"
-
-                            rules={[{ required: true, message: 'Email không được để trống!' }]}
+                            name="companyUrl"
+                            // value={formData.name}
+                            rules={[{ required: true, message: 'Website URL không được để trống!' }]}
                         >
                             {/* <Input size='large' placeholder="Website URL" /> */}
                             <TextField id="outlined-basic" fullWidth label="Website URL" size="small" variant="outlined" />
                         </Form.Item>
-                        <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information.
+                        {/* <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information. */}
                         <div style={{ display: 'flex', flexDirection: isMobileView ? 'column' : 'unset', justifyContent: 'space-between', marginTop: '50px' }}>
                             <div>
-                                <p>Already have an Employer account? <a style={{ fontWeight: '500' }} href="/login">Sign in</a></p>
+                                <p>Bạn đã có tài khoản? <a style={{ fontWeight: '500' }} href="/login">Login</a></p>
                             </div>
-                            <div><Button size="large" sx={{ width: isMobileView ? '100%' : '100%', marginTop: isMobileView ? '20px' : '0', background: '#C82222', marginBottom: '10px' }} variant="contained">Contact me</Button></div>
+                            <div><Button type="submit" size="large" sx={{ width: isMobileView ? '100%' : '100%', marginTop: isMobileView ? '20px' : '0', background: '#C82222', marginBottom: '10px' }} variant="contained">Contact me</Button></div>
                         </div>
                     </Grid>
                     <Grid sx={{ border: '1px solid #eee', height: 'fit-content', marginBottom: isMobileView ? '30px' : '0px' }} size={{ xs: 12, sm: 8, md: 4 }}>

@@ -263,3 +263,19 @@ export interface ICheckApplying {
     isPending: boolean
     url: string; 
 }
+
+export interface IEmployerRegistration {
+    _id?: string;
+    name: string;
+    position: string;
+    email: string;
+    phone: string;
+    address: string;
+    companyName: string;
+    companyAddress: string;
+    companyUrl: string;
+    status: string;
+    updatedBy?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}

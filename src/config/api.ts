@@ -1,4 +1,4 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC, ICheckApplying } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC, ICheckApplying, IEmployerRegistration } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
@@ -291,4 +291,12 @@ export const callUpdateUserResumes = (resumeInfo: any, id: string) => {
 }
 export const callDeleteUserResumes = (id: string) => {
     return axios.delete<IBackendRes<IResumeInfo>>(`/api/v1/user-resumes/${id}`);
+}
+
+/**
+ * 
+Module User Resumes
+ */
+export const callCreateEmployerRegistration = (employerRegistration: IEmployerRegistration) => {
+    return axios.post<IBackendRes<IEmployerRegistration>>('/api/v1/employer-registration', { ...employerRegistration })
 }

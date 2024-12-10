@@ -75,13 +75,13 @@ function PersonalDetail(props: IProps) {
 
     return (
         <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-            <h2 className="font-bold text-lg">Personal Detail</h2>
-            <p>Get Started with the basic information</p>
+            <h2 className="font-bold text-lg">Thông tin cá nhân</h2>
+            <p>Bắt đầu với thông tin cơ bản</p>
 
             <form onSubmit={onSave}>
                 <div className="grid grid-cols-2 mt-5 gap-3">
                     <div>
-                        <label className="text-sm">First Name</label>
+                        <label className="text-sm">Họ</label>
                         <Input
                             name="firstName"
                             defaultValue={formData.firstName}
@@ -90,7 +90,7 @@ function PersonalDetail(props: IProps) {
                         />
                     </div>
                     <div>
-                        <label className="text-sm">Last Name</label>
+                        <label className="text-sm">Tên</label>
                         <Input
                             name="lastName"
                             defaultValue={formData.lastName}
@@ -99,7 +99,7 @@ function PersonalDetail(props: IProps) {
                         />
                     </div>
                     <div className="col-span-2">
-                        <label className="text-sm">Job Title</label>
+                        <label className="text-sm">Tiêu đề công việc</label>
                         <Input
                             name="jobTitle"
                             defaultValue={formData.jobTitle}
@@ -108,7 +108,7 @@ function PersonalDetail(props: IProps) {
                         />
                     </div>
                     <div className="col-span-2">
-                        <label className="text-sm">Address</label>
+                        <label className="text-sm">Địa chỉ</label>
                         <Input
                             name="address"
                             defaultValue={formData.address}
@@ -117,7 +117,7 @@ function PersonalDetail(props: IProps) {
                         />
                     </div>
                     <div>
-                        <label className="text-sm">Phone</label>
+                        <label className="text-sm">Số điện thoại</label>
                         <Input
                             name="phone"
                             defaultValue={formData.phone}

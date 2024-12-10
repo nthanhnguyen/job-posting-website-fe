@@ -79,8 +79,8 @@ function Education() {
 
   return (
     <div className='p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10'>
-      <h2 className='font-bold text-lg'>Education</h2>
-      <p>Add Your educational details</p>
+      <h2 className='font-bold text-lg'>Học vấn</h2>
+      <p>Thêm thông tin học vấn của bạn</p>
 
       <div>
         {educationalList.map((item, index) => (

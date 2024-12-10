@@ -86,8 +86,8 @@ function Summary(props: IProps) {
   return (
     <div>
       <div className="p-5 shadow-lg rounded-lg border-t-primary border-t-4 mt-10">
-        <h2 className="font-bold text-lg">Summary</h2>
-        <p>Add a summary for your job title</p>
+        <h2 className="font-bold text-lg">Tóm tắt</h2>
+        <p>Thêm tóm tắt cho chức danh công việc của bạn</p>
 
         <form className="mt-7" onSubmit={onSave}>
           <div className='flex justify-between items-end'>
