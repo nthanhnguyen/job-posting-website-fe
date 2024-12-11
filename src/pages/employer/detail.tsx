@@ -41,7 +41,7 @@ const EmployerPage = () => {
         address?: string; // Optional, to support placeholder
         companyName: string;
         companyUrl: string;
-        companyLocation?: string; // Optional, to support placeholder
+        companyAddress?: string; // Optional, to support placeholder
     }>({
         name: "",
         position: "",
@@ -50,7 +50,7 @@ const EmployerPage = () => {
         address: undefined,
         companyName: "",
         companyUrl: "",
-        companyLocation: undefined,
+        companyAddress: undefined,
     });
 
     //To do
@@ -62,7 +62,7 @@ const EmployerPage = () => {
     };
 
     const handleSelectChangeLocation = (value: string) => {
-        setFormData((prev) => ({ ...prev, companyLocation: value }));
+        setFormData((prev) => ({ ...prev, companyAddress: value }));
     };
 
 
@@ -70,25 +70,54 @@ const EmployerPage = () => {
         setFormData((prev) => ({ ...prev, address: value }));
     };
 
+    const [errors, setErrors] = useState({
+        name: false,
+        position: false,
+        email: false,
+        phone: false,
+        address: false,
+        companyName: false,
+        companyUrl: false,
+        companyAddress: false,
+    });
 
     const handleSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        form.setFieldsValue({
-            address: undefined, // Reset giá trị address về undefined
-            companyLocation: undefined,
-        });
-        console.log('Form Data:', formData); // Log the form data here
-        // Reset form data after submission (optional)
-        setFormData({
-            name: "",
-            position: "",
-            email: "",
-            phone: "",
-            address: undefined, // Reset to undefined
-            companyName: "",
-            companyUrl: "",
-            companyLocation: undefined, // Reset to undefined
-        });
+        const newErrors = {
+            name: !formData.name,
+            position: !formData.position,
+            email: !formData.email,
+            phone: !formData.phone,
+            address: !formData.address,
+            companyName: !formData.companyName,
+            companyUrl: !formData.companyUrl,
+            companyAddress: !formData.companyAddress,
+        };
+
+        setErrors(newErrors);
+
+        // Nếu không có lỗi thì có thể submit form
+        if (!Object.values(newErrors).includes(true)) {
+            form.setFieldsValue({
+                address: undefined, // Reset giá trị address về undefined
+                companyAddress: undefined,
+            });
+            console.log('Form Data:', formData); // Log the form data here
+            // Reset form data after submission (optional)
+            setFormData({
+                name: "",
+                position: "",
+                email: "",
+                phone: "",
+                address: undefined, // Reset to undefined
+                companyName: "",
+                companyUrl: "",
+                companyAddress: undefined, // Reset to undefined
+            });
+
+            //TODO
+
+        }
     };
 
     return (
@@ -295,6 +324,10 @@ const EmployerPage = () => {
                                     size="small"
                                     variant="outlined"
                                     style={{ marginBottom: '15px' }}
+                                    helperText={errors.name ? 'Vui lòng điền họ tên' : ''}
+                                    FormHelperTextProps={{
+                                        style: { color: 'red' }
+                                    }}
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -307,6 +340,10 @@ const EmployerPage = () => {
                                     size="small"
                                     variant="outlined"
                                     style={{ marginBottom: '15px' }}
+                                    helperText={errors.position ? 'Vui lòng điền chức vụ' : ''}
+                                    FormHelperTextProps={{
+                                        style: { color: 'red' }
+                                    }}
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -319,6 +356,10 @@ const EmployerPage = () => {
                                     size="small"
                                     variant="outlined"
                                     style={{ marginBottom: '15px' }}
+                                    helperText={errors.email ? 'Vui lòng điền Email' : ''}
+                                    FormHelperTextProps={{
+                                        style: { color: 'red' }
+                                    }}
                                 />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
@@ -331,6 +372,10 @@ const EmployerPage = () => {
                                     size="small"
                                     variant="outlined"
                                     style={{ marginBottom: '15px' }}
+                                    helperText={errors.phone ? 'Vui lòng điền số điện thoại' : ''}
+                                    FormHelperTextProps={{
+                                        style: { color: 'red' }
+                                    }}
                                 />
                             </Grid>
                         </Grid>
@@ -344,6 +389,8 @@ const EmployerPage = () => {
                             <Form.Item
                                 name="address"
                                 style={{ width: '100%', marginBottom: '20px' }}
+                                validateStatus={errors.address ? 'error' : ''}
+                                help={errors.address ? <span style={{ color: 'red' }}>Vui lòng chọn</span> : ''}
                             >
                                 <Select
                                     allowClear
@@ -369,6 +416,10 @@ const EmployerPage = () => {
                             size="small"
                             variant="outlined"
                             style={{ marginBottom: '15px' }}
+                            helperText={errors.companyName ? 'Vui lòng điền tên công ty' : ''}
+                            FormHelperTextProps={{
+                                style: { color: 'red' }
+                            }}
                         />
                         <Form
                             form={form} // Kết nối form instance
@@ -378,7 +429,9 @@ const EmployerPage = () => {
                         >
                             <Form.Item
                                 style={{ width: '100%', marginBottom: '20px' }}
-                                name="companyLocation"
+                                name="companyAddress"
+                                validateStatus={errors.companyAddress ? 'error' : ''}
+                                help={errors.companyAddress ? <span style={{ color: 'red' }}>Vui lòng chọn</span> : ''}
                             >
                                 <Select
 
@@ -403,6 +456,10 @@ const EmployerPage = () => {
                             size="small"
                             variant="outlined"
                             style={{ marginBottom: '15px' }}
+                            helperText={errors.companyUrl ? 'Vui lòng điền Website công ty' : ''}
+                            FormHelperTextProps={{
+                                style: { color: 'red' }
+                            }}
                         />
                         <Button
                             type="submit"

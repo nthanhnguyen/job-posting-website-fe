@@ -145,7 +145,7 @@ const JobPageForHr = () => {
                             }}
                             type=""
                             onClick={() => {
-                                navigate(`/admin/job/upsert?id=${entity._id}`)
+                                navigate(`/employer/job/upsert?id=${entity._id}`)
                             }}
                         />
                     </Access>
