@@ -1,19 +1,13 @@
 import { Button, Container, FormControl, InputLabel, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import { Form, Input, Select, Radio } from "antd";
+import { Form, Input, Select, Radio, Spin } from "antd";
 import { ClockCircleOutlined, PhoneOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import { Option } from "antd/es/mentions";
 
 
 const EmployerPage = () => {
-
-    const [age, setAge] = useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
-    };
-
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1100);
     const [isMobileViewThump, setIsMobileViewThump] = useState(window.innerWidth <= 845);
 
@@ -25,6 +19,10 @@ const EmployerPage = () => {
         setIsMobileViewThump(window.innerWidth <= 845);
     };
 
+
+    const [form] = Form.useForm()
+
+
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         window.addEventListener('resize', handleAnotherResize);
@@ -35,36 +33,62 @@ const EmployerPage = () => {
         };
     }, []);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        name: string;
+        position: string;
+        email: string;
+        phone: string;
+        address?: string; // Optional, to support placeholder
+        companyName: string;
+        companyUrl: string;
+        companyLocation?: string; // Optional, to support placeholder
+    }>({
         name: "",
         position: "",
         email: "",
         phone: "",
-        address: "",
+        address: undefined,
         companyName: "",
         companyUrl: "",
-        companyLocation: "",
+        companyLocation: undefined,
     });
 
     //To do
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>) => {
+    const handleInputChange = (
+        event: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
+    ) => {
         const { name, value } = event.target;
         setFormData((prev) => ({ ...prev, [name || ""]: value }));
     };
 
+    const handleSelectChangeLocation = (value: string) => {
+        setFormData((prev) => ({ ...prev, companyLocation: value }));
+    };
+
+
+    const handleSelectChangeAddress = (value: string, option: any) => {
+        setFormData((prev) => ({ ...prev, address: value }));
+    };
+
+
     const handleSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); // Ngăn trang reload
+        event.preventDefault();
+        form.setFieldsValue({
+            address: undefined, // Reset giá trị address về undefined
+            companyLocation: undefined,
+        });
+        console.log('Form Data:', formData); // Log the form data here
+        // Reset form data after submission (optional)
         setFormData({
             name: "",
             position: "",
             email: "",
             phone: "",
-            address: "",
+            address: undefined, // Reset to undefined
             companyName: "",
             companyUrl: "",
-            companyLocation: "",
+            companyLocation: undefined, // Reset to undefined
         });
-        console.log("Form reset!");
     };
 
     return (
@@ -256,123 +280,143 @@ const EmployerPage = () => {
                 </Container>
             </Box>
             <Container sx={{ marginTop: '60px' }}>
-                <Grid container spacing={2} 
-                    component="form"
-                    onSubmit={handleSubmitForm}
-                >
+                <Grid container spacing={2} component="form" onSubmit={handleSubmitForm}>
+
                     <Grid sx={{ border: '1px solid #eee', height: 'fit-content', padding: '20px 20px', borderRadius: '15px', background: '#fff', marginBottom: '50px' }} size={{ xs: 12, sm: 8, md: 8 }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px' }}>Thông tin Quý khách</h2>
                         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                             <Grid size={{ xs: 12, sm: 8, md: 6 }}>
-                                <Form.Item
-                                    style={{ marginBottom: '15px', width: '100%', }}
-                                    labelCol={{ span: 24 }}
+                                <TextField
                                     name="name"
-
-                                    rules={[{ required: true, message: 'Họ tên không được để trống!' }]}
-                                >
-                                    {/* <Input size='large' placeholder="Full Name" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Họ tên" size="small" variant="outlined" />
-                                </Form.Item>
+                                    value={formData.name}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    label="Họ tên"
+                                    size="small"
+                                    variant="outlined"
+                                    style={{ marginBottom: '15px' }}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
-                                <Form.Item
-                                    style={{ marginBottom: '15px', width: '100%', }}
-                                    labelCol={{ span: 24 }}
+                                <TextField
                                     name="position"
-
-                                    rules={[{ required: true, message: 'Chức vụ không được để trống!' }]}
-                                >
-                                    {/* <Input size='large' placeholder="Work title" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Chức vụ" size="small" variant="outlined" />
-                                </Form.Item>
+                                    value={formData.position}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    label="Chức vụ"
+                                    size="small"
+                                    variant="outlined"
+                                    style={{ marginBottom: '15px' }}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
-                                <Form.Item
-                                    style={{ marginBottom: '15px', width: '100%', }}
-                                    labelCol={{ span: 24 }}
+                                <TextField
                                     name="email"
-
-                                    rules={[{ required: true, message: 'Email không được để trống!' }]}
-                                >
-                                    {/* <Input size='large' placeholder="Work email" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Email" size="small" variant="outlined" />
-                                </Form.Item>
+                                    value={formData.email}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    label="Email"
+                                    size="small"
+                                    variant="outlined"
+                                    style={{ marginBottom: '15px' }}
+                                />
                             </Grid>
                             <Grid size={{ xs: 12, sm: 6 }}>
-                                <Form.Item
-                                    style={{ marginBottom: '15px', width: '100%', }}
-                                    labelCol={{ span: 24 }}
+                                <TextField
                                     name="phone"
-
-                                    rules={[{ required: true, message: 'Số điện thoại không được để trống!' }]}
-                                >
-                                    {/* <Input size='large' placeholder="Phone number" /> */}
-                                    <TextField id="outlined-basic" fullWidth label="Số điện thoại" size="small" variant="outlined" />
-                                </Form.Item>
+                                    value={formData.phone}
+                                    onChange={handleInputChange}
+                                    fullWidth
+                                    label="Số điện thoại"
+                                    size="small"
+                                    variant="outlined"
+                                    style={{ marginBottom: '15px' }}
+                                />
                             </Grid>
                         </Grid>
-                        <Form.Item
-                            style={{ marginBottom: '15px', width: '100%', marginTop: '9px' }}
-                            labelCol={{ span: 24 }}
-                            name="address"
-                            rules={[{ required: true, message: 'Địa chỉ không được để trống!' }]}
+
+                        <Form
+                            form={form}
+                            layout="vertical"
+                            onFinish={handleSubmitForm} // Xử lý submit
+                            initialValues={formData} // Truyền formData vào initialValues
                         >
-                            <Select
-                                allowClear
-                                placeholder='Bạn biết Job Hub từ đâu?'
-                                size="large"
-                                style={{ width: '100%' }}
-                                options={[
-                                    { value: 'google', label: 'Google' },
-                                    { value: 'facebook', label: 'Facebook' },
-                                    { value: 'email', label: 'Email' },
-                                    { value: 'linkedin', label: 'linkedIn' },
-                                    { value: 'other', label: 'Others' },
-                                ]}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                name="address"
+                                style={{ width: '100%', marginBottom: '20px' }}
+                            >
+                                <Select
+                                    allowClear
+                                    onChange={handleSelectChangeAddress} // Xử lý khi chọn giá trị
+                                    placeholder="Bạn biết Job Hub từ đâu"
+                                    size="large"
+                                >
+                                    <Option value="Google">Google</Option>
+                                    <Option value="Facebook">Facebook</Option>
+                                    <Option value="LinkedIn">LinkedIn</Option>
+                                    <Option value="Email">Email</Option>
+                                    <Option value="Other">Khác</Option>
+                                </Select>
+                            </Form.Item>
+                        </Form>
                         <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '15px' }}>Thông tin công ty</h2>
-                        <Form.Item
-                            style={{ marginBottom: '20px', width: '100%', }}
-                            labelCol={{ span: 24 }}
+                        <TextField
                             name="companyName"
-
-                            rules={[{ required: true, message: 'Tên công ty không được để trống!' }]}
-                        >
-                            {/* <Input size='large' placeholder="Company name" /> */}
-                            <TextField id="outlined-basic" fullWidth label="Tên công ty" size="small" variant="outlined" />
-                        </Form.Item>
-                        <Select
-                            allowClear
-                            placeholder='Địa chỉ công ty'
-                            size="large"
-                            style={{ width: '100%', marginBottom: '20px' }}
-                            options={[
-                                { value: 'Ha Noi', label: 'Ha Noi' },
-                                { value: 'Ho Chi Minh', label: 'Ho Chi Minh' },
-                                { value: 'Da Nang', label: 'Da Nang' },
-                                { value: 'other', label: 'Others' },
-                            ]}
+                            value={formData.companyName}
+                            onChange={handleInputChange}
+                            fullWidth
+                            label="Tên công ty"
+                            size="small"
+                            variant="outlined"
+                            style={{ marginBottom: '15px' }}
                         />
-
-                        <Form.Item
-                            style={{ marginBottom: '10px', width: '100%', }}
-                            labelCol={{ span: 24 }}
-                            name="companyUrl"
-                            // value={formData.name}
-                            rules={[{ required: true, message: 'Website URL không được để trống!' }]}
+                        <Form
+                            form={form} // Kết nối form instance
+                            layout="vertical"
+                            onFinish={handleSubmitForm} // Xử lý submit
+                            initialValues={formData} // Truyền formData vào initialValues
                         >
-                            {/* <Input size='large' placeholder="Website URL" /> */}
-                            <TextField id="outlined-basic" fullWidth label="Website URL" size="small" variant="outlined" />
-                        </Form.Item>
-                        {/* <Radio></Radio>I have read and agree to JobHub’s <a style={{ color: 'blue', fontWeight: '500' }}>Terms & Conditions</a> and <a style={{ color: 'blue', fontWeight: '500' }}>Privacy Policy</a> in relation to my privacy information. */}
-                        <div style={{ display: 'flex', flexDirection: isMobileView ? 'column' : 'unset', justifyContent: 'space-between', marginTop: '50px' }}>
-                            <div>
-                                <p>Bạn đã có tài khoản? <a style={{ fontWeight: '500' }} href="/login">Login</a></p>
-                            </div>
-                            <div><Button type="submit" size="large" sx={{ width: isMobileView ? '100%' : '100%', marginTop: isMobileView ? '20px' : '0', background: '#C82222', marginBottom: '10px' }} variant="contained">Contact me</Button></div>
-                        </div>
+                            <Form.Item
+                                style={{ width: '100%', marginBottom: '20px' }}
+                                name="companyLocation"
+                            >
+                                <Select
+
+                                    allowClear
+                                    onChange={handleSelectChangeLocation}
+                                    placeholder='Địa chỉ công ty'
+                                    size="large"
+                                >
+                                    <Option value="Ha Noi">Hà Nội</Option>
+                                    <Option value="Ho Chi Minh">Hồ Chí Minh</Option>
+                                    <Option value="Da Nang">Đà Nẵng</Option>
+                                    <Option value="other">Khác</Option>
+                                </Select>
+                            </Form.Item>
+                        </Form>
+                        <TextField
+                            name="companyUrl"
+                            value={formData.companyUrl}
+                            onChange={handleInputChange}
+                            fullWidth
+                            label="Website URL"
+                            size="small"
+                            variant="outlined"
+                            style={{ marginBottom: '15px' }}
+                        />
+                        <Button
+                            type="submit"
+                            size="large"
+                            sx={{
+                                width: '100%',
+                                marginTop: '20px',
+                                background: '#C82222',
+                                marginBottom: '10px'
+                            }}
+                            variant="contained"
+                        >
+                            Liên hệ ngay
+                        </Button>
                     </Grid>
                     <Grid sx={{ border: '1px solid #eee', height: 'fit-content', marginBottom: isMobileView ? '30px' : '0px' }} size={{ xs: 12, sm: 8, md: 4 }}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -399,26 +443,10 @@ const EmployerPage = () => {
                             </div>
                         </div>
                     </Grid>
+
                 </Grid>
 
             </Container>
-            {/* <Box
-                sx={{
-                    h2: {
-                        color: 'black',
-                        fontSize: '28px',
-                        fontWeight: 'bold'
-                    },
-                    background: '#fff',
-                    height: '100px',
-
-                    textAlign: 'center'
-                }}>
-                <h2 style={{
-                    position: 'relative',
-                    top: '45px',
-                }}>Experience JobHub's service today</h2>
-            </Box> */}
         </Box >
     )
 }
