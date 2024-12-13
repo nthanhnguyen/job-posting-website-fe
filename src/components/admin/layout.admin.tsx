@@ -12,6 +12,7 @@ import {
     HeartTwoTone,
     BugOutlined,
     ScheduleOutlined,
+    FormOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Dropdown, Space, message, Avatar, Button } from 'antd';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -106,7 +107,7 @@ const LayoutAdmin = () => {
                 ...(viewEmployerRegistration ? [{
                     label: <Link to='/admin/employer-registration'>Employer Registration</Link>,
                     key: '/admin/employer-registration',
-                    icon: <AliwangwangOutlined />
+                    icon: <FormOutlined />
                 }] : []), //TO DO
                 ...(viewPermission ? [{
                     label: <Link to='/admin/permission'>Permission</Link>,
