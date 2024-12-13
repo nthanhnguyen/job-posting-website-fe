@@ -1,10 +1,12 @@
 import { Button, Container, FormControl, InputLabel, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import Box from '@mui/material/Box';
-import { Form, Input, Select, Radio, Spin } from "antd";
+import { Form, Input, Select, Radio, Spin, message, notification } from "antd";
 import { ClockCircleOutlined, PhoneOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Option } from "antd/es/mentions";
+import { IEmployerRegistration } from "@/types/backend";
+import { callCreateEmployerRegistration } from "@/config/api";
 
 
 const EmployerPage = () => {
@@ -81,6 +83,24 @@ const EmployerPage = () => {
         companyAddress: false,
     });
 
+    const resetForm = async () => {
+        // Reset form data after submission (optional)
+        form.setFieldsValue({
+            address: undefined, // Reset giá trị address về undefined
+            companyAddress: undefined,
+        });
+        setFormData({
+            name: "",
+            position: "",
+            email: "",
+            phone: "",
+            address: undefined, // Reset to undefined
+            companyName: "",
+            companyUrl: "",
+            companyAddress: undefined, // Reset to undefined
+        });
+    }
+
     const handleSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const newErrors = {
@@ -98,25 +118,32 @@ const EmployerPage = () => {
 
         // Nếu không có lỗi thì có thể submit form
         if (!Object.values(newErrors).includes(true)) {
-            form.setFieldsValue({
-                address: undefined, // Reset giá trị address về undefined
-                companyAddress: undefined,
-            });
+
             console.log('Form Data:', formData); // Log the form data here
-            // Reset form data after submission (optional)
-            setFormData({
-                name: "",
-                position: "",
-                email: "",
-                phone: "",
-                address: undefined, // Reset to undefined
-                companyName: "",
-                companyUrl: "",
-                companyAddress: undefined, // Reset to undefined
-            });
 
-            //TODO
+            const employerRegistration : IEmployerRegistration = {
+                name: formData.name,
+                position: formData.position,
+                email: formData.email,
+                phone: formData.phone,
+                address: formData.address,
+                companyName: formData.companyName,
+                companyUrl: formData.companyUrl,
+                companyAddress: formData.companyAddress,
+                status: 'PENDING',
+            }
 
+            const res = await callCreateEmployerRegistration(employerRegistration);
+
+            if (res.data) {
+                message.success("Gửi thông tin thành công!");
+                resetForm();
+            } else {
+                notification.error({
+                    message: 'Có lỗi xảy ra',
+                    description: res.message
+                });
+            }
         }
     };
 
@@ -154,7 +181,7 @@ const EmployerPage = () => {
                                 textAlign: isMobileViewThump ? 'center' : 'unset'
                             },
                         }}  >
-                            <h2>Thuê những chuyên gia CNTT giỏi nhất với JobHub</h2>
+                            <h2>Tìm kiếm những chuyên gia IT giỏi nhất với JobHub</h2>
                             <p style={{ marginBottom: '10px', textAlign: 'justify' }}>Với hiểu biết sâu sắc về lĩnh vực CNTT và các kỹ năng chuyên môn, chúng tôi có thể giúp bạn tiếp cận và tuyển dụng được những ứng viên CNTT giỏi nhất.</p>
                             <div style={{ display: 'flex', justifyContent: isMobileViewThump ? 'center' : 'flex-start' }}>
                                 <Button size="large" sx={{ background: '#C82222', marginBottom: '10px' }} variant="contained">Liên hệ ngay</Button>

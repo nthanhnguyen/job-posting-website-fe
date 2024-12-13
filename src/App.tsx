@@ -47,6 +47,7 @@ import BlogDetailPage1 from './pages/blog/blogdetail1';
 import BlogDetailPage2 from './pages/blog/blogdetail2';
 import ClientSubscriberJobPage from './pages/job/subscriber.job';
 import EmployerPage from './pages/employer/detail';
+import EmployerRegistrationPage from './pages/admin/employer_registration';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -171,12 +172,18 @@ export default function App() {
             }
           ]
         },
-
         {
           path: "resume",
           element:
             <ProtectedRoute>
               <ResumePage />
+            </ProtectedRoute>
+        },
+        {
+          path: "employer-registration",
+          element:
+            <ProtectedRoute>
+              <EmployerRegistrationPage />
             </ProtectedRoute>
         },
         {

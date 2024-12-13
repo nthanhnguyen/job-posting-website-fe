@@ -70,6 +70,11 @@ const LayoutAdmin = () => {
                 && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
             )
 
+            const viewEmployerRegistration = permissions.find(item =>
+                item.apiPath === ALL_PERMISSIONS.EMPLOYER_REGISTRATION.GET_PAGINATE.apiPath
+                && item.method === ALL_PERMISSIONS.USERS.GET_PAGINATE.method
+            )
+
             const full = [
                 {
                     label: <Link to='/admin'>Dashboard</Link>,
@@ -98,6 +103,11 @@ const LayoutAdmin = () => {
                     key: '/admin/resume',
                     icon: <AliwangwangOutlined />
                 }] : []),
+                ...(viewEmployerRegistration ? [{
+                    label: <Link to='/admin/employer-registration'>Employer Registration</Link>,
+                    key: '/admin/employer-registration',
+                    icon: <AliwangwangOutlined />
+                }] : []), //TO DO
                 ...(viewPermission ? [{
                     label: <Link to='/admin/permission'>Permission</Link>,
                     key: '/admin/permission',

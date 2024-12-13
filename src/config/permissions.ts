@@ -41,6 +41,12 @@ export const ALL_PERMISSIONS = {
         // UPDATE: { method: "PATCH", apiPath: '/api/v1/users/:id', module: "USERS" },
         // DELETE: { method: "DELETE", apiPath: '/api/v1/users/:id', module: "USERS" },
     },
+    EMPLOYER_REGISTRATION: {
+        GET_PAGINATE: { method: "GET", apiPath: '/api/v1/employer-registration', module: "EMPLOYER_REGISTRATION" },
+        CREATE: { method: "POST", apiPath: '/api/v1/employer-registration', module: "EMPLOYER_REGISTRATION" },
+        UPDATE: { method: "PATCH", apiPath: '/api/v1/employer-registration/:id', module: "EMPLOYER_REGISTRATION" },
+        DELETE: { method: "DELETE", apiPath: '/api/v1/employer-registration/:id', module: "EMPLOYER_REGISTRATION" },
+    },
 }
 
 export const ALL_MODULES = {
@@ -53,5 +59,7 @@ export const ALL_MODULES = {
     ROLES: 'ROLES',
     USERS: 'USERS',
     SUBSCRIBERS: 'SUBSCRIBERS',
-    USERRESUMES: 'USERRESUMES'
+    USERRESUMES: 'USERRESUMES',
+    EMPLOYER_REGISTRATION: 'EMPLOYER_REGISTRATION',
+
 }

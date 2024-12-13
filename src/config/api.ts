@@ -295,8 +295,14 @@ export const callDeleteUserResumes = (id: string) => {
 
 /**
  * 
-Module User Resumes
+Module Employer Registration
  */
 export const callCreateEmployerRegistration = (employerRegistration: IEmployerRegistration) => {
     return axios.post<IBackendRes<IEmployerRegistration>>('/api/v1/employer-registration', { ...employerRegistration })
+}
+export const callEmployerRegistration = (query: string) => {
+    return axios.get<IBackendRes<IModelPaginate<IEmployerRegistration>>>(`/api/v1/employer-registration?${query}`);
+}
+export const callUpdateEmployerRegistrationStatus = (id: any, status: string) => {
+    return axios.patch<IBackendRes<IEmployerRegistration>>(`/api/v1/employer-registration/${id}`, { status })
 }
