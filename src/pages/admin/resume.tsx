@@ -1,12 +1,12 @@
 import DataTable from "@/components/client/data-table";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IResume } from "@/types/backend";
-import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
+import { FolderViewOutlined } from "@ant-design/icons";
 import { ActionType, ProColumns, ProFormSelect } from '@ant-design/pro-components';
-import { Button, Input, Popconfirm, Select, Space, Tag, message, notification } from "antd";
+import { Button, Input, Select, Space, Tag, message, notification } from "antd";
 import { useState, useRef } from 'react';
 import dayjs from 'dayjs';
-import { callDeleteResume, callUpdateResumeStatuses } from "@/config/api";
+import { callUpdateResumeStatuses } from "@/config/api";
 import queryString from 'query-string';
 import { useNavigate } from "react-router-dom";
 import { fetchResume } from "@/redux/slice/resumeSlide";
@@ -63,8 +63,6 @@ const ResumePage = () => {
             message.warning("Vui lòng chọn trạng thái");
             return;
         }
-        console.log('selectedResumes :>> ', selectedResumes);
-
         const res = await callUpdateResumeStatuses(selectedResumes, status);
         if (res.data) {
             message.success("Cập nhật trạng thái thành công!");
@@ -134,24 +132,22 @@ const ResumePage = () => {
             hideInSearch: true,
         },
         {
-            title: 'Id',
-            dataIndex: '_id',
-            width: 220,
-            render: (text, record, index, action) => {
+            title: 'STT',
+            key: 'index',
+            width: 50,
+            align: "center",
+            render: (text, record, index) => {
                 return (
-                    <a href="#" onClick={() => {
-                        setOpenViewDetail(true);
-                        setDataInit(record);
-                    }}>
-                        {record._id}
-                    </a>
-                )
+                    <>
+                        {(index + 1) + (meta.current - 1) * (meta.pageSize)}
+                    </>)
             },
             hideInSearch: true,
         },
         {
             title: 'Trạng Thái',
             dataIndex: 'status',
+            align: "center",
             sorter: true,
             render: (status) => {
                 let color = '';
@@ -210,6 +206,7 @@ const ResumePage = () => {
         {
             title: 'Phù hợp',
             dataIndex: 'relevancePercentage',
+            align: "center",
             width: 100,
             sorter: true,
             render: (percentage) => {
@@ -245,7 +242,35 @@ const ResumePage = () => {
             },
             hideInSearch: true,
         },
-
+        {
+            title: 'Chi tiết',
+            width: 80,
+            align: "center",
+            render: (text, record, index, action) => {
+                // return (
+                //     <a href="#" onClick={() => {
+                //         setOpenViewDetail(true);
+                //         setDataInit(record);
+                //     }}>
+                //         {record._id}
+                //     </a>
+                // )
+                return (
+                    <FolderViewOutlined 
+                        style={{
+                            fontSize: 20,
+                            // color: '#ffa500',
+                        }}
+                        type=""
+                        onClick={() => {
+                            setOpenViewDetail(true);
+                            setDataInit(record);
+                        }}
+                    />
+                )
+            },
+            hideInSearch: true,
+        },
         {
             title: 'Ngày tạo',
             dataIndex: 'createdAt',
