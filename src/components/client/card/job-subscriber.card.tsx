@@ -42,10 +42,12 @@ const SubscriberJobCard = (props: IProps) => {
       query += `&${sortQuery}`;
     }
 
+    query += `&excludeNotActive=true&excludeByStartEndDate=true`;
+
     const res = await callFetchSubscriberJob(query);
     if (res && res.data) {
       setDisplayJob(res.data.result);
-      setTotal(res.data.meta.total)
+      setTotal(res.data.meta.total);
     }
     setIsLoading(false)
   }
@@ -63,6 +65,10 @@ const SubscriberJobCard = (props: IProps) => {
   const handleViewDetailJob = (item: IJob) => {
     const slug = convertSlug(item.name);
     navigate(`/job/${slug}?id=${item._id}`)
+  }
+
+  if (!displayJob || displayJob.length === 0) {
+    return null; // Hides the component
   }
 
   return (

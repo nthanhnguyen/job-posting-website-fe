@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IJob } from '@/types/backend';
-import { callFetchJobForHr } from '@/config/api';
+import { callEmployerRegistration, callFetchJob, callFetchResume } from '@/config/api';
+import { IEmployerRegistration, IResume } from '@/types/backend';
 
 interface IState {
     isFetching: boolean;
@@ -10,14 +10,13 @@ interface IState {
         pages: number;
         total: number;
     },
-    result: IJob[]
+    result: IEmployerRegistration[]
 }
-
 // First, create the thunk
-export const fetchJobForHr = createAsyncThunk(
-    'job/fetchJobForHr',
+export const fetchEmployerRegistration = createAsyncThunk(
+    'resume/fetchEmployerRegistration',
     async ({ query }: { query: string }) => {
-        const response = await callFetchJobForHr(query);
+        const response = await callEmployerRegistration(query);
         return response;
     }
 )
@@ -35,8 +34,8 @@ const initialState: IState = {
 };
 
 
-export const jobHrSlide = createSlice({
-    name: 'job',
+export const employerRegistrationSlide = createSlice({
+    name: 'employer-registration',
     initialState,
     // The `reducers` field lets us define reducers and generate associated actions
     reducers: {
@@ -49,19 +48,19 @@ export const jobHrSlide = createSlice({
     },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
-        builder.addCase(fetchJobForHr.pending, (state, action) => {
+        builder.addCase(fetchEmployerRegistration.pending, (state, action) => {
             state.isFetching = true;
             // Add user to the state array
             // state.courseOrder = action.payload;
         })
 
-        builder.addCase(fetchJobForHr.rejected, (state, action) => {
+        builder.addCase(fetchEmployerRegistration.rejected, (state, action) => {
             state.isFetching = false;
             // Add user to the state array
             // state.courseOrder = action.payload;
         })
 
-        builder.addCase(fetchJobForHr.fulfilled, (state, action) => {
+        builder.addCase(fetchEmployerRegistration.fulfilled, (state, action) => {
             if (action.payload && action.payload.data) {
                 state.isFetching = false;
                 state.meta = action.payload.data.meta;
@@ -77,6 +76,6 @@ export const jobHrSlide = createSlice({
 
 export const {
     setActiveMenu,
-} = jobHrSlide.actions;
+} = employerRegistrationSlide.actions;
 
-export default jobHrSlide.reducer;
+export default employerRegistrationSlide.reducer;

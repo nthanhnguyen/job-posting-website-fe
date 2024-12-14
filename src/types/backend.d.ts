@@ -270,9 +270,9 @@ export interface IEmployerRegistration {
     position: string;
     email: string;
     phone: string;
-    address: string;
+    address?: string;
     companyName: string;
-    companyAddress: string;
+    companyAddress?: string;
     companyUrl: string;
     status: string;
     updatedBy?: string;

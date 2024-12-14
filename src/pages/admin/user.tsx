@@ -50,17 +50,17 @@ const UserPage = () => {
             title: 'Id',
             dataIndex: '_id',
             width: 250,
-            render: (text, record, index, action) => {
-                return (
-                    <a href="#" onClick={() => {
-                        setOpenViewDetail(true);
-                        setDataInit(record);
-                    }}>
-                        {record._id}
-                    </a>
-                )
-            },
-            hideInSearch: true,
+            // render: (text, record, index, action) => {
+            //     return (
+            //         <a href="#" onClick={() => {
+            //             setOpenViewDetail(true);
+            //             setDataInit(record);
+            //         }}>
+            //             {record._id}
+            //         </a>
+            //     )
+            // },
+            // hideInSearch: true,
         },
         {
             title: 'Name',

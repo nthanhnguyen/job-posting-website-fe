@@ -14,6 +14,7 @@ import roleReducer from './slice/roleSlide';
 import jobHrReducer from './slice/jobHrSlide';
 import resumeHrReducer from './slice/resumeHrSlide';
 import companyHrReducer from './slice/companyHrSlide';
+import employerRegistrationReducer from './slice/employerRegistrationSlide';
 
 
 export const store = configureStore({
@@ -28,6 +29,8 @@ export const store = configureStore({
     company_hr: companyHrReducer,
     job_hr: jobHrReducer,
     resume_hr: resumeHrReducer,
+    employer_registration: employerRegistrationReducer,
+
   },
 });
 

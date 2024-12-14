@@ -403,10 +403,6 @@ const ResumePage = () => {
                     </Button>
                 </Space>
             </div>
-                
-
-            
-
                 <DataTable<IResume>
                     actionRef={tableRef}
                     headerTitle="Danh sách Resumes"
