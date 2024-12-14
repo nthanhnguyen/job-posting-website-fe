@@ -74,7 +74,7 @@ const HomePage = () => {
                 ></div>
                 <JobCard />
                 <Divider />
-                {user && <SubscriberJobCard />}
+                <SubscriberJobCard />
                 <div style={{ margin: 50 }}></div>
                 <Divider />
                 <AiResume />

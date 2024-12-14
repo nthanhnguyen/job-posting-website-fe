@@ -23,8 +23,6 @@ const EmployerRegistrationPage = () => {
 
     const [dataInit, setDataInit] = useState<IEmployerRegistration | any | null>(null);
     const [openViewDetail, setOpenViewDetail] = useState<boolean>(false);
-    const [status, setStatus] = useState<string | undefined>(undefined);
-
 
     const reloadTable = () => {
         tableRef?.current?.reload();

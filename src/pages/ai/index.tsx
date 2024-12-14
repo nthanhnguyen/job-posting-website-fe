@@ -1,10 +1,11 @@
+import { useAppSelector } from "@/redux/hooks";
 import { RightCircleOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const AiResume = () => {
     const navigate = useNavigate();
-
+    const user = useAppSelector(state => state.account.user);
     return (
         <div className="container-resume" style={{
             marginTop: '45px',
@@ -25,11 +26,16 @@ const AiResume = () => {
                             fontSize: '25px',
                             fontWeight: 'bold'
                         }}
-                    >Create your CV with AI : The Ultimate Online<br /> CV Maker</h1>
+                    >Tạo CV của bạn với sự hỗ trợ của AI: Trực tuyến tối ưu<br /> CV Maker</h1>
                 </div>
                 <div className="text-2">
-                    <p>Your AI-powered CV Maker for Crafting Job-Winning Resumes</p>
+                    <p>Công cụ tạo CV thông minh của bạn, giúp tạo ra những bản lý lịch ấn tượng để chinh phục công việc mơ ước!</p>
                 </div>
+                {user._id === '' && 
+                    <div className="text-2">
+                        <p>Bạn cần Login để tọa CV nhé!</p>
+                    </div>
+                }
                 <div className="btn-cv">
                     <Button
                         type="primary"
@@ -39,7 +45,7 @@ const AiResume = () => {
                         onClick={() => navigate('/resume-builder')}
 
                     >
-                        Build CV <RightCircleOutlined />
+                        Tạo CV <RightCircleOutlined />
                     </Button>
                 </div>
             </div>
