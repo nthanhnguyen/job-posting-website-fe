@@ -42,6 +42,8 @@ const SubscriberJobCard = (props: IProps) => {
       query += `&${sortQuery}`;
     }
 
+    query += `&excludeNotActive=true&excludeByStartEndDate=true`;
+
     const res = await callFetchSubscriberJob(query);
     if (res && res.data) {
       setDisplayJob(res.data.result);

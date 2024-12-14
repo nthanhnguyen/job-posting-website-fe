@@ -67,6 +67,8 @@ const JobCard = (props: IProps) => {
             query += `&location=${encodeURIComponent(updatedLocation.join(','))}`;
         }
 
+        query += `&excludeNotActive=true&excludeByStartEndDate=true`;
+
         const res = await callFetchJob(query);
         if (res && res.data) {
             setDisplayJob(res.data.result);

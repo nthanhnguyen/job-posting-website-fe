@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { IJob } from "@/types/backend";
 import { callFetchJobById } from "@/config/api";
@@ -64,6 +64,8 @@ const ClientJobDetailPage = (props: any) => {
         if (excludeJobId) {
             query += `&excludeJobId=${excludeJobId}`;
         }
+
+        query += `&excludeNotActive=true&excludeByStartEndDate=true`;
 
         const res = await callFetchJob(query);
         if (res && res.data) {

@@ -104,7 +104,7 @@ const JobPageForHr = () => {
         },
 
         {
-            title: 'CreatedAt',
+            title: 'Ngày tạo',
             dataIndex: 'createdAt',
             width: 200,
             sorter: true,
@@ -116,7 +116,7 @@ const JobPageForHr = () => {
             hideInSearch: true,
         },
         {
-            title: 'UpdatedAt',
+            title: 'Ngày sửa',
             dataIndex: 'updatedAt',
             width: 200,
             sorter: true,
