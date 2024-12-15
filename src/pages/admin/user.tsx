@@ -47,9 +47,10 @@ const UserPage = () => {
 
     const columns: ProColumns<IUser>[] = [
         {
-            title: 'Id',
-            dataIndex: '_id',
-            width: 250,
+            // title: 'Id',
+            // dataIndex: '_id',
+            // width: 250,
+
             // render: (text, record, index, action) => {
             //     return (
             //         <a href="#" onClick={() => {
@@ -61,9 +62,20 @@ const UserPage = () => {
             //     )
             // },
             // hideInSearch: true,
+            title: 'STT',
+            key: 'index',
+            width: 50,
+            align: "center",
+            render: (text, record, index) => {
+                return (
+                    <>
+                        {(index + 1) + (meta.current - 1) * (meta.pageSize)}
+                    </>)
+            },
+            hideInSearch: true,
         },
         {
-            title: 'Name',
+            title: 'Tên hiển thị',
             dataIndex: 'name',
             sorter: true,
         },
@@ -188,7 +200,7 @@ const UserPage = () => {
             >
                 <DataTable<IUser>
                     actionRef={tableRef}
-                    headerTitle="Danh sách Users"
+                    headerTitle="Danh sách Người dùng"
                     rowKey="_id"
                     loading={isFetching}
                     columns={columns}

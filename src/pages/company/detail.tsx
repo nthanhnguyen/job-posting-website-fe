@@ -7,7 +7,6 @@ import parse from 'html-react-parser';
 import { Col, Divider, Row, Skeleton, Button, Menu, Tag } from "antd";
 import { DollarOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { Container } from "@mui/material";
-import type { MenuProps } from 'antd';
 import { convertSlug, getLocationName, getSkillName } from "@/config/utils";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -22,7 +21,7 @@ const ClientCompanyDetailPage = (props: any) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const topContentRef = React.useRef<HTMLDivElement | null>(null);
     const [isStickyVisible, setIsStickyVisible] = useState(false);
-    const [current, setCurrent] = useState('home');
+    // const [current, setCurrent] = useState('home');
 
     let location = useLocation();
     let params = new URLSearchParams(location.search);
@@ -52,7 +51,6 @@ const ClientCompanyDetailPage = (props: any) => {
                 const res = await callFetchJobForCompany(query);
                 if (res?.data) {
                     setJobList(res.data.result);
-                    console.log('jobList :>> ', jobList);
                 }
                 setIsLoading(false)
             }
