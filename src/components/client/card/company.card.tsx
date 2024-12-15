@@ -1,4 +1,4 @@
-import { callFetchCompany } from '@/config/api';
+import { callFetchCompany, callFetchJobForCompany } from '@/config/api';
 import { convertSlug } from '@/config/utils';
 import { ICompany } from '@/types/backend';
 import { Card, Col, Divider, Empty, Pagination, Row, Spin } from 'antd';
@@ -25,6 +25,7 @@ const CompanyCard = (props: IProps) => {
     const navigate = useNavigate();
 
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+    const [totalJobs, setTotalJobs] = useState<{ [key: string]: number }>({}); 
 
     useEffect(() => {
         const handleResize = () => setIsMobileView(window.innerWidth <= 768);
@@ -73,6 +74,52 @@ const CompanyCard = (props: IProps) => {
         }
     }
 
+    // const totalJobOfCompany = async (companyId?: string): Promise<number> => {
+    //     let query = `companyId=${companyId}`;
+    //     if (companyId) {
+    //         setIsLoading(true);
+    //         const res = await callFetchJobForCompany(query);
+    //         if (res?.data) {
+    //             const jobs = res.data.result;
+    //             setIsLoading(false);
+    //             return jobs.length;
+    //         }
+    //     }
+    //     return 0;
+    // }
+
+    const totalJobOfCompany = async (companyId?: string): Promise<number> => {
+        let query = `companyId=${companyId}`;
+        if (companyId) {
+            setIsLoading(true);
+            const res = await callFetchJobForCompany(query);
+            if (res?.data) {
+                const jobs = res.data.result;
+                setIsLoading(false);
+                return jobs.length;
+            }
+        }
+        return 0;
+    }
+
+    const getTotalJobs = async (companyId?: string) => {
+        if (companyId && !(companyId in totalJobs)) {
+            const totalJobCount = await totalJobOfCompany(companyId);
+            setTotalJobs(prevState => ({
+                ...prevState,
+                [companyId]: totalJobCount
+            }));
+        }
+    };
+
+    useEffect(() => {
+        if (displayCompany) {
+            displayCompany.forEach(item => {
+                getTotalJobs(item._id);
+            });
+        }
+    }, [displayCompany]);
+
     return (
         <div className={`${styles["company-section"]}`}>
             <div className={styles["company-content"]}>
@@ -80,7 +127,7 @@ const CompanyCard = (props: IProps) => {
                     <Row gutter={[20, 20]}>
                         <Col span={24} >
                             <div className={isMobile ? styles["dflex-mobile"] : styles["dflex-pc"]}>
-                                <span className={styles["title"]} style={{ fontWeight: 600 }}>Nhà tuyển dụng</span>
+                                <span className={styles["title"]} style={{ fontWeight: 600, fontSize: '30px' }}>Nhà tuyển dụng</span>
                                 {!showPagination &&
                                     <Link to="company">Xem tất cả</Link>
                                 }
@@ -88,6 +135,10 @@ const CompanyCard = (props: IProps) => {
                         </Col>
 
                         {displayCompany?.map(item => {
+                            let totalJob = 0;
+                            if (item._id) {
+                                totalJob = totalJobs[item._id] ?? 0;
+                            }
                             return (
                                 <Col span={24}
                                     xs={24}
@@ -121,6 +172,8 @@ const CompanyCard = (props: IProps) => {
                                         {/* <Divider /> */}
                                         <div style={{ width: "100%", height: '20px' }}></div>
                                         <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '20px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.name}</h3>
+                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '10px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.address}</h3>
+                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '10px', position: 'relative', top: '-10px', zIndex: 5 }}>{totalJob} Việc làm đang tuyển</h3>
                                     </Card>
                                     <div style={{
                                         background: '#F5F5F5',
