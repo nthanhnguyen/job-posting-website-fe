@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from 'styles/client.module.scss';
+import CircleIcon from '@mui/icons-material/Circle';
 
 interface IProps {
     showPagination?: boolean;
@@ -25,7 +26,7 @@ const CompanyCard = (props: IProps) => {
     const navigate = useNavigate();
 
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-    const [totalJobs, setTotalJobs] = useState<{ [key: string]: number }>({}); 
+    const [totalJobs, setTotalJobs] = useState<{ [key: string]: number }>({});
 
     useEffect(() => {
         const handleResize = () => setIsMobileView(window.innerWidth <= 768);
@@ -171,9 +172,62 @@ const CompanyCard = (props: IProps) => {
                                     >
                                         {/* <Divider /> */}
                                         <div style={{ width: "100%", height: '20px' }}></div>
-                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '20px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.name}</h3>
-                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '10px', position: 'relative', top: '-10px', zIndex: 5 }}>{item.address}</h3>
-                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '10px', position: 'relative', top: '-10px', zIndex: 5 }}>{totalJob} Việc làm đang tuyển</h3>
+                                        <h3 style={{ textAlign: "center", fontWeight: 'bold', fontSize: isMobile ? '16px' : '20px', position: 'relative', top: '-15px', zIndex: 5 }}>{item.name}</h3>
+                                        <div style={{
+                                            position: 'relative',
+                                            top: '-10px',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                            flexWrap: 'nowrap'
+                                        }}>
+                                            {/* Address */}
+                                            <div style={{
+                                                fontSize: isMobile ? '16px' : '13px',
+                                                zIndex: 5,
+                                                flex: '1', // Chiếm không gian còn lại
+                                                minWidth: '20px', // Bắt buộc để ellipsis hoạt động trong Flexbox
+                                                whiteSpace: 'nowrap',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis',
+                                                marginRight: '12px'
+                                            }}>
+                                                <h3 style={{
+                                                    margin: 0,
+                                                    whiteSpace: 'nowrap',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis'
+                                                }}>
+                                                    {item.address}
+                                                </h3>
+                                            </div>
+
+                                            {/* Total Job */}
+                                            <div style={{
+                                                fontSize: isMobile ? '16px' : '13px',
+                                                zIndex: 5,
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                alignItems: 'center',
+                                                gap: '3px',
+                                                justifyContent: 'flex-end'
+                                            }}>
+                                                <CircleIcon
+                                                    sx={{
+                                                        zIndex: 9,
+                                                        fontSize: '15px',
+                                                        color: '#0AB305',
+                                                        border: '1px solid #C8EAC7',
+                                                        borderRadius: '20px'
+                                                    }}
+                                                />
+                                                <h3 style={{ margin: 0 }}>{totalJob} Việc làm</h3>
+                                            </div>
+                                        </div>
+
+
+
                                     </Card>
                                     <div style={{
                                         background: '#F5F5F5',
