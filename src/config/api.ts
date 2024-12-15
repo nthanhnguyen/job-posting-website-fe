@@ -153,6 +153,12 @@ export const callFetchSubscriberJob = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IJob>>>(`/api/v1/jobs/subscriber-job?${query}`);
 }
 
+export const callDownloadReport = (price: number, month: number, year: number) => {
+    return axios.post<IBackendRes<any>>('/api/v1/jobs/jobMonthlyReport', { price, month, year }, {
+        responseType: 'blob',
+    });
+};
+
 /**
  * 
 Module Resume
