@@ -9,6 +9,7 @@ import { callUpdateUserResumes } from '@/config/api'
 import { IResumeInfo } from '@/types/backend'
 import RichTextEditor from '../RichTextEditor'
 import { ContentEditableEvent } from 'react-simple-wysiwyg'
+import { message, notification } from 'antd'
 
 interface ExperienceEntry {
   title: string;
@@ -92,9 +93,8 @@ function Experience() {
     try {
       const res = await callUpdateUserResumes(data, String(params.resumeId));
       if (res) {
-        console.log(res);
-        toast('Details updated');
-      }
+        message.success('Lưu thành công!');
+      } 
     } catch (error) {
       console.error('Error saving resume:', error);
       toast.error('Failed to update details.');

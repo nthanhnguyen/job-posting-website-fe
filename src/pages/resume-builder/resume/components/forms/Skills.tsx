@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext'
 import { callUpdateUserResumes } from '@/config/api'
 import { IResumeInfo } from '@/types/backend'
+import { message } from 'antd'
 function Skills() {
 
     const [skillsList, setSkillsList] = useState([{
@@ -50,8 +51,8 @@ function Skills() {
         try {
             const res = await callUpdateUserResumes(data, String(params.resumeId));
             if (res) {
-                console.log(res);
-                toast('Details updated');
+                message.success('Lưu thành công!');
+
             }
         } catch (error) {
             console.error('Error saving Education:', error);

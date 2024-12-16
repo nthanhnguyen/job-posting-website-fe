@@ -7,6 +7,8 @@ import { IResumeInfo } from '@/types/backend'
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext'
 import ResumePreview from '@/pages/resume-builder/resume/components/ResumePreview'
 import { RWebShare } from 'react-web-share'
+import { Link } from 'react-router-dom'
+import { Home } from 'lucide-react'
 
 function ViewResume() {
   const [resumeInfo, setResumeInfo] = useState<IResumeInfo | undefined>(undefined);
@@ -39,6 +41,9 @@ function ViewResume() {
             resume url with your friends and family </p> */}
           <div className='flex justify-between px-44 my-10'>
             <Button onClick={HandleDownload}>Download</Button>
+            <Link to={"/resume-builder"}>
+             <Button><Home /></Button>
+            </Link>
             {/* <Button>Share</Button> */}
             {/* <RWebShare
               data={{

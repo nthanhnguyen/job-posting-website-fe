@@ -214,7 +214,6 @@ const JobPage = () => {
                     </Access>
                 </Space>
             ),
-
         },
     ];
 
@@ -248,7 +247,6 @@ const JobPage = () => {
         } else {
             temp = `${temp}&${sortBy}`;
         }
-
         return temp;
     }
 
@@ -288,7 +286,7 @@ const JobPage = () => {
                         </Col>
                     </Row>
                     <Row gutter={16}>
-                        <Col xs={24} sm={12} md={6} lg={2}>
+                        <Col xs={24} sm={12} md={6} lg={3}>
                             <Select
                                 style={{ width: '100%' }}
                                 placeholder="Chọn tháng"

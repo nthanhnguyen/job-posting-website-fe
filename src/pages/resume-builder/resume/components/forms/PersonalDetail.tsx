@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext';
 import { IResumeInfo } from '@/types/backend';
 import { callUpdateUserResumes } from '@/config/api';
-import { toast } from 'sonner';
+import { message } from 'antd';
 
 interface IProps {
     enabledNext: (v: any) => void;
@@ -67,7 +67,7 @@ function PersonalDetail(props: IProps) {
         if (res) {
             enabledNext(true);
             setLoading(false);
-            toast("Personal Detail updated");
+            message.success('Lưu thành công!');
         } else {
             setLoading(false);
         }

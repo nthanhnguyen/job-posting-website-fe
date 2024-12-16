@@ -4,6 +4,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { callUpdateUserResumes } from '@/config/api'
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext'
 import { IResumeInfo } from '@/types/backend'
+import { message } from 'antd'
 import { LoaderCircle } from 'lucide-react'
 import React, { useContext, useEffect, useState, ChangeEvent } from 'react'
 import { useParams } from 'react-router-dom'
@@ -59,8 +60,7 @@ function Education() {
     try {
       const res = await callUpdateUserResumes(data, String(params.resumeId));
       if (res) {
-        console.log(res);
-        toast('Details updated');
+        message.success('Lưu thành công!');
       }
     } catch (error) {
       console.error('Error saving Education:', error);
