@@ -2,11 +2,11 @@ import DataTable from "@/components/client/data-table";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { IJob } from "@/types/backend";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { ActionType, ProColumns, ProFormSelect } from '@ant-design/pro-components';
-import { Button, Popconfirm, Select, Space, Tag, message, notification } from "antd";
+import { ActionType, ProColumns, ProFormDigit, ProFormSelect } from '@ant-design/pro-components';
+import { Button, Col, Input, InputNumber, Popconfirm, Row, Select, Space, Tag, message, notification } from "antd";
 import { useState, useRef } from 'react';
 import dayjs from 'dayjs';
-import { callDeleteJob } from "@/config/api";
+import { callDeleteJob, callDownloadReport } from "@/config/api";
 import queryString from 'query-string';
 import { useNavigate } from "react-router-dom";
 import { fetchJob } from "@/redux/slice/jobSlide";
@@ -19,9 +19,14 @@ const JobPage = () => {
     const isFetching = useAppSelector(state => state.job.isFetching);
     const meta = useAppSelector(state => state.job.meta);
     const jobs = useAppSelector(state => state.job.result);
+
+    const [selectedMonth, setSelectedMonth] = useState<string | undefined>(undefined);
+    const [selectedYear, setSelectedYear] = useState<string | undefined>(undefined);
+    // const [price, setPrice] = useState<number | undefined>(undefined);
+    const [price, setPrice] = useState<number | null>(null);
+
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-
     const handleDeleteJob = async (_id: string | undefined) => {
         if (_id) {
             const res = await callDeleteJob(_id);
@@ -41,6 +46,39 @@ const JobPage = () => {
         tableRef?.current?.reload();
     }
 
+    const handleDownloadReport = async () => {
+        if (!selectedMonth || !selectedYear || !price) {
+            message.error("Vui lòng chọn đầy đủ thông tin.");
+            return;
+        }
+
+        try {
+             // Call the API to generate the report
+            const response = await callDownloadReport(Number(price), Number(selectedMonth), Number(selectedYear));
+
+            if (response && response instanceof Blob) {
+                const outputFilename = `job-monthly-report-${selectedYear}-${selectedMonth}.xlsx`;
+
+                // Tạo URL từ Blob và bắt đầu tải file
+                const url = window.URL.createObjectURL(response);  // Response là Blob
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", outputFilename);
+                document.body.appendChild(link);
+                link.click();
+
+                // Giải phóng tài nguyên URL sau khi tải
+                window.URL.revokeObjectURL(url);
+            } else {
+                message.error("Không thể tải báo cáo.");
+            }
+        } catch (error) {
+            console.error("Download error:", error);
+            message.error("Có lỗi xảy ra khi tải báo cáo.");
+        }
+
+    };
+
     const columns: ProColumns<IJob>[] = [
         {
             title: 'STT',
@@ -56,9 +94,14 @@ const JobPage = () => {
             hideInSearch: true,
         },
         {
-            title: 'Tên Job',
+            title: 'Công việc',
             dataIndex: 'name',
             sorter: true,
+        },
+        {
+            title: 'Tên công ty',
+            dataIndex: ["company", "name"],
+            hideInSearch: true,
         },
         {
             title: 'Mức lương',
@@ -104,7 +147,7 @@ const JobPage = () => {
         {
             title: 'Ngày tạo',
             dataIndex: 'createdAt',
-            width: 200,
+            width: 150,
             sorter: true,
             render: (text, record, index, action) => {
                 return (
@@ -116,7 +159,7 @@ const JobPage = () => {
         {
             title: 'Ngày sửa',
             dataIndex: 'updatedAt',
-            width: 200,
+            width: 150,
             sorter: true,
             render: (text, record, index, action) => {
                 return (
@@ -209,11 +252,73 @@ const JobPage = () => {
         return temp;
     }
 
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({ length: 11 }, (_, i) => currentYear - i).map(year => ({
+        value: year.toString(),
+        label: year.toString()
+    }));
+
     return (
         <div>
             <Access
                 permission={ALL_PERMISSIONS.JOBS.GET_PAGINATE}
             >
+                <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between' }}>
+                    <h2 style={{
+                        fontSize: '15px',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                    }}>
+                        Báo cáo giao dịch của các Nhà tuyển dụng:
+                    </h2>
+                </div>
+                <div style={{ marginBottom: 20 }}>
+                    <Row gutter={16}>
+                        <Col xs={24} sm={12} md={8} lg={5}>
+                            <div>Mức phí cho 1 job:</div>
+                            <InputNumber
+                                value={price}
+                                onChange={(value) => setPrice(value)}
+                                placeholder="Nhập mức phí"
+                                style={{ width: '100%', marginBottom: 12, marginTop: 8 }}
+                                formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                parser={value => (value ? Number(value.replace(/\$\s?|(,*)/g, '')) : 0)}
+                                addonAfter="đ"
+                            />
+                        </Col>
+                    </Row>
+                    <Row gutter={16}>
+                        <Col xs={24} sm={12} md={6} lg={2}>
+                            <Select
+                                style={{ width: '100%' }}
+                                placeholder="Chọn tháng"
+                                value={selectedMonth}
+                                onChange={setSelectedMonth}
+                                options={[...Array(12).keys()].map(i => ({
+                                    value: (i + 1).toString(),
+                                    label: (i + 1).toString(),
+                                }))}
+                            />
+                        </Col>
+                        <Col xs={24} sm={12} md={6} lg={3}>
+                            <Select
+                                style={{ width: '100%' }}
+                                placeholder="Chọn năm"
+                                value={selectedYear}
+                                onChange={setSelectedYear}
+                                options={years}
+                            />
+                        </Col>
+                    </Row>
+                    <Button
+                        type="primary"
+                        style={{ marginTop: 16 }}
+                        onClick={handleDownloadReport}
+                    >
+                        Xuất file excel
+                    </Button>
+                </div>
+
                 <DataTable<IJob>
                     actionRef={tableRef}
                     headerTitle="Danh sách Jobs"
