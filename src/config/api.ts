@@ -1,4 +1,4 @@
-import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC, ICheckApplying, IEmployerRegistration } from '@/types/backend';
+import { IBackendRes, ICompany, IAccount, IUser, IModelPaginate, IGetAccount, IJob, IResume, IPermission, IRole, ISubscribers, IUserResume, IResumeInfo, IChangePassword, IModelPaginateC, ICheckApplying, IEmployerRegistration, INumberItem } from '@/types/backend';
 import axios from 'config/axios-customize';
 
 /**
@@ -83,6 +83,10 @@ export const callFetchCompanyById = (id: string) => {
     return axios.get<IBackendRes<ICompany>>(`/api/v1/companies/${id}`);
 }
 
+export const callGetNumberOfCompanies = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/companies/number-of-companies`);
+}
+
 
 /**
  * 
@@ -110,6 +114,10 @@ export const callFetchUserById = (id: string) => {
 
 export const callChangePassword = (newPassword: string) => {
     return axios.post<IBackendRes<IChangePassword>>(`/api/v1/users/change-password`, { newPassword });
+}
+
+export const callGetNumberOfUsers = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/users/number-of-users`);
 }
 
 
@@ -143,6 +151,10 @@ export const callFetchJobForHr = (query: string) => {
 
 export const callFetchJobForCompany = (query: string) => {
     return axios.get<IBackendRes<IModelPaginateC<IJob>>>(`/api/v1/jobs/company?${query}`);
+}
+
+export const callGetNumberOfJobs = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-jobs`);
 }
 
 export const callFetchJobById = (id: string) => {
@@ -201,6 +213,14 @@ export const callFetchResumeByUser = () => {
 
 export const callCheckApplying = (jobId: string) => {
     return axios.get<IBackendRes<ICheckApplying>>(`/api/v1/resumes/check-applying/${jobId}`);
+}
+
+export const callGetNumberOfResumes = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-resumes`);
+}
+
+export const callGetNumberOfApprovedResumes = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-approved-resumes`);
 }
 
 /**

@@ -4,7 +4,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { callUpdateUserResumes } from '@/config/api'
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext'
 import { IResumeInfo } from '@/types/backend'
-import { message } from 'antd'
+import { message, notification } from 'antd'
 import { LoaderCircle } from 'lucide-react'
 import React, { useContext, useEffect, useState, ChangeEvent } from 'react'
 import { useParams } from 'react-router-dom'
@@ -63,8 +63,10 @@ function Education() {
         message.success('Lưu thành công!');
       }
     } catch (error) {
-      console.error('Error saving Education:', error);
-      toast.error('Failed to update details.');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+        description: 'Có lỗi trong quá trình save, xin hãy thử lại!',
+      });
     } finally {
       setLoading(false);
     }

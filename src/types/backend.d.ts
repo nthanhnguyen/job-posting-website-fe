@@ -22,6 +22,10 @@ export interface IModelPaginateC<T> {
     result: T[]
 }
 
+export interface INumberItem {
+    totalItems: number;
+}
+
 export interface IAccount {
     access_token: string;
     user: {

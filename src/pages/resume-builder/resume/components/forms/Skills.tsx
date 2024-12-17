@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext'
 import { callUpdateUserResumes } from '@/config/api'
 import { IResumeInfo } from '@/types/backend'
-import { message } from 'antd'
+import { message, notification } from 'antd'
 function Skills() {
 
     const [skillsList, setSkillsList] = useState([{
@@ -55,8 +55,10 @@ function Skills() {
 
             }
         } catch (error) {
-            console.error('Error saving Education:', error);
-            toast.error('Failed to update details.');
+            notification.error({
+                message: 'Có lỗi xảy ra',
+                description: 'Có lỗi trong quá trình save, xin hãy thử lại!',
+            });
         } finally {
             setLoading(false);
         }

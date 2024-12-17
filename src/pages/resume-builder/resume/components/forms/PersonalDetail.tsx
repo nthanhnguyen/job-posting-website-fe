@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoContext';
 import { IResumeInfo } from '@/types/backend';
 import { callUpdateUserResumes } from '@/config/api';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 
 interface IProps {
     enabledNext: (v: any) => void;
@@ -70,6 +70,10 @@ function PersonalDetail(props: IProps) {
             message.success('Lưu thành công!');
         } else {
             setLoading(false);
+            notification.error({
+                message: 'Có lỗi xảy ra',
+                description: 'Có lỗi trong quá trình save, xin hãy thử lại!',
+            });
         }
     };
 

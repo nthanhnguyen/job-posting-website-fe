@@ -8,7 +8,7 @@ import { ResumeInfoContext } from '@/pages/resume-builder/context/ResumeInfoCont
 import { IResumeInfo } from '@/types/backend';
 import { callUpdateUserResumes } from '@/config/api';
 import { AIChatSession } from '@/config/ai-api';
-import { message } from 'antd';
+import { message, notification } from 'antd';
 
 const promptTemplate = `Job Title: {jobTitle}, Depends on job title give me list of summary for 3 experience levels: Mid Level and Fresher in 3-4 lines, in array format, with summary and experience_level fields in JSON format`;
 
@@ -52,8 +52,10 @@ function Summary(props: IProps) {
       console.log(parsedResult);
       setAiGenerateSummaryList(parsedResult);
     } catch (error) {
-      console.error('Error generating summary:', error);
-      toast.error('Failed to generate summary.');
+        notification.error({
+          message: 'Có lỗi xảy ra',
+          description: 'Có lỗi trong quá trình tạo summary, xin hãy thử lại!',
+      });
     } finally {
       setLoading(false);
     }
@@ -72,8 +74,10 @@ function Summary(props: IProps) {
         message.success('Lưu thành công!');
       }
     } catch (error) {
-      console.error('Error saving Summary:', error);
-      toast.error('Failed to update details.');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+        description: 'Có lỗi trong quá trình save, xin hãy thử lại!',
+      });
     } finally {
       setLoading(false);
     }

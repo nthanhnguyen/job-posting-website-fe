@@ -5,8 +5,9 @@ import { BtnBold, BtnBulletList, BtnClearFormatting, BtnItalic, BtnLink, BtnNumb
 import { toast } from 'sonner';
 import { ResumeInfoContext } from '../../context/ResumeInfoContext';
 import { AIChatSession } from '@/config/ai-api';
+import { notification } from 'antd';
 
-const PROMPT = 'position title: {positionTitle},  Give me 5-7 bullet points describing relevant experience for this position.';
+const PROMPT = 'position titile: {positionTitle} , Depends on position title give me 5-7 points for my experience in resume (Please do not add experience level and No JSON array) , give me result in HTML tags.';
 
 interface IProps {
   onRichTextEditorChange: (event: ContentEditableEvent) => void;
@@ -18,51 +19,37 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }: IProps)
   const [value, setValue] = useState(defaultValue);
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [loading, setLoading] = useState(false);
-  // const GenerateSummeryFromAI = async () => {
 
-  //   if (!resumeInfo?.experience[index]?.title) {
-  //     toast('Please Add Position Title');
-  //     return;
-  //   }
-  //   setLoading(true)
-  //   const prompt = PROMPT.replace('{positionTitle}', resumeInfo.experience[index].title);
-  //   console.log('resumeInfo.experience[index].title :>> ', resumeInfo.experience[index].title);
-  //   console.log("prompt: ", prompt);
-  //   const result = await AIChatSession.sendMessage(prompt);
-  //   console.log("check: ", result.response.text());
-  //   console.log('check 22:>> ', result);
-  //   const resp = result.response.text();
-
-  //   setValue(resp.replace('[', '').replace(']', ''));
-  //   setLoading(false);
-  // }
 
   const GenerateSummeryFromAI = async () => {
     if (!resumeInfo?.experience[index]?.title) {
-      toast('Please Add Position Title');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+        description: 'Xin hãy thêm title cho Experience!',
+      });
       return;
     }
     setLoading(true);
     const prompt = PROMPT.replace('{positionTitle}', resumeInfo.experience[index].title);
-    console.log('prompt:', prompt);
 
     try {
       const result = await AIChatSession.sendMessage(prompt);
       let resp = await result.response.text();
 
-      //Clean up the response - remove extra whitespace and create an unordered list
-      resp = resp.trim();
-      const bulletPoints = resp.split('\n').map(item => item.trim()).filter(item => item !== ''); //remove empty lines
+      let cleanedResp = resp
+        .replace('{"bulletPoints": ["', '')
+        .replace('"]}', '')
+        .split('", "')
+        .map(item => item.trim())
+        .filter(item => item !== '')
+        .join('\n');
 
-      //Convert bullet points to HTML unordered list
-      const htmlList = `<ul>${bulletPoints.map(item => `<li>${item}</li>`).join('')}</ul>`;
-
-      // await setValue(htmlList);
-      setValue('11')
-      console.log('value :>> ', htmlList);
+      await setValue(cleanedResp);
     } catch (error) {
-      console.error('Error generating summary:', error);
-      toast.error('Failed to generate summary.');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+        description: 'Có lỗi trong quá trình tạo summary, xin hãy thử lại!',
+      });
     } finally {
       setLoading(false);
     }

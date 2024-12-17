@@ -97,7 +97,10 @@ function Experience() {
       } 
     } catch (error) {
       console.error('Error saving resume:', error);
-      toast.error('Failed to update details.');
+      notification.error({
+        message: 'Có lỗi xảy ra',
+        description: 'Có lỗi trong quá trình save, xin hãy thử lại!',
+      });
     } finally {
       setLoading(false);
     }

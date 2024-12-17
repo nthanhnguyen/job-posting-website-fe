@@ -20,9 +20,9 @@ const Footer = () => {
                         <h4>Về Jobhub</h4>
                         <ul className='list-style'>
                             <a href='/'><li>Trang chủ</li></a>
-                            <a href='/company'><li>Dịch vụ gợi ý ứng viên</li></a>
+                            <a href='/company'><li>Các nhà tuyển dụng</li></a>
                             <a href='/job'><li>Việc làm IT</li></a>
-                            <a href='/blog'><li>Câu hỏi thường gặp</li></a>
+                            <a href='/blog'><li>Các bài blog</li></a>
                         </ul>
                     </div>
                     <div className='col'>
