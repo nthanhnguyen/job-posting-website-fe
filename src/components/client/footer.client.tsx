@@ -1,8 +1,9 @@
 import 'styles/footer.scss';
-<head>
+import { useNavigate } from 'react-router-dom';
 
-</head>
+
 const Footer = () => {
+    const navigate = useNavigate();
     return (
         <div className='footer-main'>
             <div className='row' style={{ height: '' }}>
@@ -10,26 +11,25 @@ const Footer = () => {
                     <div className='logo-company'>
                         <img src='/src/img/logo.png' />
                         <ul className='social-icon'>
-                            <li><a href="#home"><i className="fa-brands fa-google"></i></a></li>
-                            <li><a href="#home"><i className="fa-brands fa-linkedin-in"></i></a></li>
-                            <li><a href="#home"><i className="fa-brands fa-github"></i></a></li>
+                            <li><a href="https://www.youtube.com/@ucAnhNguyenVo"><i className="fa-brands fa-youtube"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/ducanhnv312/"><i className="fa-brands fa-linkedin-in"></i></a></li>
+                            <li><a href="https://www.facebook.com/profile.php?id=61570670880437"><i className="fa-brands fa-facebook"></i></a></li>
                         </ul>
                     </div>
                     <div className='col'>
                         <h4>Về Jobhub</h4>
                         <ul className='list-style'>
-                            <li>Trang chủ</li>
-                            <li>Dịch vụ gợi ý ứng viên</li>
-                            <li>Liên hệ</li>
-                            <li>Việc làm IT</li>
-                            <li>Câu hỏi thường gặp</li>
+                            <a href='/'><li>Trang chủ</li></a>
+                            <a href='/company'><li>Dịch vụ gợi ý ứng viên</li></a>
+                            <a href='/job'><li>Việc làm IT</li></a>
+                            <a href='/blog'><li>Câu hỏi thường gặp</li></a>
                         </ul>
                     </div>
                     <div className='col'>
                         <h4>Chương trình</h4>
                         <ul className='list-style'>
-                            <li>Cuộc thi viết</li>
-                            <li>Việc làm IT nổi bật</li>
+                            <a href='/blog/detail/chuyenit/8jBGZjPowaZGsXj'><li>Cuộc thi viết</li></a>
+                            <a href='/subscriber-job'><li>Việc làm IT nổi bật</li></a>
                         </ul>
                     </div>
                     <div className='col'>
