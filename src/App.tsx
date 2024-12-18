@@ -48,6 +48,7 @@ import BlogDetailPage2 from './pages/blog/blogdetail2';
 import ClientSubscriberJobPage from './pages/job/subscriber.job';
 import EmployerPage from './pages/employer/detail';
 import EmployerRegistrationPage from './pages/admin/employer_registration';
+import DashboardForHrPage from './pages/hr/dashboard';
 
 const LayoutClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -222,7 +223,7 @@ export default function App() {
         {
           index: true, element:
             <ProtectedRoute>
-              <DashboardPage />
+              <DashboardForHrPage />
             </ProtectedRoute>
         },
         // {
