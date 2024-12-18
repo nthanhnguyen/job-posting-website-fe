@@ -42,49 +42,100 @@ const DashboardPage = () => {
 
     return (
         <Row gutter={[20, 20]}>
-            <Col span={24} md={8}>
-                <Card title="Users" bordered={false} loading={isUserFetching}>
+            <Col span={24} md={8} >
+                <Card title="Users"
+                    bordered={false}
+                    loading={isUserFetching}
+                    headStyle={{
+                        backgroundColor: '#C54333',
+                    }}
+                    bodyStyle={{
+                        backgroundImage: `url('/src/img/usercard.png')`,
+                        height: '160px'
+                    }}
+                >
                     <Statistic
-                        title="Total accounts"
+                        title={<span style={{ fontSize: '20px' }}>Total accounts</span>}
                         value={numberUsers}
                         formatter={formatter}
+                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
                     />
-
                 </Card>
             </Col>
             <Col span={24} md={8}>
-                <Card title="Resumes" bordered={false} loading={isCompanyFetching}>
+                <Card title="Resumes"
+                    bordered={false}
+                    loading={isCompanyFetching}
+                    headStyle={{
+                        backgroundColor: '#08A9DE',
+                    }}
+                    bodyStyle={{
+                        backgroundImage: `url('/src/img/resumecard.png')`,
+                        height: '160px'
+                    }}
+                >
                     <Statistic
-                        title="Total resumes"
+                        title={<span style={{ fontSize: '20px' }}>Total resumes</span>}
                         value={numberCompanies}
                         formatter={formatter}
+                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
                     />
                 </Card>
             </Col>
             <Col span={24} md={8}>
-                <Card title="Card title" bordered={false} >
+                <Card title="Companies"
+                    bordered={false}
+                    headStyle={{
+                        backgroundColor: '#DA8C0E',
+                    }}
+                    bodyStyle={{
+                        backgroundImage: `url('/src/img/cpcard.png')`,
+                        height: '160px'
+                    }}
+                >
                     <Statistic
-                        title="Active Users"
-                        value={112893}
+                        title={<span style={{ fontSize: '20px' }}>Total Companies</span>}
+                        value={100}
                         formatter={formatter}
+                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
                     />
                 </Card>
             </Col>
             <Col span={24} md={8}>
-                <Card title="Card title" bordered={false} >
+                <Card title="Jobs"
+                    bordered={false}
+                    headStyle={{
+                        backgroundColor: '#009552',
+                    }}
+                    bodyStyle={{
+                        backgroundImage: `url('/src/img/jobcard.png')`,
+                        height: '160px'
+                    }}
+                >
                     <Statistic
-                        title="Active Users"
-                        value={112893}
+                        title={<span style={{ fontSize: '20px' }}>Total Jobs</span>}
+                        value={100}
                         formatter={formatter}
+                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
                     />
                 </Card>
             </Col>
             <Col span={24} md={8}>
-                <Card title="Card title" bordered={false} >
+                <Card title="Approve Resume"
+                    bordered={false}
+                    headStyle={{
+                        backgroundColor: '#CD0EA1',
+                    }}
+                    bodyStyle={{
+                        backgroundImage: `url('/src/img/approvecv.png')`,
+                        height: '160px'
+                    }}
+                >
                     <Statistic
-                        title="Active Users"
-                        value={112893}
+                        title={<span style={{ fontSize: '20px' }}>Total Resumes</span>}
+                        value={100}
                         formatter={formatter}
+                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
                     />
                 </Card>
             </Col>
