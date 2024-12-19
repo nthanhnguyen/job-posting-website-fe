@@ -24,6 +24,11 @@ const ClientJobDetailPage = (props: any) => {
     const [jobDetail, setJobDetail] = useState<IJob | null>(null);
     const [displayJob, setDisplayJob] = useState<IJob[] | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 970);
+
+    const handleResize = () => {
+        setIsMobileView(window.innerWidth <= 970);
+    };
 
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -36,6 +41,7 @@ const ClientJobDetailPage = (props: any) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        window.addEventListener('resize', handleResize);
         const init = async () => {
             if (id) {
                 setIsLoading(true)
@@ -101,14 +107,14 @@ const ClientJobDetailPage = (props: any) => {
                             <div className="top-content" style={{ background: 'transparent', padding: '80px 0', height: '100px', width: '100%' }}>
                                 <div className="search-client"
                                     style={{
-                                        paddingLeft: '35px'
+                                        paddingLeft: isMobileView ? '0px' : '35px',
                                     }}>
                                     <SearchClient />
                                 </div>
 
                             </div>
-                            <Container>
-                                <div className="company-spotlight-wrapper" style={{ border: '1px solid #eee', display: 'flex', position: 'relative', marginTop: '5px', background: '#fff', borderRadius: '15px' }}>
+                            <Container sx={{ display: isMobileView ? 'none' : 'block' }}>
+                                <div className="company-spotlight-wrapper" style={{ display: 'flex', border: '1px solid #eee', position: 'relative', marginTop: '5px', background: '#fff', borderRadius: '15px' }}>
                                     <div
                                         className='img-company'
                                         style={{
@@ -190,12 +196,13 @@ const ClientJobDetailPage = (props: any) => {
                             <Col span={24} md={16}>
                                 <div className="sticky-content"
                                     style={{
+                                        marginTop: isMobileView ? '120px' : '30px',
                                         background: '#fff',
                                         minHeight: 700,
                                         padding: 24,
                                         border: '1px solid #eee',
                                         borderRadius: '15px',
-                                        marginTop: '30px',
+                                        // marginTop: '30px',
                                         position: 'sticky',
                                         top: '0px',
                                     }}
