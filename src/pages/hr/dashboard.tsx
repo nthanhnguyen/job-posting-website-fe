@@ -1,14 +1,9 @@
-import { callGetNumberOfApprovedResumes, callGetNumberOfCompanies, callGetNumberOfJobs, callGetNumberOfResumes, callGetNumberOfUsers } from "@/config/api";
+import { callGetNumberOfApprovedResumesForHr, callGetNumberOfJobsForHr, callGetNumberOfResumesForHr } from "@/config/api";
 import { Card, Col, Row, Statistic } from "antd";
 import { useEffect, useState } from "react";
 import CountUp from 'react-countup';
 
-const DashboardPage = () => {
-    const [isUserFetching, setIsUserFetching] = useState<boolean>(false);
-    const [numberUsers, setNumberUsers] = useState<number>(0);
-
-    const [isCompanyFetching, setIsCompanyFetching] = useState<boolean>(false);
-    const [numberCompanies, setNumberCompanies] = useState<number>(0);
+const DashboardForHrPage = () => {
 
     const [isJobFetching, setIsJobFetching] = useState<boolean>(false);
     const [numberJobs, setNumberJobs] = useState<number>(0);
@@ -27,32 +22,8 @@ const DashboardPage = () => {
 
     useEffect(() => {
         const init = async () => {
-            setIsUserFetching(true);
-            const res = await callGetNumberOfUsers();
-            if (res && res.data) {
-                setNumberUsers(res.data.totalItems);
-            }
-            setIsUserFetching(false);
-        }
-        init();
-    }, [])
-
-    useEffect(() => {
-        const init = async () => {
-            setIsCompanyFetching(true);
-            const res = await callGetNumberOfCompanies();
-            if (res && res.data) {
-                setNumberCompanies(res.data.totalItems);
-            }
-            setIsCompanyFetching(false);
-        }
-        init();
-    }, [])
-
-    useEffect(() => {
-        const init = async () => {
             setIsJobFetching(true);
-            const res = await callGetNumberOfJobs();
+            const res = await callGetNumberOfJobsForHr();
             if (res && res.data) {
                 setNumberJobs(res.data.totalItems);
             }
@@ -64,7 +35,7 @@ const DashboardPage = () => {
     useEffect(() => {
         const init = async () => {
             setIsResumeFetching(true);
-            const res = await callGetNumberOfResumes();
+            const res = await callGetNumberOfResumesForHr();
             if (res && res.data) {
                 setNumberResumes(res.data.totalItems);
             }
@@ -76,7 +47,7 @@ const DashboardPage = () => {
     useEffect(() => {
         const init = async () => {
             setIsApprovedResumeFetching(true);
-            const res = await callGetNumberOfApprovedResumes();
+            const res = await callGetNumberOfApprovedResumesForHr();
             if (res && res.data) {
                 setNumberApprovedResumes(res.data.totalItems);
             }
@@ -87,46 +58,6 @@ const DashboardPage = () => {
 
     return (
         <Row gutter={[20, 20]}>
-            <Col span={24} md={8}>
-                <Card title={<span style={{ fontSize: '20px' }}>Users</span>}
-                    bordered={false}
-                    loading={isUserFetching}
-                    headStyle={{
-                        backgroundColor: '#C54333',
-                    }}
-                    bodyStyle={{
-                        backgroundImage: `url('/src/img/usercard.png')`,
-                        height: '160px'
-                    }}
-                >
-                    <Statistic
-                        title={<span style={{ fontSize: '20px' }}>Total accounts</span>}
-                        value={numberUsers}
-                        formatter={formatter}
-                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
-                    />
-                </Card>
-            </Col>
-            <Col span={24} md={8}>
-                <Card title={<span style={{ fontSize: '20px' }}>Companies</span>}
-                    bordered={false}
-                    loading={isCompanyFetching}
-                    headStyle={{
-                        backgroundColor: '#DA8C0E',
-                    }}
-                    bodyStyle={{
-                        backgroundImage: `url('/src/img/cpcard.png')`,
-                        height: '160px'
-                    }}
-                >
-                    <Statistic
-                        title={<span style={{ fontSize: '20px' }}>Total Companies</span>}
-                        value={numberCompanies}
-                        formatter={formatter}
-                        valueStyle={{ fontSize: '60px', fontWeight: 'bold', fontFamily: 'monospace', color: '#fff' }}
-                    />
-                </Card>
-            </Col>
             <Col span={24} md={8}>
                 <Card title={<span style={{ fontSize: '20px' }}>Jobs</span>}
                     bordered={false}
@@ -192,4 +123,4 @@ const DashboardPage = () => {
     )
 }
 
-export default DashboardPage;
+export default DashboardForHrPage;

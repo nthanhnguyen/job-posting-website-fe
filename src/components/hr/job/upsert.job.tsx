@@ -6,7 +6,7 @@ import styles from 'styles/admin.module.scss';
 import { LOCATION_LIST, SKILLS_LIST } from "@/config/utils";
 // import { ICompanySelect } from "../user/modal.user";
 import { useState, useEffect } from 'react';
-import { callCreateJob, callFetchCompany, callFetchJobById, callUpdateJob } from "@/config/api";
+import { callCreateJob, callFetchCompany, callFetchCompanyById, callFetchJobById, callFetchUserById, callUpdateJob } from "@/config/api";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CheckSquareOutlined } from "@ant-design/icons";
@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import { IJob } from "@/types/backend";
 import { ICompanySelect } from "@/components/admin/user/modal.user";
 import { DebounceSelect } from "@/components/admin/user/debouce.select";
+import { useAppSelector } from "@/redux/hooks";
 
 const ViewUpsertJobForHr = (props: any) => {
     const [companies, setCompanies] = useState<ICompanySelect[]>([]);
@@ -27,6 +28,8 @@ const ViewUpsertJobForHr = (props: any) => {
     const id = params?.get("id"); // job id
     const [dataUpdate, setDataUpdate] = useState<IJob | null>(null);
     const [form] = Form.useForm();
+    const user = useAppSelector(state => state.account.user);
+    
 
     useEffect(() => {
         const init = async () => {
@@ -61,17 +64,22 @@ const ViewUpsertJobForHr = (props: any) => {
 
     // Usage of DebounceSelect
     async function fetchCompanyList(name: string): Promise<ICompanySelect[]> {
-        const res = await callFetchCompany(`current=1&pageSize=100&name=/${name}/i`);
+        // const res = await callFetchCompany(`current=1&pageSize=100&name=/${name}/i`);
+        const res = await callFetchUserById(user._id);
         if (res && res.data) {
-            const list = res.data.result;
-            const temp = list.map(item => {
-                return {
-                    label: item.name as string,
-                    value: `${item._id}@#$${item.logo}` as string
+            const company = res.data.company;
+            if (company?._id) {
+                const resCompany = await callFetchCompanyById(company?._id);
+                if (resCompany && resCompany.data) {
+                    const temp = [{
+                        label: resCompany.data.name as string,
+                        value: `${resCompany.data._id}@#$${resCompany.data.logo}` as string
+                    }];
+                    return temp;
                 }
-            })
-            return temp;
-        } else return [];
+            }
+        }
+        return [];
     }
 
     const onFinish = async (values: any) => {
@@ -278,17 +286,16 @@ const ViewUpsertJobForHr = (props: any) => {
                         </Row>
                         <Row gutter={[20, 20]}>
                             <Col span={24} md={6}>
-                                <ProFormDatePicker
-                                    label="Ngày bắt đầu"
-                                    name="startDate"
+                            <ProFormDatePicker
+                                label="Ngày bắt đầu"
+                                name="startDate"
                                     normalize={(value) => value && dayjs(value, 'DD/MM/YYYY')}
                                     fieldProps={{
                                         format: 'DD/MM/YYYY',
-
-                                    }}
-                                    rules={[{ required: true, message: 'Vui lòng chọn ngày cấp' }]}
-                                    placeholder="dd/mm/yyyy"
-                                />
+                                }}
+                                rules={[{ required: true, message: 'Vui lòng chọn ngày bắt đầu' }]}
+                                placeholder="dd/mm/yyyy"
+                            />
                             </Col>
                             <Col span={24} md={6}>
                                 <ProFormDatePicker

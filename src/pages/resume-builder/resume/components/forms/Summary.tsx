@@ -44,12 +44,11 @@ function Summary(props: IProps) {
     setLoading(true);
     const jobTitle = resumeInfo?.jobTitle || 'General'; // Fallback to 'General' if jobTitle is undefined
     const PROMPT = promptTemplate.replace('{jobTitle}', jobTitle);
-    console.log(PROMPT);
 
     try {
       const result = await AIChatSession.sendMessage(PROMPT);
       const parsedResult = JSON.parse(await result.response.text()) as SummaryItem[];
-      console.log(parsedResult);
+      console.log('parsedResult :>> ', parsedResult);
       setAiGenerateSummaryList(parsedResult);
     } catch (error) {
         notification.error({
@@ -98,7 +97,7 @@ function Summary(props: IProps) {
             <label>Add Summary</label>
             <Button variant="outline" onClick={() => GenerateSummaryFromAI()}
               type="button" size="sm" className="border-primary text-primary flex gap-2">
-              <Brain className='h-4 w-4' />  Generate from AI</Button>
+              <Brain className='h-4 w-4' />Generate from AI</Button>
           </div>
           <Textarea
             className="mt-5"

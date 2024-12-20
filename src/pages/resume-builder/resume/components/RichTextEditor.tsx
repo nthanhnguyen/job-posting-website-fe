@@ -1,13 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Brain, LoaderCircle } from 'lucide-react';
 import React, { useContext, useState } from 'react'
-import { BtnBold, BtnBulletList, BtnClearFormatting, BtnItalic, BtnLink, BtnNumberedList, BtnStrikeThrough, BtnStyles, BtnUnderline, ContentEditableEvent, Editor, EditorProvider, HtmlButton, Separator, Toolbar } from 'react-simple-wysiwyg'
-import { toast } from 'sonner';
+import { BtnBold, BtnBulletList, BtnItalic, BtnLink, BtnNumberedList, BtnStrikeThrough, BtnStyles, BtnUnderline, ContentEditableEvent, Editor, EditorProvider, HtmlButton, Separator, Toolbar } from 'react-simple-wysiwyg'
 import { ResumeInfoContext } from '../../context/ResumeInfoContext';
-import { AIChatSession } from '@/config/ai-api';
+import { AIChatSession, AIChatSessionForExperience } from '@/config/ai-api';
 import { notification } from 'antd';
 
-const PROMPT = 'position titile: {positionTitle} , Depends on position title give me 5-7 points for my experience in resume (Please do not add experience level and No JSON array) , give me result in HTML tags.';
+const PROMPT = 'position title: {positionTitle} , Depends on position title give me 5-7 bullet points for my experience in resume (Please do not add experience level and No JSON array) , give me result in HTML tags';
 
 interface IProps {
   onRichTextEditorChange: (event: ContentEditableEvent) => void;
@@ -20,6 +19,10 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }: IProps)
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
   const [loading, setLoading] = useState(false);
 
+  const generateHTMLFromParsedResult = (parsedResult: string[]): string => {
+    const ulItems = parsedResult.map(item => `<li>${item}</li>`).join('');
+    return `<li>${ulItems}</li>`;
+  };
 
   const GenerateSummeryFromAI = async () => {
     if (!resumeInfo?.experience[index]?.title) {
@@ -31,20 +34,22 @@ function RichTextEditor({ onRichTextEditorChange, index, defaultValue }: IProps)
     }
     setLoading(true);
     const prompt = PROMPT.replace('{positionTitle}', resumeInfo.experience[index].title);
+    console.log('prompt :>> ', prompt);
 
     try {
-      const result = await AIChatSession.sendMessage(prompt);
-      let resp = await result.response.text();
+      const result = await AIChatSessionForExperience.sendMessage(prompt);
 
-      let cleanedResp = resp
-        .replace('{"bulletPoints": ["', '')
-        .replace('"]}', '')
-        .split('", "')
-        .map(item => item.trim())
-        .filter(item => item !== '')
-        .join('\n');
 
-      await setValue(cleanedResp);
+      // const parsedResult = JSON.parse(await result.response.text())
+
+      const parsedResult = JSON.parse(await result.response.text());
+      console.log('parsedResult :>> ', parsedResult.bulletPoints);
+      const htmlContent = generateHTMLFromParsedResult(parsedResult.bulletPoints);
+      // console.log('htmlContent :>> ', htmlContent);
+      // console.log('parsedResult :>> ', parsedResult);
+      setValue(htmlContent);
+
+      // await setValue(htmlContent);
     } catch (error) {
       notification.error({
         message: 'Có lỗi xảy ra',

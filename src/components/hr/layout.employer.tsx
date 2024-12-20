@@ -71,11 +71,11 @@ const LayoutEmployer = () => {
             // )
 
             const full = [
-                // {
-                //     label: <Link to='/employer'>Dashboard</Link>,
-                //     key: '/employer',
-                //     icon: <AppstoreOutlined />
-                // },
+                {
+                    label: <Link to='/employer'>Dashboard</Link>,
+                    key: '/employer',
+                    icon: <AppstoreOutlined />
+                },
                 // ...(viewCompany ? [{
                 //     label: <Link to='/employer/company'>Company</Link>,
                 //     key: '/employer/company',

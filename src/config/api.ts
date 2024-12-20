@@ -157,6 +157,10 @@ export const callGetNumberOfJobs = () => {
     return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-jobs`);
 }
 
+export const callGetNumberOfJobsForHr = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/employer/number-of-jobs`);
+}
+
 export const callFetchJobById = (id: string) => {
     return axios.get<IBackendRes<IJob>>(`/api/v1/jobs/${id}`);
 }
@@ -216,11 +220,19 @@ export const callCheckApplying = (jobId: string) => {
 }
 
 export const callGetNumberOfResumes = () => {
-    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-resumes`);
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/resumes/number-of-resumes`);
 }
 
 export const callGetNumberOfApprovedResumes = () => {
-    return axios.get<IBackendRes<INumberItem>>(`/api/v1/jobs/number-of-approved-resumes`);
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/resumes/number-of-approved-resumes`);
+}
+
+export const callGetNumberOfResumesForHr = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/resumes/employer/number-of-resumes`);
+}
+
+export const callGetNumberOfApprovedResumesForHr = () => {
+    return axios.get<IBackendRes<INumberItem>>(`/api/v1/resumes/employer/number-of-approved-resumes`);
 }
 
 /**

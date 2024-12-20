@@ -11,7 +11,6 @@ import { RegisterContext } from '@/config/context';
 import { RegisterSteps } from './page';
 
 const RegisterForm = () => {
-    const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const [provinces, setProvinces] = useState<IState[]>([]);
     const { setStep } = useContext(RegisterContext);
@@ -21,8 +20,16 @@ const RegisterForm = () => {
         setProvinces(vietnamProvinces);
     }, []);
 
-    const onFinish = async (values: IUser) => {
-        const { name, email, password, phoneNo, gender, address } = values;
+    const onFinish = async (values: IUser & { confirmPassword: string }) => {
+        const { name, email, password, confirmPassword, phoneNo, gender, address } = values;
+        if (password !== confirmPassword) {
+            notification.error({
+                message: "Có lỗi xảy ra",
+                description: "Mật khẩu và mật khẩu đã xác nhận không khớp!",
+                duration: 5,
+            });
+            return;
+        }
         setIsSubmit(true);
         const res = await callRegister(name, email, password as string, phoneNo, gender, address);
         setIsSubmit(false);
@@ -68,10 +75,10 @@ const RegisterForm = () => {
                     <section className={styles.wrapper}>
                         <div className={styles.heading}>
                             <h2 className={`${styles.text} ${styles[""]}`}
-                                style={{ textAlign: 'center' }}> Đăng Ký Tài Khoản </h2>
+                                style={{ textAlign: 'center', fontSize: '20px', fontWeight: 500}}> Đăng Ký Tài Khoản </h2>
                             <Divider />
                         </div>
-                        <Form<IUser>
+                        <Form<IUser & { confirmPassword: string }>
                             name="basic"
                             onFinish={onFinish}
                             autoComplete="off"
@@ -122,6 +129,23 @@ const RegisterForm = () => {
                                 rules={[
                                     { required: true, message: 'Mật khẩu không được để trống!' },
                                     { validator: validatePassword }
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+
+                            <Form.Item
+                                style={{ marginBottom: '5px' }}
+                                labelCol={{ span: 24 }}
+                                label={
+                                    <span style={{ display: 'inline-flex', alignItems: 'center' }}>
+                                        Xác nhận mật khẩu&nbsp;
+
+                                    </span>
+                                }
+                                name="confirmPassword"
+                                rules={[
+                                    { required: true, message: 'Xác nhận mật khẩu không được để trống!' },
                                 ]}
                             >
                                 <Input.Password />

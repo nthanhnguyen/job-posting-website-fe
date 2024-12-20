@@ -116,10 +116,10 @@ const ClientCompanyDetailPage = (props: any) => {
                                                 9 việc làm đang tuyển dụng
                                             </p> */}
                                         </div>
-                                        <div className="btn-cmt" style={{ height: '40px' }}>
-                                            <Button type="primary" danger size="large" style={{ marginRight: '10px', background: 'transparent', border: 'none', color: 'transparent', cursor: 'default' }}>Viết đánh giá</Button>
-                                            <Button danger size="large" style={{ background: 'transparent', border: 'none', color: 'transparent', cursor: 'default' }}>Theo dõi</Button>
-                                        </div>
+                                        {/* <div className="btn-cmt">
+                                            <Button type="primary" danger size="large" style={{ marginRight: '10px' }}>Viết đánh giá</Button>
+                                            <Button danger size="large">Theo dõi</Button>
+                                        </div> */}
                                     </div>
                                 </Container>
                             </div>
