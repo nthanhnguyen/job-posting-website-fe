@@ -47,6 +47,10 @@ const ModalCompany = (props: IProps) => {
     useEffect(() => {
         if (dataInit?._id && dataInit?.description) {
             setValue(dataInit.description);
+            setDataLogo([{
+                name: dataInit?.logo ?? "",
+                uid: uuidv4()
+            }]);
         }
     }, [dataInit])
 

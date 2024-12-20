@@ -284,7 +284,7 @@ const ViewUpsertJob = (props: any) => {
                                         format: 'DD/MM/YYYY',
 
                                     }}
-                                    rules={[{ required: true, message: 'Vui lòng chọn ngày cấp' }]}
+                                    rules={[{ required: true, message: 'Vui lòng chọn ngày bắt đầu' }]}
                                     placeholder="DD/MM/YYYY"
                                 />
                             </Col>
@@ -297,7 +297,7 @@ const ViewUpsertJob = (props: any) => {
                                         format: 'DD/MM/YYYY',
                                     }}
                                     // width="auto"
-                                    rules={[{ required: true, message: 'Vui lòng chọn ngày cấp' }]}
+                                    rules={[{ required: true, message: 'Vui lòng chọn ngày kết thúc' }]}
                                     placeholder="DD/MM/YYYY"
                                 />
                             </Col>
