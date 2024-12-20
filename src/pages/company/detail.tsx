@@ -116,10 +116,10 @@ const ClientCompanyDetailPage = (props: any) => {
                                                 9 việc làm đang tuyển dụng
                                             </p> */}
                                         </div>
-                                        {/* <div className="btn-cmt">
-                                            <Button type="primary" danger size="large" style={{ marginRight: '10px' }}>Viết đánh giá</Button>
-                                            <Button danger size="large">Theo dõi</Button>
-                                        </div> */}
+                                        <div className="btn-cmt">
+                                            <Button type="primary" danger size="large" style={{ marginRight: '10px', background: 'transparent', border: 'none', color: 'transparent' }}>Viết đánh giá</Button>
+                                            <Button danger size="large" style={{ background: 'transparent', border: 'none', color: 'transparent' }}>Theo dõi</Button>
+                                        </div>
                                     </div>
                                 </Container>
                             </div>
