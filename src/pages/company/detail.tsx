@@ -105,7 +105,7 @@ const ClientCompanyDetailPage = (props: any) => {
                                             style={{ height: '150px', width: '150px' }}
                                             src={`${import.meta.env.VITE_BACKEND_URL}/images/company/${companyDetail?.logo}`} />
                                     </div>
-                                    <div className="infor-company" style={{ zIndex: 4 }}>
+                                    <div className="infor-company" style={{ zIndex: 4, position: 'relative', top: '20px' }}>
                                         <h4 style={{ fontSize: '25px', color: 'white' }}>{companyDetail.name}</h4>
                                         <div style={{ display: 'flex' }}>
                                             <p style={{ marginRight: '15px', color: 'white' }}>

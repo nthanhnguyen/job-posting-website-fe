@@ -31,9 +31,9 @@ const AiResume = () => {
                 <div className="text-2">
                     <p>Công cụ tạo CV thông minh của bạn, giúp tạo ra những bản lý lịch ấn tượng để chinh phục công việc mơ ước!</p>
                 </div>
-                {user._id === '' && 
+                {user._id === '' &&
                     <div className="text-2">
-                        <p>Bạn cần Login để tọa CV nhé!</p>
+                        <p>Bạn cần Login để tạo CV nhé!</p>
                     </div>
                 }
                 <div className="btn-cv">
