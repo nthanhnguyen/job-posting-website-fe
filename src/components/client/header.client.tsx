@@ -52,7 +52,7 @@ const Header = (props: any) => {
             // icon: <DownOutlined />,
         },
         {
-            label: <Link to={'/employer-contact'} style={{ fontWeight: '380' }}>Employer</Link>,
+            label: <Link to={'/employer-contact'} style={{ fontWeight: '380' }}>Nhà tuyển dụng</Link>,
             key: '/employer-contact',
             // icon: <DownOutlined />,
         }

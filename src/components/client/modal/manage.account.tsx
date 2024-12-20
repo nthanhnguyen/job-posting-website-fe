@@ -404,7 +404,7 @@ const ChangePassword = () => {
         if (newPassword !== confirmPassword) {
             notification.error({
                 message: "Có lỗi xảy ra",
-                description: "Mật khẩu xác nhận không khớp với mật khẩu mới!",
+                description: "Mật khẩu và mật khẩu đã xác nhận không khớp!",
                 duration: 5,
             });
             return;
@@ -500,7 +500,7 @@ const ChangePassword = () => {
                         name="newPassword"
                         rules={[
                             { required: true, message: 'Mật khẩu không được để trống!' },
-                            // { validator: validatePassword }
+                            { validator: validatePassword }
                         ]}
                     >
                         <Input.Password />
