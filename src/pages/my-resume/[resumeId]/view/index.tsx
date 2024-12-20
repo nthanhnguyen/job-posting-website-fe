@@ -26,7 +26,7 @@ function ViewResume() {
     }
   }
 
-  const HandleDownload = () => {
+  const handleDownload = () => {
     window.print();
   }
 
@@ -40,7 +40,7 @@ function ViewResume() {
           {/* <p className='text-center text-gray-400'>Now you are ready to download your resume and you can share unique
             resume url with your friends and family </p> */}
           <div className='flex justify-between px-44 my-10'>
-            <Button onClick={HandleDownload}>Download</Button>
+            <Button onClick={handleDownload}>Download</Button>
             <Link to={"/resume-builder"}>
              <Button><Home /></Button>
             </Link>
