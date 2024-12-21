@@ -21,7 +21,7 @@ const ResumeBuilderPage = () => {
    */
   const GetResumesList = async () => {
     setIsLoading(true);
-    if (user) {
+    if (user._id !== '') {
       const res = await callFetchUserResumes();
       const list = res.data?.result || [];  // Ensure list is not undefined
 
