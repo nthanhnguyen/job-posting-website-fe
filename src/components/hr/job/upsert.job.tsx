@@ -157,10 +157,10 @@ const ViewUpsertJobForHr = (props: any) => {
                     separator=">"
                     items={[
                         {
-                            title: <Link to="/employer/job">Manage Job</Link>,
+                            title: <Link to="/employer/job">Quản lý Job</Link>,
                         },
                         {
-                            title: 'Upsert Job',
+                            title: 'Thêm mới/Cập nhật thông tin Job',
                         },
                     ]}
                 />
