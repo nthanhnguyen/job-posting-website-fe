@@ -41,7 +41,11 @@ const ActivatePage = () => {
       style={{
         backgroundImage: `url(${"/src/img/bg.jpg"})`,
         backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
       }}
     >
       <main className={styles.main}>
@@ -49,32 +53,33 @@ const ActivatePage = () => {
           <section className={styles.wrapper}>
             <div className={styles.heading}>
               <h2 className={`${styles.text} ${styles[""]}`}
-                style={{ textAlign: 'center' }}> Kích hoạt tài khoản </h2>
+                style={{ textAlign: 'center', fontSize: '20px', fontWeight: 500 }}> Kích hoạt tài khoản </h2>
               <Divider />
             </div>
             {error ?
               <div>
-                Kích hoạt không thành công. Vui lòng kiểm tra rằng bạn đang sử dụng liên kết kích hoạt hợp lệ.
+                Kích hoạt không thành công. Vui lòng kiểm tra rằng bạn đang sử dụng liên kết kích hoạt hợp lệ!
               </div>
               :
               <div>
-                Tài khoản của bạn đã được kích hoạt thành công, vui lòng nhấn nút đăng nhập để truy cập vào IT JobHub.
+                Tài khoản của bạn đã được kích hoạt thành công, vui lòng nhấn nút đăng nhập bên dưới để truy cập vào JobHub bạn nhé!
               </div>
             }
             {!error &&
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
               <Button
                 type="primary"
                 htmlType="submit"
                 loading={isSubmit}
                 onClick={onClickLogin}
                 style={{
-                  flex: 'center',
                   width: '50%',
                   fontWeight: '500',
                 }}
               >
                 Đăng nhập
               </Button>
+            </div>
             }
           </section>
         </div>

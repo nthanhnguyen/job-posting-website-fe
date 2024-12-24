@@ -101,7 +101,7 @@ const ViewUpsertJobForHr = (props: any) => {
                 description: value,
                 startDate: /[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/.test(values.startDate) ? dayjs(values.startDate, 'DD/MM/YYYY').toDate() : values.startDate,
                 endDate: /[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/.test(values.endDate) ? dayjs(values.endDate, 'DD/MM/YYYY').toDate() : values.endDate,
-                isActive: values.isActive
+                isActive: dataUpdate.isActive,
             }
 
             const res = await callUpdateJob(job, dataUpdate._id);
@@ -132,7 +132,7 @@ const ViewUpsertJobForHr = (props: any) => {
                 description: value,
                 startDate: dayjs(values.startDate, 'DD/MM/YYYY').toDate(),
                 endDate: dayjs(values.endDate, 'DD/MM/YYYY').toDate(),
-                isActive: values.isActive
+                isActive: false,
             }
 
             const res = await callCreateJob(job);
@@ -311,7 +311,7 @@ const ViewUpsertJobForHr = (props: any) => {
                                     placeholder="dd/mm/yyyy"
                                 />
                             </Col>
-                            <Col span={24} md={6}>
+                            {/* <Col span={24} md={6}>
                                 <ProFormSwitch
                                     label="Trạng thái"
                                     name="isActive"
@@ -322,7 +322,7 @@ const ViewUpsertJobForHr = (props: any) => {
                                         defaultChecked: true,
                                     }}
                                 />
-                            </Col>
+                            </Col> */}
                             <Col span={24}>
                                 <ProForm.Item
                                     name="description"

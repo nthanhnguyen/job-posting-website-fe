@@ -11,7 +11,7 @@ const SendMailPage = () => {
           <section className={styles.wrapper}>
             <div className={styles.heading}>
               <h2 className={`${styles.text} ${styles[""]}`}
-                style={{ textAlign: 'center' }}> Đăng Ký Tài Khoản </h2>
+                style={{ textAlign: 'center', fontWeight: 500 }}> Đăng Ký Tài Khoản </h2>
               <Divider />
             </div>
             <div>
